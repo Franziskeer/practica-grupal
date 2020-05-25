@@ -22,13 +22,13 @@ types:
       edad: integer
       titulos: string
       experiencia: integer
-  Response:
+  ResponseDemandante:
     description: Tipo de dato complejo para representar una respuesta válida
     type: object
     properties:
       estado: boolean
       mensaje: string
-  Error:
+  ErrorDemandante:
     description: Tipo de dato complejo para representar una respuesta errónea
     type: object
     properties:
@@ -43,11 +43,11 @@ types:
     responses:
       201:
         body:
-          type: Response
+          type: ResponseDemandante
           example: { "estado": true, "mensaje": "El demandante ha sido dado de alta correctamente" }
       409:
         body:
-          type: Error
+          type: ErrorDemandante
           example: { "codigo": 409, "mensaje": "Hay un conflicto, el demandante ya está dado de alta en el sistema" }
 
   /{dni}:
@@ -59,7 +59,7 @@ types:
             type: Demandante
         404:
             body:
-              type: Error
+              type: ErrorDemandante
               example: { "codigo": 404, "mensaje": "Demandante no encontrado"}    
 
     /situacionLaboral:
@@ -68,13 +68,13 @@ types:
         responses:
           200:
             body:
-              type: Response
+              type: ResponseDemandante
               examples:
                 tieneTrabajo: { "estado": false, "mensaje": "El demandante ya dispone de un trabajo" }
                 noTieneTrabajo: { "estado": true, "mensaje": "El demandante no tiene trabajo" }
           404:
             body:
-              type: Error
+              type: ErrorDemandante
               example: { "codigo": 404, "mensaje": "Demandante no encontrado"}
 
     /pass:
@@ -85,11 +85,11 @@ types:
         responses:
           200:
             body:
-              type: Response
+              type: ResponseDemandante
               example: { "estado": true, "mensaje": "Se ha generado una nueva contraseña" }
           404:
             body:
-              type: Error
+              type: ErrorDemandante
               example: { "codigo": 404, "mensaje": "Demandante no encontrado"}
 
     /fechaRenovacion:
@@ -102,9 +102,9 @@ types:
         responses:
           200:
             body:
-              type: Response
+              type: ResponseDemandante
               example: { "estado": true, "mensaje": "El empleado ha sido modificado correctamente" }
           404:
             body:
-              type: Error
+              type: ErrorDemandante
               example: { "codigo": 404, "mensaje": "Demandante no encontrado" }

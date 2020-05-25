@@ -11,7 +11,7 @@ using System.ComponentModel.DataAnnotations;
 namespace ServiciosRest.Demandantes.Models
 {
     /// <summary>
-    /// Multiple Response Types Demandante, Error
+    /// Multiple Response Types Demandante, ErrorDemandante
     /// </summary>
     public partial class MultipleDemandanteDniGet
     {
@@ -27,7 +27,7 @@ namespace ServiciosRest.Demandantes.Models
         ///  Tipo de dato complejo para representar una respuesta errónea
         /// </summary>
 
-        public Error Error { get; set; }
+        public ErrorDemandante ErrorDemandante { get; set; }
     } // end class
 
 } // end Models namespace

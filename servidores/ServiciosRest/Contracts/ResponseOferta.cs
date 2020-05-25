@@ -8,12 +8,12 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using System.ComponentModel.DataAnnotations;
 
-namespace ServiciosRest.Demandantes.Models
+namespace ServiciosRest.Oferta.Models
 {
     /// <summary>
     /// Tipo de dato complejo para representar una respuesta válida
     /// </summary>
-    public partial class Response
+    public partial class ResponseOferta
     {
         
 

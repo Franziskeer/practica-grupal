@@ -8,26 +8,26 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using System.ComponentModel.DataAnnotations;
 
-namespace ServiciosRest.Demandantes.Models
+namespace ServiciosRest.Oferta.Models
 {
     /// <summary>
-    /// Multiple Response Types ResponseDemandante, ErrorDemandante
+    /// Multiple Response Types Requisitos, ErrorOferta
     /// </summary>
-    public partial class MultipleDemandanteDniSituacionLaboralGet
+    public partial class MultipleOfertaIdRequisitosGet
     {
         
 
         /// <summary>
-        ///  Tipo de dato complejo para representar una respuesta válida
+        ///  requisitos de una oferta
         /// </summary>
 
-        public ResponseDemandante ResponseDemandante { get; set; }
+        public Requisitos Requisitos { get; set; }
 
         /// <summary>
         ///  Tipo de dato complejo para representar una respuesta errónea
         /// </summary>
 
-        public ErrorDemandante ErrorDemandante { get; set; }
+        public ErrorOferta ErrorOferta { get; set; }
     } // end class
 
 } // end Models namespace

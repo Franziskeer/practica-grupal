@@ -171,11 +171,17 @@
     <Compile Include="Contracts\DemandanteController.cs">
       <DependentUpon>demandantes.raml</DependentUpon>
     </Compile>
-    <Compile Include="Contracts\Error.cs">
+    <Compile Include="Contracts\ErrorDemandante.cs">
       <DependentUpon>demandantes.raml</DependentUpon>
+    </Compile>
+    <Compile Include="Contracts\ErrorOferta.cs">
+      <DependentUpon>oferta.raml</DependentUpon>
     </Compile>
     <Compile Include="Contracts\IDemandanteController.cs">
       <DependentUpon>demandantes.raml</DependentUpon>
+    </Compile>
+    <Compile Include="Contracts\IOfertaIdRequisitosController.cs">
+      <DependentUpon>oferta.raml</DependentUpon>
     </Compile>
     <Compile Include="Contracts\MultipleDemandanteDniFechaRenovacionPut.cs">
       <DependentUpon>demandantes.raml</DependentUpon>
@@ -192,11 +198,24 @@
     <Compile Include="Contracts\MultipleDemandantePost.cs">
       <DependentUpon>demandantes.raml</DependentUpon>
     </Compile>
-    <Compile Include="Contracts\Response.cs">
+    <Compile Include="Contracts\MultipleOfertaIdRequisitosGet.cs">
+      <DependentUpon>oferta.raml</DependentUpon>
+    </Compile>
+    <Compile Include="Contracts\OfertaIdRequisitosController.cs">
+      <DependentUpon>oferta.raml</DependentUpon>
+    </Compile>
+    <Compile Include="Contracts\Requisitos.cs">
+      <DependentUpon>oferta.raml</DependentUpon>
+    </Compile>
+    <Compile Include="Contracts\ResponseDemandante.cs">
       <DependentUpon>demandantes.raml</DependentUpon>
+    </Compile>
+    <Compile Include="Contracts\ResponseOferta.cs">
+      <DependentUpon>oferta.raml</DependentUpon>
     </Compile>
     <Compile Include="Controllers\DemandanteController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\OfertaIdRequisitosController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -236,6 +255,10 @@
     <Content Include="Contracts\demandantes.raml" />
     <Content Include="Contracts\demandantes.ref">
       <DependentUpon>demandantes.raml</DependentUpon>
+    </Content>
+    <Content Include="Contracts\oferta.raml" />
+    <Content Include="Contracts\oferta.ref">
+      <DependentUpon>oferta.raml</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />

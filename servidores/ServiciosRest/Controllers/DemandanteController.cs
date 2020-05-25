@@ -33,8 +33,8 @@ namespace ServiciosRest.Demandantes
 		/// <returns>MultipleDemandanteDniGet</returns>
         public IHttpActionResult Get([FromUri] string Dni)
         {
-            // TODO: implement Get - route: demandante/{id}
-            // var result = new MultipleDemandanteIdGet();
+            // TODO: implement Get - route: demandante/{dni}
+            // var result = new MultipleDemandanteDniGet();
             // return Ok(result);
             MultipleDemandanteDniGet resp = new MultipleDemandanteDniGet();
             MySqlConnection connection = null;
@@ -66,8 +66,8 @@ namespace ServiciosRest.Demandantes
                     demandante.Iban = resultSet[11].ToString();
                     demandante.Situacion_laboral = (bool)resultSet[12];
                     demandante.Edad = (int)resultSet[13];
-                    demandante.Titulos= resultSet[14].ToString();
-                    demandante.Experiencia= (int)resultSet[15];
+                    demandante.Titulos = resultSet[14].ToString();
+                    demandante.Experiencia = (int)resultSet[15];
 
 
                     resp.Demandante = demandante;
@@ -77,10 +77,10 @@ namespace ServiciosRest.Demandantes
 
                 else
                 {
-                    resp.Error = new Error();
-                    resp.Error.Codigo = 404;
-                    resp.Error.Mensaje = "No se encuentra el demandante con ese DNI";
-                    return Content(System.Net.HttpStatusCode.NotFound, resp.Error);
+                    resp.ErrorDemandante = new ErrorDemandante();
+                    resp.ErrorDemandante.Codigo = 404;
+                    resp.ErrorDemandante.Mensaje = "No se encuentra el demandante con ese DNI";
+                    return Content(System.Net.HttpStatusCode.NotFound, resp.ErrorDemandante);
                 }
 
             }
@@ -93,17 +93,15 @@ namespace ServiciosRest.Demandantes
             {
                 if (connection != null)
                     connection.Close();
-               
+
             }
-            
         }
 
-        
-        /// <summary>
-        /// Devuelve true si la situacion laboral es valida para solicitar un empleo. - /demandante/{dni}/situacionLaboral
-        /// </summary>
-        /// <param name="Dni"></param>
-        /// <returns>MultipleDemandanteDniSituacionLaboralGet</returns>
+/// <summary>
+		/// Devuelve true si la situacion laboral es valida para solicitar un empleo. - /demandante/{dni}/situacionLaboral
+		/// </summary>
+		/// <param name="Dni"></param>
+		/// <returns>MultipleDemandanteDniSituacionLaboralGet</returns>
         public IHttpActionResult GetByDniSituacionLaboral([FromUri] string Dni)
         {
             // TODO: implement GetByDniSituacionLaboral - route: demandante/{dni}/situacionLaboral
@@ -122,7 +120,7 @@ namespace ServiciosRest.Demandantes
                 command.Prepare();
                 command.Parameters.AddWithValue("@dni", Dni);
                 MySqlDataReader resultSet = command.ExecuteReader();
-                Response response = new Response();
+                ResponseDemandante response = new ResponseDemandante();
 
                 if (resultSet.Read())
                 {
@@ -131,22 +129,23 @@ namespace ServiciosRest.Demandantes
                     {
                         response.Mensaje = "Trabajando";
                     }
-                    else{//0 para desempleado
+                    else
+                    {//0 para desempleado
                         response.Mensaje = "Desempleado";
                     }
 
 
-                    resp.Response = response;
+                    resp.ResponseDemandante = response;
                     resultSet.Close();
-                    return Ok(resp.Response);
+                    return Ok(resp.ResponseDemandante);
                 }
 
                 else
                 {
-                    resp.Error = new Error();
-                    resp.Error.Codigo = 404;
-                    resp.Error.Mensaje = "No se encuentra el demandante con ese DNI";
-                    return Content(System.Net.HttpStatusCode.NotFound, resp.Error);
+                    resp.ErrorDemandante = new ErrorDemandante();
+                    resp.ErrorDemandante.Codigo = 404;
+                    resp.ErrorDemandante.Mensaje = "No se encuentra el demandante con ese DNI";
+                    return Content(System.Net.HttpStatusCode.NotFound, resp.ErrorDemandante);
                 }
 
             }

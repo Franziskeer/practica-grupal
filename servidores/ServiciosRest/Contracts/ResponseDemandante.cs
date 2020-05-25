@@ -11,17 +11,17 @@ using System.ComponentModel.DataAnnotations;
 namespace ServiciosRest.Demandantes.Models
 {
     /// <summary>
-    /// Tipo de dato complejo para representar una respuesta errónea
+    /// Tipo de dato complejo para representar una respuesta válida
     /// </summary>
-    public partial class Error
+    public partial class ResponseDemandante
     {
         
 
         [Required]
         [MaxLength(0)]
         [MinLength(0)]
-		[JsonProperty("codigo")]
-        public int Codigo { get; set; }
+		[JsonProperty("estado")]
+        public bool Estado { get; set; }
 
         [Required]
         [MaxLength(0)]

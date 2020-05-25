@@ -6,7 +6,8 @@ types:
   Requisitos:
     description: requisitos de una oferta
     type: object
-    properties: 
+    properties:
+      nombre: string
       edad: integer
       titulos: string
       experiencia: integer
@@ -31,6 +32,7 @@ types:
         body: 
           type: Requisitos
           example: { 
+            "nombre": "experto programacion",
             "edad": 25, 
             "titulos": "grado universitario",
             "experiencia": 2}

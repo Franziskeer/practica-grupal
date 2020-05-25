@@ -1,0 +1,68 @@
+#%RAML 1.0
+title: API REST de Notificacion
+baseUri: localhost:8080/api/
+mediaType: application/json
+types:
+  Notificacion:
+    description: "Tipo complejo que representa las notificaciones del sistema"
+    type: object
+    properties:
+      tipo: TipoNotificacion
+      titulo?: string
+      mensaje: string
+  TipoNotificacion:
+    description: "Tipo complejo que representa los diferentes tipos de notificación (email, error, etc)."
+    type: string
+    enum: [error, email]
+  Response:
+    description: Tipo de dato complejo para representar una respuesta válida
+    type: object
+    properties:
+      estado: boolean
+      mensaje: string
+  Error:
+    description: Tipo de dato complejo para representar una respuesta errónea
+    type: object
+    properties:
+      codigo: integer
+      mensaje: string
+
+/notificacion:
+  /error:
+    post:
+      description: "Método que genera una notificación de error y que guarda un registro de los mismos."
+      body:
+        type: Notificacion
+        examples:
+          dniIncorrecto: { "tipo": "error", "titulo": "DNI incorrecto", "mensaje": "El DNI proprcionado no es correcto" }
+          ibanIncorrecto: { "tipo": "error", "titulo": "IBAN incorrecto", "mensaje": "El IBAN proprcionado no es correcto" }
+          tieneTrabajo:  { "tipo": "error", "titulo": "El demandante ya tiene empleo", "mensaje": "El demandante no puede darse de alta porque ya está trabajando." }
+      responses:
+        201:
+          body:
+            type: Response
+            example: { "estado": true, "mensaje": "La notificación de error ha sido registrada correctamente." }
+
+  /email:
+    post:
+      description: "Método que genera un email y guarda un histórico de los mismos."
+      body:
+        type: Notificacion
+        example: { "tipo": "email", "titulo": "Te has dado de alta", "mensaje": "El demandante de empleo Manolo Martínez Martínez ha sido de alta en el sistema correctamente" }
+      responses:
+        201:
+          body:
+            type: Response
+            example: { "estado": true, "mensaje": "La notificación de email ha sido registrada correctamente." }
+
+  /renovacion:
+    post:
+      description: "Método que genera una notificación de una renovación y guarda un histórico de las mismas."
+      body:
+        type: Notificacion
+        example: { "tipo": "renovacion", "titulo": "Renovación exitosa", "mensaje": "El demandante de empleo Manolo Martínez Martínez ha renovado su fecha correctamente" }
+      responses:
+        201:
+          body:
+            type: Response
+            example: { "estado": true, "mensaje": "La notificación de email ha sido registrada correctamente." }

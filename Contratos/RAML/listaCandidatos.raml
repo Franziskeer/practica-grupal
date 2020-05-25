@@ -1,0 +1,43 @@
+#%RAML 1.0
+title: servicio lista candidatos
+baseUri: localhost:8080/api/
+mediaType: application/json
+types:
+  DatosListaCandidatos:
+    description: Datos para lista candidatos
+    type: object
+    properties: 
+      idDemandante: string
+      idOferta: string
+      puntuacion: integer
+  Response:
+    description: Tipo de dato complejo para representar una respuesta válida 
+    type: object
+    properties:
+      estado: boolean
+      mensaje: string
+  Error:
+    description: Tipo de dato complejo para representar una respuesta errónea
+    type: object
+    properties:
+      codigo: integer
+      mensaje: string
+      
+/listaCandidatos:
+  description: proceso para inscribir un demandante de empleo en una oferta
+  post:
+    body:
+      type: DatosListaCandidatos
+      example: {"idDemandante" : "1", "idOferta": "2", "puntuacion":8}
+    responses:
+      201:
+        body: 
+          type: Response
+          example: { "estado": true, "mensaje": "Se ha inscrito en la lista de candidatos" }
+      400:
+        body: 
+          type: Error
+          example: { "codigo": 400, "mensaje": "Error al inscribirse en la lista" }  
+  /puntuacion:
+    post:
+    

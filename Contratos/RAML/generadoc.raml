@@ -1,0 +1,62 @@
+#%RAML 1.0
+title: API REST de Generador de Documentos (Generadoc)
+baseUri: localhost:8080/api/
+mediaType: application/json
+types:
+  Documento:
+    description: "Tipo complejo que representa los documentos del sistema"
+    type: object
+    properties:
+      titulo: string
+      url: string
+  Error:
+    description: Tipo de dato complejo para representar una respuesta errónea
+    type: object
+    properties:
+      codigo: integer
+      mensaje: string
+  DatosInscripcion:
+    description: Tipo de dato complejo para representar una inscripcion
+    type: object
+    properties:
+      nombre: string
+      fecha: string
+      curso: string
+  DatosRenovacion:
+    description: Tipo de dato complejo para representar una renovacion
+    type: object
+    properties:
+      usuario: string
+      fecha: string
+
+/generaDoc:
+  /renovacion:
+    post:
+      description: "Método que genera un documento de renovación con una dirección para su descarga."
+      body:
+        type: DatosRenovacion
+        example: { "usuario": "usuarioID", "fecha": "31/12/1900" }
+      responses:
+        201:
+          body:
+            type: Documento
+            example: { "titulo": "renovacion.pdf", "url": "www.mtis.org/demandante/renovacion.pdf" }
+        401:
+          body:
+            type: Error
+            example: { "codigo" : 401, "mensaje" : "La sesión ha expirado o no ha iniciado sesión." }
+  /inscripcion:
+    post:
+      description: "Método que genera un documento de inscripción con una dirección para su descarga."
+      body:
+        type: DatosInscripcion
+        example: { "nombre": "Nombre del demandante", "fecha": "31/12/1900", "curso" : "Nombre del curso"}
+      responses:
+        201:
+          body:
+            type: Documento
+            example: { "titulo": "inscripcion.pdf", "url": "www.mtis.org/demandante/inscripcion.pdf" }
+        401:
+          body:
+            type: Error
+            example: { "codigo" : 401, "mensaje" : "La sesión ha expirado o no ha iniciado sesión." }

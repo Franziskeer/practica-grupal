@@ -28,7 +28,7 @@ types:
   post:
     body:
       type: DatosListaCandidatos
-      example: {"idDemandante" : "1", "idOferta": "2", "puntuacion":8}
+      example: {"idDemandante" : "1", "idOferta": "2", "puntuacion":0}
     responses:
       201:
         body: 
@@ -37,7 +37,17 @@ types:
       400:
         body: 
           type: Error
-          example: { "codigo": 400, "mensaje": "Error al inscribirse en la lista" }  
-  /puntuacion:
-    post:
-    
+          example: { "codigo": 400, "mensaje": "Error al inscribirse en la lista" }
+  put:
+    body:
+      type: DatosListaCandidatos
+      example: {"idDemandante" : "1", "idOferta": "2", "puntuacion":8}
+    responses:
+      201:
+        body: 
+          type: Response
+          example: { "estado": true, "mensaje": "Se ha actualizado en la lista de candidatos" }
+      400:
+        body: 
+          type: Error
+          example: { "codigo": 400, "mensaje": "Error al actualizar en la lista" }

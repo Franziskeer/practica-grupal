@@ -27,13 +27,13 @@ types:
   get:
     description: obtener requisitos de una oferta, la experiencia es en años
     responses:
-      201:
+      200:
         body: 
           type: Requisitos
           example: { 
             "edad": 25, 
-            "titulos": "grado ingenieria informatica",
-            "experiencia": 2 }
+            "titulos": "grado universitario",
+            "experiencia": 2}
       400:
         body: 
           type: Error

@@ -1,0 +1,11 @@
+{
+    "inputMessageMetadata": {},
+    "outputMessageMetadata": {
+        "messagePayload": {
+            "connectorName": "#_custom_mule_metadata_type_#",
+            "typeId": "entrada_asignar_puntuacion"
+        }
+    },
+    "id": "c0d07287-c481-44f6-94d6-653d23248399",
+    "version": "5.2.0.0"
+}

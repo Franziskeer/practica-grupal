@@ -1,19 +1,18 @@
 <metadata__cache__entry>
   <version>5.2.0.0</version>
-  <connectorName>Demandante_Request</connectorName>
+  <connectorName>ListaCandidatos_Request</connectorName>
   <metadataIo class="tree-map">
     <entry>
-      <string>GET:/demandante/{dni}</string>
+      <string>POST:/listaCandidatos</string>
       <map>
         <entry>
           <string>__default__</string>
           <org.mule.tooling.metadata.cache.DefaultMetadataCacheEntry>
             <input class="org.mule.common.metadata.DefaultMetaData">
-              <payload class="org.mule.common.metadata.DefaultUnknownMetaDataModel">
-                <dataType>UNKNOWN</dataType>
-                <metaDataModelPropertiesManager>
-                  <properties/>
-                </metaDataModelPropertiesManager>
+              <payload class="org.mule.tooling.metadata.api.TypeRefMetaDataModel">
+                <connectorName>ListaCandidatos_Request</connectorName>
+                <typeId>POST:/listaCandidatos_request</typeId>
+                <category>DEFAULT</category>
               </payload>
               <properties class="tree-map">
                 <entry>
@@ -60,8 +59,8 @@
             </input>
             <output class="org.mule.common.metadata.DefaultMetaData">
               <payload class="org.mule.tooling.metadata.api.TypeRefMetaDataModel">
-                <connectorName>Demandante_Request</connectorName>
-                <typeId>GET:/demandante/{dni}_response</typeId>
+                <connectorName>ListaCandidatos_Request</connectorName>
+                <typeId>POST:/listaCandidatos_response</typeId>
                 <category>DEFAULT</category>
               </payload>
               <properties class="tree-map">
@@ -112,17 +111,16 @@
       </map>
     </entry>
     <entry>
-      <string>GET:/demandante/{dni}/situacionLaboral</string>
+      <string>PUT:/listaCandidatos</string>
       <map>
         <entry>
           <string>__default__</string>
           <org.mule.tooling.metadata.cache.DefaultMetadataCacheEntry>
             <input class="org.mule.common.metadata.DefaultMetaData">
-              <payload class="org.mule.common.metadata.DefaultUnknownMetaDataModel">
-                <dataType>UNKNOWN</dataType>
-                <metaDataModelPropertiesManager>
-                  <properties/>
-                </metaDataModelPropertiesManager>
+              <payload class="org.mule.tooling.metadata.api.TypeRefMetaDataModel">
+                <connectorName>ListaCandidatos_Request</connectorName>
+                <typeId>PUT:/listaCandidatos_request</typeId>
+                <category>DEFAULT</category>
               </payload>
               <properties class="tree-map">
                 <entry>
@@ -169,8 +167,8 @@
             </input>
             <output class="org.mule.common.metadata.DefaultMetaData">
               <payload class="org.mule.tooling.metadata.api.TypeRefMetaDataModel">
-                <connectorName>Demandante_Request</connectorName>
-                <typeId>GET:/demandante/{dni}/situacionLaboral_response</typeId>
+                <connectorName>ListaCandidatos_Request</connectorName>
+                <typeId>PUT:/listaCandidatos_response</typeId>
                 <category>DEFAULT</category>
               </payload>
               <properties class="tree-map">

@@ -1,0 +1,110 @@
+#%RAML 1.0
+title: API REST de Demandante
+baseUri: localhost:8080/api/
+mediaType: application/json
+types:
+  Demandante:
+    description: Tipo de dato complejo para representar los datos de un demandante
+    type: object
+    properties:
+      dni: string
+      pass?: string
+      nombre: string
+      apellidos: string
+      direccion: string
+      poblacion: string
+      telefono: string
+      email: string
+      fecha_nacimiento: string
+      fecha_renovacion?: string
+      iban: string
+      situacion_laboral: boolean
+      edad: integer
+      titulos: string
+      experiencia: integer
+  ResponseDemandante:
+    description: Tipo de dato complejo para representar una respuesta válida
+    type: object
+    properties:
+      estado: boolean
+      mensaje: string
+  ErrorDemandante:
+    description: Tipo de dato complejo para representar una respuesta errónea
+    type: object
+    properties:
+      codigo: integer
+      mensaje: string
+
+/demandante:
+  post:
+    description: "Dará de alta un nuevo demandante en el sistema."
+    body:
+      type: Demandante
+    responses:
+      201:
+        body:
+          type: ResponseDemandante
+          example: { "estado": true, "mensaje": "El demandante ha sido dado de alta correctamente" }
+      409:
+        body:
+          type: ErrorDemandante
+          example: { "codigo": 409, "mensaje": "Hay un conflicto, el demandante ya está dado de alta en el sistema" }
+
+  /{dni}:
+    get:
+      description: obtiene el perfil de un demandante
+      responses:
+        200:
+          body:
+            type: Demandante
+        404:
+            body:
+              type: ErrorDemandante
+              example: { "codigo": 404, "mensaje": "Demandante no encontrado"}    
+
+    /situacionLaboral:
+      get:
+        description: "Devuelve true si la situacion laboral es valida para solicitar un empleo."
+        responses:
+          200:
+            body:
+              type: ResponseDemandante
+              examples:
+                tieneTrabajo: { "estado": false, "mensaje": "El demandante ya dispone de un trabajo" }
+                noTieneTrabajo: { "estado": true, "mensaje": "El demandante no tiene trabajo" }
+          404:
+            body:
+              type: ErrorDemandante
+              example: { "codigo": 404, "mensaje": "Demandante no encontrado"}
+
+    /pass:
+      put:
+        description: "Modificará la contraseña del demandante. Será útil tanto en el alta de un nuevo usuario como en el caso en que no recuerde su contraseña."
+        body:
+          type: string
+        responses:
+          200:
+            body:
+              type: ResponseDemandante
+              example: { "estado": true, "mensaje": "Se ha generado una nueva contraseña" }
+          404:
+            body:
+              type: ErrorDemandante
+              example: { "codigo": 404, "mensaje": "Demandante no encontrado"}
+
+    /fechaRenovacion:
+      put:
+        description: "Modificará la fecha de renovación del demandante. Servirá para cuando el demandante decida renovar su estancia en el sistema."
+        queryParameters:
+          RestKey: string
+        body:
+          type: string
+        responses:
+          200:
+            body:
+              type: ResponseDemandante
+              example: { "estado": true, "mensaje": "El empleado ha sido modificado correctamente" }
+          404:
+            body:
+              type: ErrorDemandante
+              example: { "codigo": 404, "mensaje": "Demandante no encontrado" }

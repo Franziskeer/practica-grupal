@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 26-05-2020 a las 01:56:59
+-- Tiempo de generación: 27-05-2020 a las 02:31:53
 -- Versión del servidor: 10.4.11-MariaDB
 -- Versión de PHP: 7.4.2
 
@@ -57,6 +57,27 @@ INSERT INTO `demandante` (`id`, `dni`, `pass`, `nombre`, `apellidos`, `direccion
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `lista_candidatos`
+--
+
+CREATE TABLE `lista_candidatos` (
+  `id_oferta` varchar(50) NOT NULL,
+  `dni_demandante` varchar(50) NOT NULL,
+  `puntuacion` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `lista_candidatos`
+--
+
+INSERT INTO `lista_candidatos` (`id_oferta`, `dni_demandante`, `puntuacion`) VALUES
+('2', '48628778E', '5'),
+('3', '48628778E', '0'),
+('4', '48628778E', '0');
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `oferta`
 --
 
@@ -85,6 +106,12 @@ INSERT INTO `oferta` (`id`, `nombre`, `titulos`, `experiencia`, `edad`) VALUES
 ALTER TABLE `demandante`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `dni` (`dni`);
+
+--
+-- Indices de la tabla `lista_candidatos`
+--
+ALTER TABLE `lista_candidatos`
+  ADD PRIMARY KEY (`id_oferta`,`dni_demandante`);
 
 --
 -- Indices de la tabla `oferta`

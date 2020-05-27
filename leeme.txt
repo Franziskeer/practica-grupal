@@ -1,0 +1,10 @@
+*importar BD
+crearos este usuario en vuestra BD
+nombre usuario para el acceso: usuario
+contraseña: "" (vacio)
+
+*orquestacion contiene el flujo mule
+
+*servidores/serviciosRest, aqui estaran todos nuestros servicios
+
+*contratos, todos los contratos actualizados

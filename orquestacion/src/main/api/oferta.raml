@@ -1,0 +1,42 @@
+#%RAML 1.0
+title: obtener requisitos oferta
+baseUri: localhost:8080/api/
+mediaType: application/json
+types:
+  Requisitos:
+    description: requisitos de una oferta
+    type: object
+    properties:
+      nombre: string
+      edad: integer
+      titulos: string
+      experiencia: integer
+  ResponseOferta:
+    description: Tipo de dato complejo para representar una respuesta válida 
+    type: object
+    properties:
+      estado: boolean
+      mensaje: string
+  ErrorOferta:
+    description: Tipo de dato complejo para representar una respuesta errónea
+    type: object
+    properties:
+      codigo: integer
+      mensaje: string
+      
+/oferta/{id}/requisitos:
+  get:
+    description: obtener requisitos de una oferta, la experiencia es en años
+    responses:
+      200:
+        body: 
+          type: Requisitos
+          example: { 
+            "nombre": "experto programacion",
+            "edad": 25, 
+            "titulos": "grado universitario",
+            "experiencia": 2}
+      400:
+        body: 
+          type: ErrorOferta
+          example: { "codigo": 400, "mensaje": "Error al recuperar los requisitos" }  

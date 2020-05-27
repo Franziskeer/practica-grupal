@@ -165,11 +165,17 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
+    <Compile Include="Contracts\DatosListaCandidatos.cs">
+      <DependentUpon>listaCandidatos.raml</DependentUpon>
+    </Compile>
     <Compile Include="Contracts\Demandante.cs">
       <DependentUpon>demandantes.raml</DependentUpon>
     </Compile>
     <Compile Include="Contracts\DemandanteController.cs">
       <DependentUpon>demandantes.raml</DependentUpon>
+    </Compile>
+    <Compile Include="Contracts\ErrorDatosListaCandidatos.cs">
+      <DependentUpon>listaCandidatos.raml</DependentUpon>
     </Compile>
     <Compile Include="Contracts\ErrorDemandante.cs">
       <DependentUpon>demandantes.raml</DependentUpon>
@@ -180,8 +186,14 @@
     <Compile Include="Contracts\IDemandanteController.cs">
       <DependentUpon>demandantes.raml</DependentUpon>
     </Compile>
+    <Compile Include="Contracts\IListaCandidatosController.cs">
+      <DependentUpon>listaCandidatos.raml</DependentUpon>
+    </Compile>
     <Compile Include="Contracts\IOfertaIdRequisitosController.cs">
       <DependentUpon>oferta.raml</DependentUpon>
+    </Compile>
+    <Compile Include="Contracts\ListaCandidatosController.cs">
+      <DependentUpon>listaCandidatos.raml</DependentUpon>
     </Compile>
     <Compile Include="Contracts\MultipleDemandanteDniFechaRenovacionPut.cs">
       <DependentUpon>demandantes.raml</DependentUpon>
@@ -198,6 +210,12 @@
     <Compile Include="Contracts\MultipleDemandantePost.cs">
       <DependentUpon>demandantes.raml</DependentUpon>
     </Compile>
+    <Compile Include="Contracts\MultipleListaCandidatosPost.cs">
+      <DependentUpon>listaCandidatos.raml</DependentUpon>
+    </Compile>
+    <Compile Include="Contracts\MultipleListaCandidatosPut.cs">
+      <DependentUpon>listaCandidatos.raml</DependentUpon>
+    </Compile>
     <Compile Include="Contracts\MultipleOfertaIdRequisitosGet.cs">
       <DependentUpon>oferta.raml</DependentUpon>
     </Compile>
@@ -207,6 +225,9 @@
     <Compile Include="Contracts\Requisitos.cs">
       <DependentUpon>oferta.raml</DependentUpon>
     </Compile>
+    <Compile Include="Contracts\ResponseDatosListaCandidatos.cs">
+      <DependentUpon>listaCandidatos.raml</DependentUpon>
+    </Compile>
     <Compile Include="Contracts\ResponseDemandante.cs">
       <DependentUpon>demandantes.raml</DependentUpon>
     </Compile>
@@ -215,6 +236,7 @@
     </Compile>
     <Compile Include="Controllers\DemandanteController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ListaCandidatosController.cs" />
     <Compile Include="Controllers\OfertaIdRequisitosController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
@@ -259,6 +281,10 @@
     <Content Include="Contracts\oferta.raml" />
     <Content Include="Contracts\oferta.ref">
       <DependentUpon>oferta.raml</DependentUpon>
+    </Content>
+    <Content Include="Contracts\listaCandidatos.raml" />
+    <Content Include="Contracts\listaCandidatos.ref">
+      <DependentUpon>listaCandidatos.raml</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />

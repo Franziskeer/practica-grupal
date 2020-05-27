@@ -33,15 +33,15 @@ namespace ServiciosRest.ListaCandidatos
 /// <summary>
 		/// proceso para inscribir un demandante de empleo en una oferta - /listaCandidatos
 		/// </summary>
-		/// <param name="datosListaCandidatos">Datos para lista candidatos</param>
+		/// <param name="tipoAsignarPuntuacion">Tipo de datos que contiene un demandante y una oferta</param>
 		/// <returns>MultipleListaCandidatosPut</returns>
         [ResponseType(typeof(MultipleListaCandidatosPut))]
         [HttpPut]
         [Route("listaCandidatos")]
-        public virtual IHttpActionResult PutBase([FromBody] ServiciosRest.ListaCandidatos.Models.DatosListaCandidatos datosListaCandidatos)
+        public virtual IHttpActionResult PutBase([FromBody] ServiciosRest.ListaCandidatos.Models.TipoAsignarPuntuacion tipoAsignarPuntuacion)
         {
             // Do not modify this code
-                        return  ((IListaCandidatosController)this).Put(datosListaCandidatos);
+                        return  ((IListaCandidatosController)this).Put(tipoAsignarPuntuacion);
                     }
     }
 }

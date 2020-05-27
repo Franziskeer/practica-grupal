@@ -35,6 +35,41 @@ types:
         minLength: 0
         maxLength: 50
         type: string
+  TipoAsignarPuntuacion:
+    description: Tipo de datos que contiene un demandante y una oferta
+    properties:
+       demand_dni: 
+        minLength: 0
+        maxLength: 50
+        type: string
+       demand_edad: 
+        minLength: 0
+        maxLength: 50
+        type: string
+       demand_titulos: 
+        minLength: 0
+        maxLength: 50
+        type: string
+       demand_experiencia: 
+        minLength: 0
+        maxLength: 50
+        type: string
+       ofert_id: 
+        minLength: 0
+        maxLength: 50
+        type: string
+       ofert_edad: 
+        minLength: 0
+        maxLength: 50
+        type: string
+       ofert_titulos: 
+        minLength: 0
+        maxLength: 50
+        type: string
+       ofert_experiencia:
+        minLength: 0
+        maxLength: 50
+        type: string
       
 /listaCandidatos:
   description: proceso para inscribir un demandante de empleo en una oferta
@@ -53,8 +88,19 @@ types:
           example: { "codigo": 400, "mensaje": "Error al inscribirse en la lista" }
   put:
     body:
-      type: DatosListaCandidatos
-      example: {"dniDemandante" : "48628778E", "idOferta": "2", "puntuacion":"0"}
+      application/json:    
+       type: TipoAsignarPuntuacion
+       example: 
+        { 
+          "demand_dni": "48628778R", 
+          "demand_edad": 75, 
+          "demand_titulos": "grado universitario", 
+          "demand_experiencia": 2, 
+          "ofert_id": "1", 
+          "ofert_edad": 25, 
+          "ofert_titulos": "grado universitario", 
+          "ofert_experiencia": 2 
+        }
     responses:
       201:
         body: 

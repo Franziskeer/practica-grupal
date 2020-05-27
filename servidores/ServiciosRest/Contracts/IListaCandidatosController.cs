@@ -14,6 +14,6 @@ namespace ServiciosRest.ListaCandidatos
     {
 
         IHttpActionResult Post([FromBody] ServiciosRest.ListaCandidatos.Models.DatosListaCandidatos datosListaCandidatos);
-        IHttpActionResult Put([FromBody] ServiciosRest.ListaCandidatos.Models.DatosListaCandidatos datosListaCandidatos);
+        IHttpActionResult Put([FromBody] ServiciosRest.ListaCandidatos.Models.TipoAsignarPuntuacion tipoAsignarPuntuacion);
     }
 }

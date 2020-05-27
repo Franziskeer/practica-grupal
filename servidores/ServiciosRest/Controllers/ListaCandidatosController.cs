@@ -13,7 +13,7 @@ namespace ServiciosRest.ListaCandidatos
     public partial class ListaCandidatosController : IListaCandidatosController
     {
 
-/// <summary>
+        /// <summary>
 		/// proceso para inscribir un demandante de empleo en una oferta - /listaCandidatos
 		/// </summary>
 		/// <param name="datosListaCandidatos">Datos para lista candidatos</param>
@@ -50,7 +50,7 @@ namespace ServiciosRest.ListaCandidatos
             {
                 resp.ErrorDatosListaCandidatos = new ErrorDatosListaCandidatos();
                 resp.ErrorDatosListaCandidatos.Codigo = 400;
-                resp.ErrorDatosListaCandidatos.Mensaje = "No se ha podido añadir a lista"+ e.Message.ToString();
+                resp.ErrorDatosListaCandidatos.Mensaje = "No se ha podido añadir a lista" + e.Message.ToString();
 
                 return Content(System.Net.HttpStatusCode.BadRequest, resp.ErrorDatosListaCandidatos);
             }
@@ -62,12 +62,12 @@ namespace ServiciosRest.ListaCandidatos
             }
         }
 
-/// <summary>
+        /// <summary>
 		/// proceso para inscribir un demandante de empleo en una oferta - /listaCandidatos
 		/// </summary>
-		/// <param name="datosListaCandidatos">Datos para lista candidatos</param>
+		/// <param name="tipoAsignarPuntuacion">Tipo de datos que contiene un demandante y una oferta</param>
 		/// <returns>MultipleListaCandidatosPut</returns>
-        public IHttpActionResult Put([FromBody] ServiciosRest.ListaCandidatos.Models.DatosListaCandidatos datosListaCandidatos)
+        public IHttpActionResult Put([FromBody] ServiciosRest.ListaCandidatos.Models.TipoAsignarPuntuacion tipoAsignarPuntuacion)
         {
             // TODO: implement Put - route: listaCandidatos/listaCandidatos
             // var result = new MultipleListaCandidatosPut();
@@ -75,19 +75,26 @@ namespace ServiciosRest.ListaCandidatos
             MultipleListaCandidatosPut resp = new MultipleListaCandidatosPut();
             MySqlConnection connection = null;
 
+            // Algoritmo comparar requisitos
+            float puntuacion_calculada = 0;
+            if (Int32.Parse(tipoAsignarPuntuacion.Ofert_edad) >= Int32.Parse(tipoAsignarPuntuacion.Demand_edad)) { puntuacion_calculada++; }
+            if (Int32.Parse(tipoAsignarPuntuacion.Ofert_experiencia) <= Int32.Parse(tipoAsignarPuntuacion.Demand_experiencia)) { puntuacion_calculada++; }
+            //titulos solo tiene 4 valores (estudios basicos, formacion profesional, grado universitario, master)
+            if (tipoAsignarPuntuacion.Ofert_titulos == tipoAsignarPuntuacion.Demand_titulos) { puntuacion_calculada++; }
+
             try
             {
                 connection = new MySqlConnection("host=localhost; port=3306; user=usuario; password=; database=mtis_final");
                 connection.Open();
                 MySqlCommand command = new MySqlCommand();
                 command.Connection = connection;
-                command.CommandText = "UPDATE lista_candidatos SET id_oferta=@id_oferta, dni_demandante=@dni_demandante, puntuacion=@puntuacion "+
+                command.CommandText = "UPDATE lista_candidatos SET id_oferta=@id_oferta, dni_demandante=@dni_demandante, puntuacion=@puntuacion " +
                     "WHERE id_oferta=@id_oferta and dni_demandante=@dni_demandante";
 
                 command.Prepare();
-                command.Parameters.AddWithValue("@id_oferta", datosListaCandidatos.IdOferta);
-                command.Parameters.AddWithValue("@dni_demandante", datosListaCandidatos.DniDemandante);
-                command.Parameters.AddWithValue("@puntuacion", datosListaCandidatos.Puntuacion );
+                command.Parameters.AddWithValue("@id_oferta", tipoAsignarPuntuacion.Ofert_id);
+                command.Parameters.AddWithValue("@dni_demandante", tipoAsignarPuntuacion.Demand_dni);
+                command.Parameters.AddWithValue("@puntuacion", puntuacion_calculada.ToString());
 
                 if (command.ExecuteNonQuery() > 0)
                 {
@@ -112,7 +119,7 @@ namespace ServiciosRest.ListaCandidatos
             {
                 resp.ErrorDatosListaCandidatos = new ErrorDatosListaCandidatos();
                 resp.ErrorDatosListaCandidatos.Codigo = 400;
-                resp.ErrorDatosListaCandidatos.Mensaje = "Error al modificar lista candidatos"+e.Message.ToString();
+                resp.ErrorDatosListaCandidatos.Mensaje = "Error al modificar lista candidatos" + e.Message.ToString();
 
                 return Content(System.Net.HttpStatusCode.BadRequest, resp.ErrorDatosListaCandidatos);
             }
@@ -123,6 +130,5 @@ namespace ServiciosRest.ListaCandidatos
                     connection.Close();
             }
         }
-
     }
 }

@@ -234,6 +234,9 @@
     <Compile Include="Contracts\ResponseOferta.cs">
       <DependentUpon>oferta.raml</DependentUpon>
     </Compile>
+    <Compile Include="Contracts\TipoAsignarPuntuacion.cs">
+      <DependentUpon>listaCandidatos.raml</DependentUpon>
+    </Compile>
     <Compile Include="Controllers\DemandanteController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ListaCandidatosController.cs" />

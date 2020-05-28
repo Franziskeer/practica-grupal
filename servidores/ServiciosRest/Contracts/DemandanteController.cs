@@ -76,17 +76,17 @@ namespace ServiciosRest.Demandantes
 /// <summary>
 		/// Modificará la fecha de renovación del demandante. Servirá para cuando el demandante decida renovar su estancia en el sistema. - /demandante/{dni}/fechaRenovacion
 		/// </summary>
-		/// <param name="Ipdefault"></param>
+		/// <param name="entradaFechaRenovacion">String con la fecha de renovacion</param>
 		/// <param name="Dni"></param>
 		/// <param name="restkey"></param>
 		/// <returns>MultipleDemandanteDniFechaRenovacionPut</returns>
         [ResponseType(typeof(MultipleDemandanteDniFechaRenovacionPut))]
         [HttpPut]
         [Route("{dni}/fechaRenovacion")]
-        public virtual IHttpActionResult PutByDniFechaRenovacionBase([FromBody] string Ipdefault,[FromUri] string Dni,[FromUri] string restkey)
+        public virtual IHttpActionResult PutByDniFechaRenovacionBase([FromBody] ServiciosRest.Demandantes.Models.EntradaFechaRenovacion entradaFechaRenovacion,[FromUri] string Dni,[FromUri] string restkey)
         {
             // Do not modify this code
-                        return  ((IDemandanteController)this).PutByDniFechaRenovacion(Ipdefault,Dni,restkey);
+                        return  ((IDemandanteController)this).PutByDniFechaRenovacion(entradaFechaRenovacion,Dni,restkey);
                     }
     }
 }

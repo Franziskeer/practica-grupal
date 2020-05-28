@@ -17,6 +17,6 @@ namespace ServiciosRest.Demandantes
         IHttpActionResult Get([FromUri] string Dni);
         IHttpActionResult GetByDniSituacionLaboral([FromUri] string Dni);
         IHttpActionResult Put([FromBody] string Ipdefault,[FromUri] string Dni);
-        IHttpActionResult PutByDniFechaRenovacion([FromBody] string Ipdefault,[FromUri] string Dni,[FromUri] string restkey);
+        IHttpActionResult PutByDniFechaRenovacion([FromBody] ServiciosRest.Demandantes.Models.EntradaFechaRenovacion entradaFechaRenovacion,[FromUri] string Dni,[FromUri] string restkey);
     }
 }

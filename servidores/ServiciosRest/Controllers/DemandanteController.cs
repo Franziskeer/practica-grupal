@@ -13,24 +13,24 @@ namespace ServiciosRest.Demandantes
     public partial class DemandanteController : IDemandanteController
     {
 
-/// <summary>
-		/// Dará de alta un nuevo demandante en el sistema. - /demandante
-		/// </summary>
-		/// <param name="demandante">Tipo de dato complejo para representar los datos de un demandante</param>
-		/// <returns>MultipleDemandantePost</returns>
+        /// <summary>
+        /// Dará de alta un nuevo demandante en el sistema. - /demandante
+        /// </summary>
+        /// <param name="demandante">Tipo de dato complejo para representar los datos de un demandante</param>
+        /// <returns>MultipleDemandantePost</returns>
         public IHttpActionResult Post([FromBody] ServiciosRest.Demandantes.Models.Demandante demandante)
         {
             // TODO: implement Post - route: demandante/demandante
-			// var result = new MultipleDemandantePost();
-			// return Ok(result);
-			return Ok();
+            // var result = new MultipleDemandantePost();
+            // return Ok(result);
+            return Ok();
         }
 
-/// <summary>
-		/// obtiene el perfil de un demandante - /demandante/{dni}
-		/// </summary>
-		/// <param name="Dni"></param>
-		/// <returns>MultipleDemandanteDniGet</returns>
+        /// <summary>
+        /// obtiene el perfil de un demandante - /demandante/{dni}
+        /// </summary>
+        /// <param name="Dni"></param>
+        /// <returns>MultipleDemandanteDniGet</returns>
         public IHttpActionResult Get([FromUri] string Dni)
         {
             // TODO: implement Get - route: demandante/{dni}
@@ -97,11 +97,11 @@ namespace ServiciosRest.Demandantes
             }
         }
 
-/// <summary>
-		/// Devuelve true si la situacion laboral es valida para solicitar un empleo. - /demandante/{dni}/situacionLaboral
-		/// </summary>
-		/// <param name="Dni"></param>
-		/// <returns>MultipleDemandanteDniSituacionLaboralGet</returns>
+        /// <summary>
+        /// Devuelve true si la situacion laboral es valida para solicitar un empleo. - /demandante/{dni}/situacionLaboral
+        /// </summary>
+        /// <param name="Dni"></param>
+        /// <returns>MultipleDemandanteDniSituacionLaboralGet</returns>
         public IHttpActionResult GetByDniSituacionLaboral([FromUri] string Dni)
         {
             // TODO: implement GetByDniSituacionLaboral - route: demandante/{dni}/situacionLaboral
@@ -162,34 +162,81 @@ namespace ServiciosRest.Demandantes
             }
         }
 
-/// <summary>
-		/// Modificará la contraseña del demandante. Será útil tanto en el alta de un nuevo usuario como en el caso en que no recuerde su contraseña. - /demandante/{dni}/pass
-		/// </summary>
-		/// <param name="Ipdefault"></param>
-		/// <param name="Dni"></param>
-		/// <returns>MultipleDemandanteDniPassPut</returns>
-        public IHttpActionResult Put([FromBody] string Ipdefault,[FromUri] string Dni)
+        /// <summary>
+        /// Modificará la contraseña del demandante. Será útil tanto en el alta de un nuevo usuario como en el caso en que no recuerde su contraseña. - /demandante/{dni}/pass
+        /// </summary>
+        /// <param name="Ipdefault"></param>
+        /// <param name="Dni"></param>
+        /// <returns>MultipleDemandanteDniPassPut</returns>
+        public IHttpActionResult Put([FromBody] string Ipdefault, [FromUri] string Dni)
         {
             // TODO: implement Put - route: demandante/{dni}/pass
-			// var result = new MultipleDemandanteDniPassPut();
-			// return Ok(result);
-			return Ok();
+            // var result = new MultipleDemandanteDniPassPut();
+            // return Ok(result);
+            return Ok();
         }
 
-/// <summary>
+        /// <summary>
 		/// Modificará la fecha de renovación del demandante. Servirá para cuando el demandante decida renovar su estancia en el sistema. - /demandante/{dni}/fechaRenovacion
 		/// </summary>
-		/// <param name="Ipdefault"></param>
+		/// <param name="entradaFechaRenovacion">String con la fecha de renovacion</param>
 		/// <param name="Dni"></param>
 		/// <param name="restkey"></param>
 		/// <returns>MultipleDemandanteDniFechaRenovacionPut</returns>
-        public IHttpActionResult PutByDniFechaRenovacion([FromBody] string Ipdefault,[FromUri] string Dni,[FromUri] string restkey)
+        public IHttpActionResult PutByDniFechaRenovacion([FromBody] ServiciosRest.Demandantes.Models.EntradaFechaRenovacion entradaFechaRenovacion, [FromUri] string Dni, [FromUri] string restkey)
         {
             // TODO: implement PutByDniFechaRenovacion - route: demandante/{dni}/fechaRenovacion
-			// var result = new MultipleDemandanteDniFechaRenovacionPut();
-			// return Ok(result);
-			return Ok();
-        }
+            // var result = new MultipleDemandanteDniFechaRenovacionPut();
+            // return Ok(result);
+            MultipleDemandanteDniFechaRenovacionPut resp = new MultipleDemandanteDniFechaRenovacionPut();
+            MySqlConnection connection = null;
 
+            try
+            {
+                connection = new MySqlConnection("host=localhost; port=3306; user=usuario; password=; database=mtis_final");
+                connection.Open();
+                MySqlCommand command = new MySqlCommand();
+                command.Connection = connection;
+                command.CommandText = "UPDATE demandante SET fecha_renovacion=@fecha_renovacion " +
+                    "WHERE dni=@dni_demandante";
+
+                command.Prepare();
+                command.Parameters.AddWithValue("@fecha_renovacion", entradaFechaRenovacion.FechaRenovacion);
+                command.Parameters.AddWithValue("@dni_demandante", Dni.ToString());
+
+                if (command.ExecuteNonQuery() > 0)
+                {
+                    ResponseDemandante respuestaDemandante = new ResponseDemandante();
+                    respuestaDemandante.Mensaje = "Se ha modificado la fecha de renovacion correctamente";
+                    respuestaDemandante.Estado = true;
+                    return Created("", respuestaDemandante);
+                }
+
+                else
+                {
+                    resp.ErrorDemandante = new ErrorDemandante();
+                    resp.ErrorDemandante.Codigo = 400;
+                    resp.ErrorDemandante.Mensaje = "Error al modificar la fecha de renovacion";
+
+                    return Content(System.Net.HttpStatusCode.BadRequest, resp.ErrorDemandante);
+                }
+
+            }
+
+            catch (Exception e)
+            {
+                resp.ErrorDemandante = new ErrorDemandante();
+                resp.ErrorDemandante.Codigo = 400;
+                resp.ErrorDemandante.Mensaje = "Error al modificar la fecha de renovacion: " + e.Message.ToString();
+
+                return Content(System.Net.HttpStatusCode.BadRequest, resp.ErrorDemandante);
+            }
+
+            finally
+            {
+                if (connection != null)
+                    connection.Close();
+            }
+        }
     }
 }

@@ -23,6 +23,7 @@ http://www.mulesoft.org/schema/mule/xml http://www.mulesoft.org/schema/mule/xml/
         <http:raml-api-configuration location="oferta.raml"/>
     </http:request-config>
     <smtp:gmail-connector name="Gmail" validateConnections="true" doc:name="Gmail"/>
+    <http:listener-config name="HTTP_Listener_Configuration2" host="0.0.0.0" port="9092" doc:name="HTTP Listener Configuration"/>
     <flow name="InscribirseOferta">
         <http:listener config-ref="HTTP_Listener_Configuration" path="/" doc:name="Listener"/>
         <set-variable variableName="dniDemandante" value="#[json:dniDemandante]" doc:name="dniDemandante"/>
@@ -82,5 +83,41 @@ http://www.mulesoft.org/schema/mule/xml http://www.mulesoft.org/schema/mule/xml/
             </otherwise>
         </choice>
 
+    </flow>
+    <flow name="ActualizarFechaRenovacion">
+        <http:listener config-ref="HTTP_Listener_Configuration2" path="/" doc:name="HTTP"/>
+        <set-variable variableName="dniDemandante" value="#[json:dniDemandante]" doc:name="dniDemandante"/>
+        <set-variable variableName="fechaRenovacion" value="#[json:fechaRenovacion]" doc:name="fechaRenovacion"/>
+        <http:request config-ref="Demandante_Request" path="/demandante/{dni}/situacionLaboral" method="GET" doc:name="ValidarSituacionLaboral">
+            <http:request-builder>
+                <http:uri-param paramName="dni" value="#[flowVars.dniDemandante]"/>
+            </http:request-builder>
+            <http:failure-status-code-validator values="500"/>
+        </http:request>
+        <set-variable variableName="estado" value="#[json:estado]" doc:name="estado"/>
+        <choice doc:name="Choice">
+            <when expression="#[message.inboundProperties['http.status']=='200' &amp;&amp; flowVars.estado==false]">
+                <set-payload value="#[{&quot;fechaRenovacion&quot;: flowVars.fechaRenovacion}]" doc:name="Set Payload"/>
+                <json:object-to-json-transformer doc:name="Object to JSON"/>
+                <http:request config-ref="Demandante_Request" path="/demandante/{dni}/fechaRenovacion" method="PUT" doc:name="ActualizarFechaRenovacion">
+                    <http:request-builder>
+                        <http:query-param paramName="RestKey" value="#[flowVars.dniDemandante]"/>
+                        <http:uri-param paramName="dni" value="#[flowVars.dniDemandante]"/>
+                    </http:request-builder>
+                </http:request>
+                <json:json-to-xml-transformer doc:name="JSON to XML"/>
+                <file:outbound-endpoint path="./" outputPattern="DocumentoFechaRenovacion.xml" responseTimeout="10000" doc:name="File"/>
+                <smtp:outbound-endpoint host="smtp.gmail.com" user="jvv13@gcloud.ua.es" password="Aragon21." connector-ref="Gmail" to="jvv13@gcloud.ua.es" from="jvv13@gcloud.ua.es" subject="[Notificacion] Fecha de renovacion actualizada" responseTimeout="10000" doc:name="SMTP"/>
+                <set-payload value="#[&quot;El empleado &quot; + flowVars.dniDemandante + &quot; ha actualizado su fecha de renovacion&quot;]" doc:name="Set Payload"/>
+                <json:object-to-json-transformer doc:name="Object to JSON"/>
+            </when>
+            <when expression="#[message.inboundProperties['http.status']=='200' &amp;&amp; flowVars.estado==true]">
+                <smtp:outbound-endpoint host="smtp.gmail.com" user="jvv13@gcloud.ua.es" password="Aragon21." connector-ref="Gmail" to="jvv13@gcloud.ua.es" from="jvv13@gcloud.ua.es" subject="[Notificacion] Error al renovar la fecha de desempleo" responseTimeout="10000" doc:name="SMTP"/>
+                <set-payload value="#[&quot;Error: el empleado &quot; + flowVars.dniDemandante + &quot; esta trabajando&quot;]" doc:name="Set Payload"/>
+            </when>
+            <otherwise>
+                <logger level="INFO" doc:name="Logger"/>
+            </otherwise>
+        </choice>
     </flow>
 </mule>

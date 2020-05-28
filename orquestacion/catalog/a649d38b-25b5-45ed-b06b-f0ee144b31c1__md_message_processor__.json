@@ -1,0 +1,18 @@
+{
+    "inputMessageMetadata": {
+        "flowVariables": {
+            "idOferta": {
+                "connectorName": "#_custom_mule_metadata_type_#",
+                "typeId": "idOferta"
+            }
+        }
+    },
+    "outputMessageMetadata": {
+        "messagePayload": {
+            "connectorName": "#_custom_mule_metadata_type_#",
+            "typeId": "entrada_asignar_puntuacion"
+        }
+    },
+    "id": "a649d38b-25b5-45ed-b06b-f0ee144b31c1",
+    "version": "5.2.0.0"
+}

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<mule xmlns:dw="http://www.mulesoft.org/schema/mule/ee/dw" xmlns:json="http://www.mulesoft.org/schema/mule/json" xmlns:metadata="http://www.mulesoft.org/schema/mule/metadata" xmlns:tracking="http://www.mulesoft.org/schema/mule/ee/tracking" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+<mule xmlns:file="http://www.mulesoft.org/schema/mule/file" xmlns:smtp="http://www.mulesoft.org/schema/mule/smtp" xmlns:mulexml="http://www.mulesoft.org/schema/mule/xml" xmlns:dw="http://www.mulesoft.org/schema/mule/ee/dw" xmlns:json="http://www.mulesoft.org/schema/mule/json" xmlns:metadata="http://www.mulesoft.org/schema/mule/metadata" xmlns:tracking="http://www.mulesoft.org/schema/mule/ee/tracking" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
 	xmlns:spring="http://www.springframework.org/schema/beans" 
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd
@@ -8,7 +8,10 @@ http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/cor
 http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
 http://www.mulesoft.org/schema/mule/ee/tracking http://www.mulesoft.org/schema/mule/ee/tracking/current/mule-tracking-ee.xsd
 http://www.mulesoft.org/schema/mule/ee/dw http://www.mulesoft.org/schema/mule/ee/dw/current/dw.xsd
-http://www.mulesoft.org/schema/mule/json http://www.mulesoft.org/schema/mule/json/current/mule-json.xsd">
+http://www.mulesoft.org/schema/mule/json http://www.mulesoft.org/schema/mule/json/current/mule-json.xsd
+http://www.mulesoft.org/schema/mule/smtp http://www.mulesoft.org/schema/mule/smtp/current/mule-smtp.xsd
+http://www.mulesoft.org/schema/mule/file http://www.mulesoft.org/schema/mule/file/current/mule-file.xsd
+http://www.mulesoft.org/schema/mule/xml http://www.mulesoft.org/schema/mule/xml/current/mule-xml.xsd">
     <http:listener-config name="HTTP_Listener_Configuration" host="0.0.0.0" port="9091" doc:name="HTTP Listener Configuration"/>
     <http:request-config name="Demandante_Request" host="localhost" port="51776" basePath="/" doc:name="HTTP Request Configuration">
         <http:raml-api-configuration location="demandantes.raml"/>
@@ -19,6 +22,7 @@ http://www.mulesoft.org/schema/mule/json http://www.mulesoft.org/schema/mule/jso
     <http:request-config name="Oferta_Request" host="localhost" port="51776" basePath="/" doc:name="HTTP Request Configuration">
         <http:raml-api-configuration location="oferta.raml"/>
     </http:request-config>
+    <smtp:gmail-connector name="Gmail" validateConnections="true" doc:name="Gmail"/>
     <flow name="InscribirseOferta">
         <http:listener config-ref="HTTP_Listener_Configuration" path="/" doc:name="Listener"/>
         <set-variable variableName="dniDemandante" value="#[json:dniDemandante]" doc:name="dniDemandante"/>
@@ -32,67 +36,49 @@ http://www.mulesoft.org/schema/mule/json http://www.mulesoft.org/schema/mule/jso
         <set-variable variableName="estado" value="#[json:estado]" doc:name="estado"/>
         <choice doc:name="Choice">
             <when expression="#[message.inboundProperties['http.status']=='200' &amp;&amp; flowVars.estado==false]">
-                <set-payload value="#[{&quot;dniDemandante&quot; : flowVars.dniDemandante, &quot;idOferta&quot;: flowVars.idOferta, &quot;puntuacion&quot;: &quot;0&quot;}]" doc:name="BodyA&#241;adirLista"/>
+                <set-payload value="#[{&quot;dniDemandante&quot; : flowVars.dniDemandante, &quot;idOferta&quot;: flowVars.idOferta, &quot;puntuacion&quot;: &quot;0&quot;}]" doc:name="Set Payload"/>
+                <json:object-to-json-transformer doc:name="Object to JSON"/>
                 <http:request config-ref="ListaCandidatos_Request" path="/listaCandidatos" method="POST" doc:name="A&#241;adirListaCandidatos"/>
-                <set-payload value="#[payload]" doc:name="Set Payload"/>
-                <scatter-gather doc:name="Scatter-Gather">
-                    <processor-chain>
-                        <http:request config-ref="Oferta_Request" path="/oferta/{id}/requisitos" method="GET" doc:name="ObtenerRequisitosOferta">
-                            <http:request-builder>
-                                <http:uri-param paramName="id" value="#[flowVars.idOferta]"/>
-                            </http:request-builder>
-                        </http:request>
-                        <dw:transform-message doc:name="Transform Message" metadata:id="c0d07287-c481-44f6-94d6-653d23248399">
-                            <dw:set-payload><![CDATA[%dw 1.0
-%output application/json
----
-{
-	ofert_edad: payload.edad as :string,
-	ofert_titulos: payload.titulos,
-	ofert_experiencia: payload.experiencia as :string
-}]]></dw:set-payload>
-                        </dw:transform-message>
-                    </processor-chain>
-                    <processor-chain>
-                        <http:request config-ref="Demandante_Request" path="/demandante/{dni}" method="GET" doc:name="ObtenerPerfilDemandante">
-                            <http:request-builder>
-                                <http:uri-param paramName="dni" value="#[flowVars.dniDemandante]"/>
-                            </http:request-builder>
-                        </http:request>
-                        <dw:transform-message doc:name="Transform Message" metadata:id="2d3df4e3-0317-4f51-afd2-d302521ca363">
-                            <dw:set-payload><![CDATA[%dw 1.0
-%output application/json
----
-{
-	demand_dni: payload.dni,
-	demand_edad: payload.edad as :string,
-	demand_titulos: payload.titulos,
-	demand_experiencia: payload.experiencia as :string
-}]]></dw:set-payload>
-                        </dw:transform-message>
-                    </processor-chain>
-                </scatter-gather>
-                <dw:transform-message doc:name="Transform Message" metadata:id="9e800f21-c933-45d6-8b53-4359ae662803">
-                    <dw:input-payload mimeType="application/json"/>
-                    <dw:set-payload><![CDATA[%dw 1.0
-%output application/json
----
-{
-	demand_dni: payload.demand_dni,
-	demand_edad: payload.demand_edad,
-	demand_titulos: payload.demand_titulos,
-	demand_experiencia: payload.demand_experiencia,
-	ofert_id: payload.ofert_id,
-	ofert_edad: payload.ofert_edad,
-	ofert_titulos: payload.ofert_titulos,
-	ofert_experiencia: payload.ofert_experiencia
-}]]></dw:set-payload>
-                </dw:transform-message>
+                <http:request config-ref="Oferta_Request" path="/oferta/{id}/requisitos" method="GET" doc:name="ObtenerRequisitosOferta">
+                    <http:request-builder>
+                        <http:uri-param paramName="id" value="#[flowVars.idOferta]"/>
+                    </http:request-builder>
+                </http:request>
+                <set-variable variableName="edad_oferta" value="#[json:edad]" doc:name="edad_oferta"/>
+                <set-variable variableName="titulos_oferta" value="#[json:titulos]" doc:name="titulos_oferta"/>
+                <set-variable variableName="experiencia_oferta" value="#[json:experiencia]" doc:name="experiencia_oferta"/>
+                <http:request config-ref="Demandante_Request" path="/demandante/{dni}" method="GET" doc:name="ObtenerPerfilDemandante">
+                    <http:request-builder>
+                        <http:uri-param paramName="dni" value="#[flowVars.dniDemandante]"/>
+                    </http:request-builder>
+                </http:request>
+                <set-variable variableName="edad_demandante" value="#[json:edad]" doc:name="edad_demandante"/>
+                <set-variable variableName="titulos_demandante" value="#[json:titulos]" doc:name="titulos_demandante"/>
+                <set-variable variableName="experiencia_demandante" value="#[json:experiencia]" doc:name="experiencia_demandante"/>
+                <set-payload value="#[{
+	&quot;demand_dni&quot;: flowVars.dniDemandante,
+	&quot;demand_edad&quot;: flowVars.edad_demandante,
+	&quot;demand_titulos&quot;: flowVars.titulos_demandante,
+	&quot;demand_experiencia&quot;: flowVars.experiencia_demandante,
+	&quot;ofert_id&quot;: flowVars.idOferta,
+	&quot;ofert_edad&quot;: flowVars.edad_oferta,
+	&quot;ofert_titulos&quot;: flowVars.titulos_oferta,
+	&quot;ofert_experiencia&quot;: flowVars.experiencia_oferta 
+}]" doc:name="EntradaAsignarPuntuacion"/>
+                <json:object-to-json-transformer doc:name="Object to JSON"/>
                 <http:request config-ref="ListaCandidatos_Request" path="/listaCandidatos" method="PUT" doc:name="AsignarPuntuacion"/>
-                <set-payload value="#[payload]" doc:name="Set Payload"/>
+                <json:json-to-xml-transformer doc:name="JSON to XML"/>
+                <file:outbound-endpoint path="./" outputPattern="DocumentoInscripcion.xml" responseTimeout="10000" doc:name="File"/>
+                <smtp:outbound-endpoint host="smtp.gmail.com" user="jvv13@gcloud.ua.es" password="Aragon21." connector-ref="Gmail" to="jvv13@gcloud.ua.es" from="jvv13@gcloud.ua.es" subject="[Notificacion] Empleado registrado correctamente" responseTimeout="10000" doc:name="SMTP"/>
+                <set-payload value="#[&quot;El empleado &quot; + flowVars.dniDemandante + &quot; se ha registrado en la oferta &quot; + flowVars.idOferta +&quot; correctamente&quot;]" doc:name="Set Payload"/>
+                <json:object-to-json-transformer doc:name="Object to JSON"/>
+            </when>
+            <when expression="#[message.inboundProperties['http.status']=='400']">
+                <smtp:outbound-endpoint host="smtp.gmail.com" user="jvv13@gcloud.ua.es" password="Aragon21." connector-ref="Gmail" to="jvv13@gcloud.ua.es" from="jvv13@gcloud.ua.es" subject="[Notificacion] Error al inscribir en oferta de empleo" responseTimeout="10000" doc:name="SMTP"/>
+                <set-payload value="#[&quot;Error: el empleado &quot; + flowVars.dniDemandante + &quot; esta trabajando&quot;]" doc:name="Set Payload"/>
             </when>
             <otherwise>
-                <set-payload value="#[&quot;Error: Ya esta trabajando&quot;]" doc:name="EstaTrabajando"/>
+                <logger level="INFO" doc:name="Logger"/>
             </otherwise>
         </choice>
 

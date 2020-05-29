@@ -1,18 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<mule xmlns:file="http://www.mulesoft.org/schema/mule/file" xmlns:smtp="http://www.mulesoft.org/schema/mule/smtp" xmlns:mulexml="http://www.mulesoft.org/schema/mule/xml" xmlns:dw="http://www.mulesoft.org/schema/mule/ee/dw" xmlns:json="http://www.mulesoft.org/schema/mule/json" xmlns:metadata="http://www.mulesoft.org/schema/mule/metadata" xmlns:tracking="http://www.mulesoft.org/schema/mule/ee/tracking" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+<mule xmlns:file="http://www.mulesoft.org/schema/mule/file" xmlns:smtp="http://www.mulesoft.org/schema/mule/smtp" xmlns:json="http://www.mulesoft.org/schema/mule/json" xmlns:metadata="http://www.mulesoft.org/schema/mule/metadata" xmlns:tracking="http://www.mulesoft.org/schema/mule/ee/tracking" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
 	xmlns:spring="http://www.springframework.org/schema/beans" 
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd
-http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
-http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
-http://www.mulesoft.org/schema/mule/ee/tracking http://www.mulesoft.org/schema/mule/ee/tracking/current/mule-tracking-ee.xsd
-http://www.mulesoft.org/schema/mule/ee/dw http://www.mulesoft.org/schema/mule/ee/dw/current/dw.xsd
 http://www.mulesoft.org/schema/mule/json http://www.mulesoft.org/schema/mule/json/current/mule-json.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
 http://www.mulesoft.org/schema/mule/smtp http://www.mulesoft.org/schema/mule/smtp/current/mule-smtp.xsd
+http://www.mulesoft.org/schema/mule/ee/tracking http://www.mulesoft.org/schema/mule/ee/tracking/current/mule-tracking-ee.xsd
 http://www.mulesoft.org/schema/mule/file http://www.mulesoft.org/schema/mule/file/current/mule-file.xsd
-http://www.mulesoft.org/schema/mule/xml http://www.mulesoft.org/schema/mule/xml/current/mule-xml.xsd">
-    <http:listener-config name="HTTP_Listener_Configuration" host="0.0.0.0" port="9091" doc:name="HTTP Listener Configuration"/>
+http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd">
+    <http:listener-config name="HTTP_Listener_Configuration" host="0.0.0.0" port="9092" doc:name="HTTP Listener Configuration"/>
     <http:request-config name="Demandante_Request" host="localhost" port="51776" basePath="/" doc:name="HTTP Request Configuration">
         <http:raml-api-configuration location="demandantes.raml"/>
     </http:request-config>
@@ -23,9 +21,8 @@ http://www.mulesoft.org/schema/mule/xml http://www.mulesoft.org/schema/mule/xml/
         <http:raml-api-configuration location="oferta.raml"/>
     </http:request-config>
     <smtp:gmail-connector name="Gmail" validateConnections="true" doc:name="Gmail"/>
-    <http:listener-config name="HTTP_Listener_Configuration2" host="0.0.0.0" port="9092" doc:name="HTTP Listener Configuration"/>
     <flow name="InscribirseOferta">
-        <http:listener config-ref="HTTP_Listener_Configuration" path="/" doc:name="Listener"/>
+        <http:listener config-ref="HTTP_Listener_Configuration" path="/mule/inscribirseoferta" doc:name="Listener"/>
         <set-variable variableName="dniDemandante" value="#[json:dniDemandante]" doc:name="dniDemandante"/>
         <set-variable variableName="idOferta" value="#[json:idOferta]" doc:name="idOferta"/>
         <http:request config-ref="Demandante_Request" path="/demandante/{dni}/situacionLaboral" method="GET" doc:name="SituacionLaboral">
@@ -71,21 +68,26 @@ http://www.mulesoft.org/schema/mule/xml http://www.mulesoft.org/schema/mule/xml/
                 <json:json-to-xml-transformer doc:name="JSON to XML"/>
                 <file:outbound-endpoint path="./" outputPattern="DocumentoInscripcion.xml" responseTimeout="10000" doc:name="File"/>
                 <smtp:outbound-endpoint host="smtp.gmail.com" user="jvv13@gcloud.ua.es" password="Aragon21." connector-ref="Gmail" to="jvv13@gcloud.ua.es" from="jvv13@gcloud.ua.es" subject="[Notificacion] Empleado registrado correctamente" responseTimeout="10000" doc:name="SMTP"/>
-                <set-payload value="#[&quot;El empleado &quot; + flowVars.dniDemandante + &quot; se ha registrado en la oferta &quot; + flowVars.idOferta +&quot; correctamente&quot;]" doc:name="Set Payload"/>
+                <set-payload value="#[{ &quot;estado&quot;: true, &quot;mensaje&quot;: &quot;Se ha podido inscribir correctamente&quot; }]" doc:name="Set Payload"/>
                 <json:object-to-json-transformer doc:name="Object to JSON"/>
             </when>
-            <when expression="#[message.inboundProperties['http.status']=='400']">
-                <smtp:outbound-endpoint host="smtp.gmail.com" user="jvv13@gcloud.ua.es" password="Aragon21." connector-ref="Gmail" to="jvv13@gcloud.ua.es" from="jvv13@gcloud.ua.es" subject="[Notificacion] Error al inscribir en oferta de empleo" responseTimeout="10000" doc:name="SMTP"/>
-                <set-payload value="#[&quot;Error: el empleado &quot; + flowVars.dniDemandante + &quot; esta trabajando&quot;]" doc:name="Set Payload"/>
+            <when expression="#[message.inboundProperties['http.status']=='200' &amp;&amp; flowVars.estado==true]">
+                <set-payload value="#[{ &quot;estado&quot;: false, &quot;mensaje&quot;: &quot;No se ha podido inscribir. Esta trabajando&quot; }]" doc:name="Set Payload"/>
+                <json:object-to-json-transformer doc:name="Object to JSON"/>
+            </when>
+            <when expression="#[message.inboundProperties['http.status']=='404']">
+                <set-payload value="#[{ &quot;estado&quot;: false, &quot;mensaje&quot;: &quot;No se ha podido inscribir. No existe el demandante&quot; }]" doc:name="Set Payload"/>
+                <json:object-to-json-transformer doc:name="Object to JSON"/>
             </when>
             <otherwise>
-                <logger level="INFO" doc:name="Logger"/>
+                <set-payload value="#[{ &quot;estado&quot;: false, &quot;mensaje&quot;: &quot;No se ha podido inscribir. Error inesperado&quot; }]" doc:name="Set Payload"/>
+                <json:object-to-json-transformer doc:name="Object to JSON"/>
             </otherwise>
         </choice>
 
     </flow>
     <flow name="ActualizarFechaRenovacion">
-        <http:listener config-ref="HTTP_Listener_Configuration2" path="/mule/renovarfecha" doc:name="HTTP"/>
+        <http:listener config-ref="HTTP_Listener_Configuration" path="/mule/renovarfecha" doc:name="Listener"/>
         <set-variable variableName="dniDemandante" value="#[json:dniDemandante]" doc:name="dniDemandante"/>
         <set-variable variableName="fechaRenovacion" value="#[json:fechaRenovacion]" doc:name="fechaRenovacion"/>
         <http:request config-ref="Demandante_Request" path="/demandante/{dni}/situacionLaboral" method="GET" doc:name="ValidarSituacionLaboral">

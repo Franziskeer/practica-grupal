@@ -15,6 +15,18 @@ types:
         minLength: 0
         maxLength: 40
         type: string
+  EntradaInscripcionOferta:
+    description: contiene un dni y el id de una oferta
+    type: object
+    properties: 
+      dniDemandante:
+        minLength: 0
+        maxLength: 50
+        type: string
+      idOferta: 
+        minLength: 0
+        maxLength: 50
+        type: string
   ResponseMule:
     description: Tipo de dato complejo para representar una respuesta 
     type: object
@@ -33,6 +45,21 @@ types:
         body: 
           type: ResponseMule
           example: { "estado": true, "mensaje": "Se ha renovado correctamente" }
+      404:
+        body: 
+          type: ResponseMule
+          example: { "estado": false, "mensaje": "Se ha producido un error" }
+/mule/inscribirseoferta:
+  post:
+    description: inscripcion a una oferta de un demandante
+    body:
+      type: EntradaInscripcionOferta
+      example: { "dniDemandante": "48628778R", "idOferta": "1" }
+    responses: 
+      200:
+        body: 
+          type: ResponseMule
+          example: { "estado": true, "mensaje": "Se ha inscrito correctamente" }
       404:
         body: 
           type: ResponseMule

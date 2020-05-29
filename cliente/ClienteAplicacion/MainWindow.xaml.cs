@@ -20,27 +20,44 @@ namespace ClienteAplicacion
     /// </summary>
     public partial class MainWindow : Window
     {
-        private string respuesta="";
+        private string respuesta_renovar="";
+        private string respuesta_inscribir = "";
         private ServiciosMule.ServiciosMuleClient cliente;
         public MainWindow()
         {
             InitializeComponent();
         }
 
-        private async Task llamada_servicio()
+        private async Task llamada_servicio_renovacion()
         {
             cliente = new ServiciosMule.ServiciosMuleClient("http://localhost:9092/");
             ServiciosMule.Models.EntradaActualizarFecha entradaActualizarFecha = new ServiciosMule.Models.EntradaActualizarFecha();
-            entradaActualizarFecha.DniDemandante = textbox_dni.Text.ToString();
-            entradaActualizarFecha.FechaRenovacion = textbox_fecha.Text.ToString();
+            entradaActualizarFecha.DniDemandante = tbox_renovar_dni.Text.ToString();
+            entradaActualizarFecha.FechaRenovacion = tbox_renovar_fecha.Text.ToString();
             var peticion = await cliente.MuleRenovarfecha.Post(entradaActualizarFecha);
-            respuesta = peticion.Content.ResponseMule.Mensaje.ToString();
+            respuesta_renovar = peticion.Content.ResponseMule.Mensaje.ToString();
+        }
+
+        private async Task llamada_servicio_inscripcion()
+        {
+            cliente = new ServiciosMule.ServiciosMuleClient("http://localhost:9092/");
+            ServiciosMule.Models.EntradaInscripcionOferta entradaInscripcionOferta = new ServiciosMule.Models.EntradaInscripcionOferta();
+            entradaInscripcionOferta.DniDemandante = tbox_inscribir_dni.Text.ToString();
+            entradaInscripcionOferta.IdOferta = tbox_inscribir_oferta.Text.ToString();
+            var peticion = await cliente.MuleInscribirseoferta.Post(entradaInscripcionOferta);
+            respuesta_inscribir = peticion.Content.ResponseMule.Mensaje.ToString();
         }
 
         private async void Button_Click(object sender, RoutedEventArgs e)
         {
-            await llamada_servicio();
-            textbox_respuesta.Text = respuesta;
+            await llamada_servicio_renovacion();
+            tbox_renovar_respuesta.Text = respuesta_renovar;
+        }
+
+        private async void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            await llamada_servicio_inscripcion();
+            tbox_inscribir_respuesta.Text = respuesta_inscribir;
         }
     }
 }

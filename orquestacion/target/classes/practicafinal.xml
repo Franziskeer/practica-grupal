@@ -85,7 +85,7 @@ http://www.mulesoft.org/schema/mule/xml http://www.mulesoft.org/schema/mule/xml/
 
     </flow>
     <flow name="ActualizarFechaRenovacion">
-        <http:listener config-ref="HTTP_Listener_Configuration2" path="/" doc:name="HTTP"/>
+        <http:listener config-ref="HTTP_Listener_Configuration2" path="/mule/renovarfecha" doc:name="HTTP"/>
         <set-variable variableName="dniDemandante" value="#[json:dniDemandante]" doc:name="dniDemandante"/>
         <set-variable variableName="fechaRenovacion" value="#[json:fechaRenovacion]" doc:name="fechaRenovacion"/>
         <http:request config-ref="Demandante_Request" path="/demandante/{dni}/situacionLaboral" method="GET" doc:name="ValidarSituacionLaboral">
@@ -108,15 +108,20 @@ http://www.mulesoft.org/schema/mule/xml http://www.mulesoft.org/schema/mule/xml/
                 <json:json-to-xml-transformer doc:name="JSON to XML"/>
                 <file:outbound-endpoint path="./" outputPattern="DocumentoFechaRenovacion.xml" responseTimeout="10000" doc:name="File"/>
                 <smtp:outbound-endpoint host="smtp.gmail.com" user="jvv13@gcloud.ua.es" password="Aragon21." connector-ref="Gmail" to="jvv13@gcloud.ua.es" from="jvv13@gcloud.ua.es" subject="[Notificacion] Fecha de renovacion actualizada" responseTimeout="10000" doc:name="SMTP"/>
-                <set-payload value="#[&quot;El empleado &quot; + flowVars.dniDemandante + &quot; ha actualizado su fecha de renovacion&quot;]" doc:name="Set Payload"/>
+                <set-payload value="#[{ &quot;estado&quot;: true, &quot;mensaje&quot;: &quot;Se ha renovado correctamente&quot; }]" doc:name="Set Payload"/>
                 <json:object-to-json-transformer doc:name="Object to JSON"/>
             </when>
             <when expression="#[message.inboundProperties['http.status']=='200' &amp;&amp; flowVars.estado==true]">
-                <smtp:outbound-endpoint host="smtp.gmail.com" user="jvv13@gcloud.ua.es" password="Aragon21." connector-ref="Gmail" to="jvv13@gcloud.ua.es" from="jvv13@gcloud.ua.es" subject="[Notificacion] Error al renovar la fecha de desempleo" responseTimeout="10000" doc:name="SMTP"/>
-                <set-payload value="#[&quot;Error: el empleado &quot; + flowVars.dniDemandante + &quot; esta trabajando&quot;]" doc:name="Set Payload"/>
+                <set-payload value="#[{ &quot;estado&quot;: false, &quot;mensaje&quot;: &quot;No se ha podido renovar. Esta trabajando&quot; }]" doc:name="Set Payload"/>
+                <json:object-to-json-transformer doc:name="Object to JSON"/>
+            </when>
+            <when expression="#[message.inboundProperties['http.status']=='404']">
+                <set-payload value="#[{ &quot;estado&quot;: false, &quot;mensaje&quot;: &quot;No se ha podido renovar. No existe el demandante&quot; }]" doc:name="Set Payload"/>
+                <json:object-to-json-transformer doc:name="Object to JSON"/>
             </when>
             <otherwise>
-                <logger level="INFO" doc:name="Logger"/>
+                <set-payload value="#[{ &quot;estado&quot;: false, &quot;mensaje&quot;: &quot;No se ha podido renovar. Error inesperado&quot; }]" doc:name="Set Payload"/>
+                <json:object-to-json-transformer doc:name="Object to JSON"/>
             </otherwise>
         </choice>
     </flow>

@@ -1,0 +1,19 @@
+﻿<Window x:Class="ClienteAplicacion.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ClienteAplicacion"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="352" Width="537">
+    <Grid Margin="0,0,2,0">
+        <Button Content="Actualizar" HorizontalAlignment="Left" Margin="168,222,0,0" VerticalAlignment="Top" Width="76" Click="Button_Click"/>
+        <Label Content="DNI Demandante" HorizontalAlignment="Left" Margin="34,144,0,0" VerticalAlignment="Top"/>
+        <Label Content="Fecha de renovación" HorizontalAlignment="Left" Margin="34,175,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="textbox_dni" HorizontalAlignment="Left" Height="23" Margin="168,144,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Text="48628778R"/>
+        <TextBox x:Name="textbox_fecha" HorizontalAlignment="Left" Height="24" Margin="168,177,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Text="03/03/2023"/>
+        <TextBox x:Name="textbox_respuesta" HorizontalAlignment="Left" Height="60" Margin="328,141,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="152"/>
+        <Label Content="Actualizar la fecha de renovación de un demandante" HorizontalAlignment="Left" Margin="155,87,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
+
+    </Grid>
+</Window>

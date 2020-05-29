@@ -1,0 +1,40 @@
+#%RAML 1.0
+title: servicio orquestacion mule
+baseUri: localhost:9092/
+mediaType: application/json
+types:
+  EntradaActualizarFecha:
+    description: contiene un dni y una fecha de renovacion
+    type: object
+    properties: 
+      dniDemandante:
+        minLength: 0
+        maxLength: 50
+        type: string
+      fechaRenovacion: 
+        minLength: 0
+        maxLength: 40
+        type: string
+  ResponseMule:
+    description: Tipo de dato complejo para representar una respuesta 
+    type: object
+    properties:
+      estado: boolean
+      mensaje: string
+
+/mule/renovarfecha:
+  post:
+    description: actualizar la fecha de renovacion de un demandante
+    body:
+      type: EntradaActualizarFecha
+      example: { "dniDemandante": "48628778R", "fechaRenovacion": "10/10/2012" }
+    responses: 
+      200:
+        body: 
+          type: ResponseMule
+          example: { "estado": true, "mensaje": "Se ha renovado correctamente" }
+      404:
+        body: 
+          type: ResponseMule
+          example: { "estado": false, "mensaje": "Se ha producido un error" }
+  

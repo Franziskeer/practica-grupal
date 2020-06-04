@@ -171,6 +171,81 @@ namespace ClienteAplicacion.ServiciosMule
 
     }
 
+    public partial class MuleAltademandante
+    {
+        private readonly ServiciosMuleClient proxy;
+
+        internal MuleAltademandante(ServiciosMuleClient proxy)
+        {
+            this.proxy = proxy;
+        }
+
+
+        /// <summary>
+		/// dar de alta nuevo demandante - /mule/altademandante
+		/// </summary>
+		/// <param name="entradaAltaDemandante">Tipo de dato complejo para representar los datos de un demandante</param>
+        public virtual async Task<ClienteAplicacion.ServiciosMule.Models.MuleAltademandantePostResponse> Post(ClienteAplicacion.ServiciosMule.Models.EntradaAltaDemandante entradaAltaDemandante)
+        {
+
+            var url = "/mule/altademandante";
+
+            url = url.Replace("?&", "?");
+
+            var req = new HttpRequestMessage(HttpMethod.Post, url.StartsWith("/") ? url.Substring(1) : url);
+            req.Content = new ObjectContent(typeof(ClienteAplicacion.ServiciosMule.Models.EntradaAltaDemandante), entradaAltaDemandante, new JsonMediaTypeFormatter());                           
+	        var response = await proxy.Client.SendAsync(req);
+
+            return new ClienteAplicacion.ServiciosMule.Models.MuleAltademandantePostResponse  
+                                            {
+                                                RawContent = response.Content,
+                                                RawHeaders = response.Headers, 
+                                                StatusCode = response.StatusCode,
+                                                ReasonPhrase = response.ReasonPhrase,
+												SchemaValidation = new Lazy<SchemaValidationResults>(() => new SchemaValidationResults(true), true)
+                                            };
+
+        }
+
+        /// <summary>
+		/// dar de alta nuevo demandante - /mule/altademandante
+		/// </summary>
+		/// <param name="request">ClienteAplicacion.ServiciosMule.Models.MuleAltademandantePostRequest</param>
+		/// <param name="responseFormatters">response formatters</param>
+        public virtual async Task<ClienteAplicacion.ServiciosMule.Models.MuleAltademandantePostResponse> Post(ClienteAplicacion.ServiciosMule.Models.MuleAltademandantePostRequest request, IEnumerable<MediaTypeFormatter> responseFormatters = null)
+        {
+
+            var url = "/mule/altademandante";
+
+            url = url.Replace("?&", "?");
+
+            var req = new HttpRequestMessage(HttpMethod.Post, url.StartsWith("/") ? url.Substring(1) : url);
+
+            if(request.RawHeaders != null)
+            {
+                foreach(var header in request.RawHeaders)
+                {
+                    req.Headers.TryAddWithoutValidation(header.Key, string.Join(",", header.Value));
+                }
+            }
+            if(request.Formatter == null)
+                request.Formatter = new JsonMediaTypeFormatter();
+
+			req.Content = new ObjectContent(typeof(EntradaAltaDemandante), request.Content, request.Formatter);
+	        var response = await proxy.Client.SendAsync(req);
+            return new ClienteAplicacion.ServiciosMule.Models.MuleAltademandantePostResponse  
+                                            {
+                                                RawContent = response.Content,
+                                                RawHeaders = response.Headers,
+	                                            Formatters = responseFormatters,
+                                                StatusCode = response.StatusCode,
+                                                ReasonPhrase = response.ReasonPhrase,
+												SchemaValidation = new Lazy<SchemaValidationResults>(() => new SchemaValidationResults(true), true)
+                                            };
+        }
+
+    }
+
     /// <summary>
     /// Main class for grouping root resources. Nested resources are defined as properties. The constructor can optionally receive an URL and HttpClient instance to override the default ones.
     /// </summary>
@@ -244,6 +319,12 @@ namespace ClienteAplicacion.ServiciosMule
         }
                 
 
+        public virtual MuleAltademandante MuleAltademandante
+        {
+            get { return new MuleAltademandante(this); }
+        }
+                
+
 
 		public void AddDefaultRequestHeader(string name, string value)
 		{
@@ -273,6 +354,74 @@ namespace ClienteAplicacion.ServiciosMule
 
 namespace ClienteAplicacion.ServiciosMule.Models
 {
+    /// <summary>
+    /// Tipo de dato complejo para representar los datos de un demandante
+    /// </summary>
+    public partial class  EntradaAltaDemandante 
+    {
+
+		[JsonProperty("dni")]
+        public string Dni { get; set; }
+
+
+		[JsonProperty("pass?")]
+        public string Pass { get; set; }
+
+
+		[JsonProperty("nombre")]
+        public string Nombre { get; set; }
+
+
+		[JsonProperty("apellidos")]
+        public string Apellidos { get; set; }
+
+
+		[JsonProperty("direccion")]
+        public string Direccion { get; set; }
+
+
+		[JsonProperty("poblacion")]
+        public string Poblacion { get; set; }
+
+
+		[JsonProperty("telefono")]
+        public string Telefono { get; set; }
+
+
+		[JsonProperty("email")]
+        public string Email { get; set; }
+
+
+		[JsonProperty("fecha_nacimiento")]
+        public string Fecha_nacimiento { get; set; }
+
+
+		[JsonProperty("fecha_renovacion?")]
+        public string Fecha_renovacion { get; set; }
+
+
+		[JsonProperty("iban")]
+        public string Iban { get; set; }
+
+
+		[JsonProperty("situacion_laboral")]
+        public string Situacion_laboral { get; set; }
+
+
+		[JsonProperty("edad")]
+        public string Edad { get; set; }
+
+
+		[JsonProperty("titulos")]
+        public string Titulos { get; set; }
+
+
+		[JsonProperty("experiencia")]
+        public string Experiencia { get; set; }
+
+
+    } // end class
+
     /// <summary>
     /// contiene un dni y una fecha de renovacion
     /// </summary>
@@ -410,6 +559,50 @@ namespace ClienteAplicacion.ServiciosMule.Models
     } // end class
 
     /// <summary>
+    /// Multiple Response Types ResponseMule, ResponseMule409
+    /// </summary>
+    public partial class  MultipleMuleAltademandantePost : ApiMultipleResponse
+    {
+        static readonly Dictionary<string, string> schemas = new Dictionary<string, string>
+        {
+		};
+        
+		public static string GetSchema(string statusCode)
+        {
+            if(schemas.ContainsKey(statusCode))
+                return schemas[statusCode];
+
+            if(schemas.ContainsKey("default"))
+                return schemas["default"];
+                
+            return string.Empty;
+        }
+        
+        public MultipleMuleAltademandantePost()
+        {
+            names.Add("200", "ResponseMule");
+            types.Add("200", typeof(ResponseMule));
+            names.Add("409", "ResponseMule409");
+            types.Add("409", typeof(ResponseMule));
+        }
+
+        /// <summary>
+        ///  Tipo de dato complejo para representar una respuesta
+        /// </summary>
+
+        public ResponseMule ResponseMule { get; set; }
+
+
+        /// <summary>
+        ///  Tipo de dato complejo para representar una respuesta
+        /// </summary>
+
+        public ResponseMule ResponseMule409 { get; set; }
+
+
+    } // end class
+
+    /// <summary>
     /// Request object for method Post of class MuleRenovarfecha
     /// </summary>
     public partial class MuleRenovarfechaPostRequest : ApiRequest
@@ -449,6 +642,30 @@ namespace ClienteAplicacion.ServiciosMule.Models
         /// Request content
         /// </summary>
         public EntradaInscripcionOferta Content { get; set; }
+
+        /// <summary>
+        /// Request formatter
+        /// </summary>
+        public MediaTypeFormatter Formatter { get; set; }
+
+    } // end class
+
+    /// <summary>
+    /// Request object for method Post of class MuleAltademandante
+    /// </summary>
+    public partial class MuleAltademandantePostRequest : ApiRequest
+    {
+        public MuleAltademandantePostRequest(EntradaAltaDemandante Content = null, MediaTypeFormatter Formatter = null)
+        {
+            this.Content = Content;
+            this.Formatter = Formatter;
+        }
+
+
+        /// <summary>
+        /// Request content
+        /// </summary>
+        public EntradaAltaDemandante Content { get; set; }
 
         /// <summary>
         /// Request formatter
@@ -561,6 +778,60 @@ namespace ClienteAplicacion.ServiciosMule.Models
 		public static string GetSchema(string statusCode)
         {
             return MultipleMuleInscribirseofertaPost.GetSchema(statusCode);
+        }      
+
+    } // end class
+
+    /// <summary>
+    /// Response object for method Post of class MuleAltademandante
+    /// </summary>
+
+    public partial class MuleAltademandantePostResponse : ApiResponse
+    {
+
+	    private MultipleMuleAltademandantePost typedContent;
+        /// <summary>
+        /// Typed response content
+        /// </summary>
+        public MultipleMuleAltademandantePost Content 
+	    {
+	        get
+	        {
+		        if (typedContent != null) 
+					return typedContent;
+
+		        typedContent = new MultipleMuleAltademandantePost();
+
+                IEnumerable<string> values = new List<string>();
+                if (RawContent != null && RawContent.Headers != null)
+                    RawContent.Headers.TryGetValues("Content-Type", out values);
+
+                if (values.Any(hv => hv.ToLowerInvariant().Contains("xml")) &&
+                    !values.Any(hv => hv.ToLowerInvariant().Contains("json")))
+                {
+                    var task = RawContent.ReadAsStreamAsync();
+
+                    var xmlStream = task.GetAwaiter().GetResult();
+                    var content = new XmlSerializer(typedContent.GetTypeByStatusCode(ApiMultipleResponse.GetValueAsString(StatusCode))).Deserialize(xmlStream);
+                    typedContent.SetPropertyByStatusCode(ApiMultipleResponse.GetValueAsString(StatusCode), content);
+                }
+                else
+                {
+		            var task = Formatters != null && Formatters.Any() 
+                                ? RawContent.ReadAsAsync(typedContent.GetTypeByStatusCode(ApiMultipleResponse.GetValueAsString(StatusCode)), Formatters).ConfigureAwait(false)
+                                : RawContent.ReadAsAsync(typedContent.GetTypeByStatusCode(ApiMultipleResponse.GetValueAsString(StatusCode))).ConfigureAwait(false);
+		        
+		            var content = task.GetAwaiter().GetResult();
+                    typedContent.SetPropertyByStatusCode(ApiMultipleResponse.GetValueAsString(StatusCode), content);
+                }
+
+		        return typedContent;
+	        }
+    	}  
+		
+		public static string GetSchema(string statusCode)
+        {
+            return MultipleMuleAltademandantePost.GetSchema(statusCode);
         }      
 
     } // end class

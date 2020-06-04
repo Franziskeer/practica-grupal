@@ -1,0 +1,16 @@
+{
+    "inputMessageMetadata": {
+        "messagePayload": {
+            "connectorName": "Demandante_Request",
+            "typeId": "POST:/demandante_request"
+        }
+    },
+    "outputMessageMetadata": {
+        "messagePayload": {
+            "connectorName": "Demandante_Request",
+            "typeId": "POST:/demandante_request"
+        }
+    },
+    "id": "e2d8b31d-6c42-4d27-90b8-948eab53dd50",
+    "version": "5.2.0.0"
+}

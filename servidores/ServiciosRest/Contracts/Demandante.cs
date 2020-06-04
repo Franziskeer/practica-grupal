@@ -18,92 +18,92 @@ namespace ServiciosRest.Demandantes.Models
         
 
         [Required]
-        [MaxLength(0)]
+        [MaxLength(50)]
         [MinLength(0)]
 		[JsonProperty("dni")]
         public string Dni { get; set; }
 
-        [MaxLength(0)]
+        [MaxLength(50)]
         [MinLength(0)]
 		[JsonProperty("pass?")]
         public string Pass { get; set; }
 
         [Required]
-        [MaxLength(0)]
+        [MaxLength(50)]
         [MinLength(0)]
 		[JsonProperty("nombre")]
         public string Nombre { get; set; }
 
         [Required]
-        [MaxLength(0)]
+        [MaxLength(50)]
         [MinLength(0)]
 		[JsonProperty("apellidos")]
         public string Apellidos { get; set; }
 
         [Required]
-        [MaxLength(0)]
+        [MaxLength(50)]
         [MinLength(0)]
 		[JsonProperty("direccion")]
         public string Direccion { get; set; }
 
         [Required]
-        [MaxLength(0)]
+        [MaxLength(50)]
         [MinLength(0)]
 		[JsonProperty("poblacion")]
         public string Poblacion { get; set; }
 
         [Required]
-        [MaxLength(0)]
+        [MaxLength(50)]
         [MinLength(0)]
 		[JsonProperty("telefono")]
         public string Telefono { get; set; }
 
         [Required]
-        [MaxLength(0)]
+        [MaxLength(50)]
         [MinLength(0)]
 		[JsonProperty("email")]
         public string Email { get; set; }
 
         [Required]
-        [MaxLength(0)]
+        [MaxLength(50)]
         [MinLength(0)]
 		[JsonProperty("fecha_nacimiento")]
         public string Fecha_nacimiento { get; set; }
 
-        [MaxLength(0)]
+        [MaxLength(50)]
         [MinLength(0)]
 		[JsonProperty("fecha_renovacion?")]
         public string Fecha_renovacion { get; set; }
 
         [Required]
-        [MaxLength(0)]
+        [MaxLength(50)]
         [MinLength(0)]
 		[JsonProperty("iban")]
         public string Iban { get; set; }
 
         [Required]
-        [MaxLength(0)]
+        [MaxLength(50)]
         [MinLength(0)]
 		[JsonProperty("situacion_laboral")]
-        public bool Situacion_laboral { get; set; }
+        public string Situacion_laboral { get; set; }
 
         [Required]
-        [MaxLength(0)]
+        [MaxLength(50)]
         [MinLength(0)]
 		[JsonProperty("edad")]
-        public int Edad { get; set; }
+        public string Edad { get; set; }
 
         [Required]
-        [MaxLength(0)]
+        [MaxLength(50)]
         [MinLength(0)]
 		[JsonProperty("titulos")]
         public string Titulos { get; set; }
 
         [Required]
-        [MaxLength(0)]
+        [MaxLength(50)]
         [MinLength(0)]
 		[JsonProperty("experiencia")]
-        public int Experiencia { get; set; }
+        public string Experiencia { get; set; }
     } // end class
 
 } // end Models namespace

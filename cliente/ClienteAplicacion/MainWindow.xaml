@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="304" Width="622">
     <Grid Margin="0,0,2,-2">
-        <Button Content="Actualizar" HorizontalAlignment="Left" Margin="203,200,0,0" VerticalAlignment="Top" Width="76" Click="Button_Click"/>
+        <Button Content="Actualizar" HorizontalAlignment="Left" Margin="203,184,0,0" VerticalAlignment="Top" Width="76" Click="Button_Click" RenderTransformOrigin="0.542,0.867"/>
         <Label Content="DNI Demandante" HorizontalAlignment="Left" Margin="34,91,0,0" VerticalAlignment="Top"/>
         <Label Content="Fecha de renovación" HorizontalAlignment="Left" Margin="34,126,0,0" VerticalAlignment="Top"/>
         <TextBox x:Name="tbox_renovar_dni" HorizontalAlignment="Left" Height="23" Margin="159,95,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Text="48628778R"/>
@@ -19,8 +19,9 @@
         <Label Content="ID Oferta" HorizontalAlignment="Left" Margin="328,123,0,0" VerticalAlignment="Top"/>
         <TextBox x:Name="tbox_inscribir_dni" HorizontalAlignment="Left" Height="23" Margin="443,92,0,0" TextWrapping="Wrap" Text="48628778R" VerticalAlignment="Top" Width="120"/>
         <TextBox x:Name="tbox_inscribir_oferta" HorizontalAlignment="Left" Height="23" Margin="443,123,0,0" TextWrapping="Wrap" Text="1" VerticalAlignment="Top" Width="120"/>
-        <Button Content="Incribir" HorizontalAlignment="Left" Margin="328,200,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click_1"/>
+        <Button Content="Incribir" HorizontalAlignment="Left" Margin="339,184,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click_1" RenderTransformOrigin="0.513,-0.803"/>
         <TextBox x:Name="tbox_inscribir_respuesta" HorizontalAlignment="Left" Height="54" Margin="443,177,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <Button Content="Nuevo demandante" HorizontalAlignment="Left" Margin="34,17,0,0" VerticalAlignment="Top" Width="119" Click="Button_Click_2"/>
 
     </Grid>
 </Window>

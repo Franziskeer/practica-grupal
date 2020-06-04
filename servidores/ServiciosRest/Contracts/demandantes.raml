@@ -7,21 +7,66 @@ types:
     description: Tipo de dato complejo para representar los datos de un demandante
     type: object
     properties:
-      dni: string
-      pass?: string
-      nombre: string
-      apellidos: string
-      direccion: string
-      poblacion: string
-      telefono: string
-      email: string
-      fecha_nacimiento: string
-      fecha_renovacion?: string
-      iban: string
-      situacion_laboral: boolean
-      edad: integer
-      titulos: string
-      experiencia: integer
+      dni:
+        minLength: 0
+        maxLength: 50
+        type: string
+      pass?:
+        minLength: 0
+        maxLength: 50
+        type: string
+      nombre:
+        minLength: 0
+        maxLength: 50
+        type: string
+      apellidos:
+        minLength: 0
+        maxLength: 50
+        type: string
+      direccion:
+        minLength: 0
+        maxLength: 50
+        type: string
+      poblacion:
+        minLength: 0
+        maxLength: 50
+        type: string
+      telefono:
+        minLength: 0
+        maxLength: 50
+        type: string
+      email:
+        minLength: 0
+        maxLength: 50
+        type: string
+      fecha_nacimiento:
+        minLength: 0
+        maxLength: 50
+        type: string
+      fecha_renovacion?:
+        minLength: 0
+        maxLength: 50
+        type: string
+      iban:
+        minLength: 0
+        maxLength: 50
+        type: string
+      situacion_laboral:
+        minLength: 0
+        maxLength: 50
+        type: string
+      edad:
+        minLength: 0
+        maxLength: 50
+        type: string
+      titulos:
+        minLength: 0
+        maxLength: 50
+        type: string
+      experiencia:
+        minLength: 0
+        maxLength: 50
+        type: string
   ResponseDemandante:
     description: Tipo de dato complejo para representar una respuesta válida
     type: object

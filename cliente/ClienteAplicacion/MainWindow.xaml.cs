@@ -35,7 +35,8 @@ namespace ClienteAplicacion
             entradaActualizarFecha.DniDemandante = tbox_renovar_dni.Text.ToString();
             entradaActualizarFecha.FechaRenovacion = tbox_renovar_fecha.Text.ToString();
             var peticion = await cliente.MuleRenovarfecha.Post(entradaActualizarFecha);
-            respuesta_renovar = peticion.Content.ResponseMule.Mensaje.ToString();
+            var mensaje = peticion.Content.ResponseMule.Mensaje;
+            respuesta_renovar = mensaje.ToString();
         }
 
         private async Task llamada_servicio_inscripcion()
@@ -45,7 +46,8 @@ namespace ClienteAplicacion
             entradaInscripcionOferta.DniDemandante = tbox_inscribir_dni.Text.ToString();
             entradaInscripcionOferta.IdOferta = tbox_inscribir_oferta.Text.ToString();
             var peticion = await cliente.MuleInscribirseoferta.Post(entradaInscripcionOferta);
-            respuesta_inscribir = peticion.Content.ResponseMule.Mensaje.ToString();
+            var mensaje = peticion.Content.ResponseMule.Mensaje;
+            respuesta_inscribir = mensaje.ToString();
         }
 
         private async void Button_Click(object sender, RoutedEventArgs e)
@@ -58,6 +60,21 @@ namespace ClienteAplicacion
         {
             await llamada_servicio_inscripcion();
             tbox_inscribir_respuesta.Text = respuesta_inscribir;
+        }
+
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+            CrearDemandante cd = new CrearDemandante();
+            cd.Show();
+            //Ocultamos la ventana actual hasta que se cierre la de cread demandante
+            this.Visibility = Visibility.Hidden;
+            //Agregamos evento al cierre
+            cd.Closed += Cd_Closed;
+        }
+
+        private void Cd_Closed(object sender, EventArgs e)
+        {
+            this.Visibility = Visibility.Visible;
         }
     }
 }

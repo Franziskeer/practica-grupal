@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<mule xmlns:file="http://www.mulesoft.org/schema/mule/file" xmlns:smtp="http://www.mulesoft.org/schema/mule/smtp" xmlns:json="http://www.mulesoft.org/schema/mule/json" xmlns:metadata="http://www.mulesoft.org/schema/mule/metadata" xmlns:tracking="http://www.mulesoft.org/schema/mule/ee/tracking" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+<mule xmlns:dw="http://www.mulesoft.org/schema/mule/ee/dw" xmlns:file="http://www.mulesoft.org/schema/mule/file" xmlns:smtp="http://www.mulesoft.org/schema/mule/smtp" xmlns:json="http://www.mulesoft.org/schema/mule/json" xmlns:metadata="http://www.mulesoft.org/schema/mule/metadata" xmlns:tracking="http://www.mulesoft.org/schema/mule/ee/tracking" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
 	xmlns:spring="http://www.springframework.org/schema/beans" 
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd
@@ -9,18 +9,24 @@ http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/htt
 http://www.mulesoft.org/schema/mule/smtp http://www.mulesoft.org/schema/mule/smtp/current/mule-smtp.xsd
 http://www.mulesoft.org/schema/mule/ee/tracking http://www.mulesoft.org/schema/mule/ee/tracking/current/mule-tracking-ee.xsd
 http://www.mulesoft.org/schema/mule/file http://www.mulesoft.org/schema/mule/file/current/mule-file.xsd
-http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd">
+http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/ee/dw http://www.mulesoft.org/schema/mule/ee/dw/current/dw.xsd">
     <http:listener-config name="HTTP_Listener_Configuration" host="0.0.0.0" port="9092" doc:name="HTTP Listener Configuration"/>
     <http:request-config name="Demandante_Request" host="localhost" port="51776" basePath="/" doc:name="HTTP Request Configuration">
         <http:raml-api-configuration location="demandantes.raml"/>
+
     </http:request-config>
-    <http:request-config name="ListaCandidatos_Request" host="localhost" port="51776" basePath="/api" doc:name="HTTP Request Configuration">
+    <http:request-config name="ListaCandidatos_Request" host="localhost" port="51776" basePath="/" doc:name="HTTP Request Configuration">
         <http:raml-api-configuration location="listaCandidatos.raml"/>
+
     </http:request-config>
     <http:request-config name="Oferta_Request" host="localhost" port="51776" basePath="/" doc:name="HTTP Request Configuration">
         <http:raml-api-configuration location="oferta.raml"/>
     </http:request-config>
     <smtp:gmail-connector name="Gmail" validateConnections="true" doc:name="Gmail"/>
+    <http:request-config name="Demandante_Request2" host="localhost" port="51776" basePath="/demandante" doc:name="HTTP Request Configuration">
+        <http:raml-api-configuration location="demandantes.raml"/>
+    </http:request-config>
     <flow name="InscribirseOferta">
         <http:listener config-ref="HTTP_Listener_Configuration" path="/mule/inscribirseoferta" doc:name="Listener"/>
         <set-variable variableName="dniDemandante" value="#[json:dniDemandante]" doc:name="dniDemandante"/>
@@ -31,12 +37,15 @@ http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/cor
             </http:request-builder>
             <http:failure-status-code-validator values="500"/>
         </http:request>
+
         <set-variable variableName="estado" value="#[json:estado]" doc:name="estado"/>
         <choice doc:name="Choice">
             <when expression="#[message.inboundProperties['http.status']=='200' &amp;&amp; flowVars.estado==false]">
                 <set-payload value="#[{&quot;dniDemandante&quot; : flowVars.dniDemandante, &quot;idOferta&quot;: flowVars.idOferta, &quot;puntuacion&quot;: &quot;0&quot;}]" doc:name="Set Payload"/>
                 <json:object-to-json-transformer doc:name="Object to JSON"/>
                 <http:request config-ref="ListaCandidatos_Request" path="/listaCandidatos" method="POST" doc:name="A&#241;adirListaCandidatos"/>
+                <logger message="#[message.payloadAs(java.lang.String)]" level="INFO" doc:name="Logger"/>
+
                 <http:request config-ref="Oferta_Request" path="/oferta/{id}/requisitos" method="GET" doc:name="ObtenerRequisitosOferta">
                     <http:request-builder>
                         <http:uri-param paramName="id" value="#[flowVars.idOferta]"/>
@@ -96,6 +105,7 @@ http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/cor
             </http:request-builder>
             <http:failure-status-code-validator values="500"/>
         </http:request>
+
         <set-variable variableName="estado" value="#[json:estado]" doc:name="estado"/>
         <choice doc:name="Choice">
             <when expression="#[message.inboundProperties['http.status']=='200' &amp;&amp; flowVars.estado==false]">
@@ -107,6 +117,7 @@ http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/cor
                         <http:uri-param paramName="dni" value="#[flowVars.dniDemandante]"/>
                     </http:request-builder>
                 </http:request>
+
                 <json:json-to-xml-transformer doc:name="JSON to XML"/>
                 <file:outbound-endpoint path="./" outputPattern="DocumentoFechaRenovacion.xml" responseTimeout="10000" doc:name="File"/>
                 <smtp:outbound-endpoint host="smtp.gmail.com" user="jvv13@gcloud.ua.es" password="Aragon21." connector-ref="Gmail" to="jvv13@gcloud.ua.es" from="jvv13@gcloud.ua.es" subject="[Notificacion] Fecha de renovacion actualizada" responseTimeout="10000" doc:name="SMTP"/>
@@ -126,5 +137,39 @@ http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/cor
                 <json:object-to-json-transformer doc:name="Object to JSON"/>
             </otherwise>
         </choice>
+    </flow>
+    <flow name="AltaDemandante">
+        <http:listener config-ref="HTTP_Listener_Configuration" path="/mule/altademandante" allowedMethods="POST" doc:name="Listener"/>
+        <http:request config-ref="Demandante_Request2" path="/demandante" method="POST" doc:name="SolicitudAlta">
+            <http:request-builder>
+                <http:query-param paramName="dni" value="#[payload.dni]"/>
+                <http:query-param paramName="nombre" value="#[payload.nombre]"/>
+                <http:query-param paramName="apellidos" value="#[payload.apellidos]"/>
+                <http:query-param paramName="pass?" value="#[payload.'pass?']"/>
+                <http:query-param paramName="direccion" value="#[payload.direccion]"/>
+                <http:query-param paramName="poblacion" value="#[payload.poblacion]"/>
+                <http:query-param paramName="telefono" value="#[payload.telefono]"/>
+                <http:query-param paramName="email" value="#[payload.email]"/>
+                <http:query-param paramName="fecha_nacimiento" value="#[payload.fecha_nacimiento]"/>
+                <http:query-param paramName="fecha_renovacion" value="#[payload.'fecha_renovacion?']"/>
+                <http:query-param paramName="edad" value="#[payload.edad]"/>
+                <http:query-param paramName="titulos" value="#[payload.titulos]"/>
+                <http:query-param paramName="experiencia" value="#[payload.experiencia]"/>
+            </http:request-builder>
+            <http:success-status-code-validator values="201,409"/>
+        </http:request>
+        <set-variable variableName="estado" value="#[message.inboundProperties['http.status']=='201']" doc:name="estado"/>
+        <dw:transform-message doc:name="Transform Message">
+            <dw:set-payload><![CDATA[%dw 2.0
+%output application/java
+---
+{
+	"estado":flowVars.estado,
+	"mensaje":payload.mensaje
+}]]></dw:set-payload>
+        </dw:transform-message>
+        <set-payload value="#[{ &quot;estado&quot;: payload.estado, &quot;mensaje&quot;: payload.mensaje }]" doc:name="Set Payload"/>
+        <json:object-to-json-transformer doc:name="Object to JSON"/>
+        <logger message="RESULTADO: #[message.payloadAs(java.lang.String)]" level="INFO" doc:name="Logger"/>
     </flow>
 </mule>

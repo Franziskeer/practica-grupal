@@ -7,29 +7,74 @@ types:
     description: Tipo de dato complejo para representar los datos de un demandante
     type: object
     properties:
-      dni: string
-      pass?: string
-      nombre: string
-      apellidos: string
-      direccion: string
-      poblacion: string
-      telefono: string
-      email: string
-      fecha_nacimiento: string
-      fecha_renovacion?: string
-      iban: string
-      situacion_laboral: boolean
-      edad: integer
-      titulos: string
-      experiencia: integer
+      dni:
+        minLength: 0
+        maxLength: 50
+        type: string
+      pass?:
+        minLength: 0
+        maxLength: 50
+        type: string
+      nombre:
+        minLength: 0
+        maxLength: 50
+        type: string
+      apellidos:
+        minLength: 0
+        maxLength: 50
+        type: string
+      direccion:
+        minLength: 0
+        maxLength: 50
+        type: string
+      poblacion:
+        minLength: 0
+        maxLength: 50
+        type: string
+      telefono:
+        minLength: 0
+        maxLength: 50
+        type: string
+      email:
+        minLength: 0
+        maxLength: 50
+        type: string
+      fecha_nacimiento:
+        minLength: 0
+        maxLength: 50
+        type: string
+      fecha_renovacion?:
+        minLength: 0
+        maxLength: 50
+        type: string
+      iban:
+        minLength: 0
+        maxLength: 50
+        type: string
+      situacion_laboral:
+        minLength: 0
+        maxLength: 50
+        type: string
+      edad:
+        minLength: 0
+        maxLength: 50
+        type: string
+      titulos:
+        minLength: 0
+        maxLength: 50
+        type: string
+      experiencia:
+        minLength: 0
+        maxLength: 50
+        type: string
   ResponseDemandante:
-    description: Tipo de dato complejo para representar una respuesta v√°lida
+    description: Tipo de dato complejo para representar una respuesta v·lida
     type: object
     properties:
       estado: boolean
       mensaje: string
   ErrorDemandante:
-    description: Tipo de dato complejo para representar una respuesta err√≥nea
+    description: Tipo de dato complejo para representar una respuesta errÛnea
     type: object
     properties:
       codigo: integer
@@ -45,7 +90,7 @@ types:
 
 /demandante:
   post:
-    description: "Dar√° de alta un nuevo demandante en el sistema."
+    description: "Dar· de alta un nuevo demandante en el sistema."
     body:
       type: Demandante
     responses:
@@ -56,7 +101,7 @@ types:
       409:
         body:
           type: ErrorDemandante
-          example: { "codigo": 409, "mensaje": "Hay un conflicto, el demandante ya est√° dado de alta en el sistema" }
+          example: { "codigo": 409, "mensaje": "Hay un conflicto, el demandante ya est· dado de alta en el sistema" }
 
   /{dni}:
     get:
@@ -87,14 +132,14 @@ types:
 
     /pass:
       put:
-        description: "Modificar√° la contrase√±a del demandante. Ser√° √∫til tanto en el alta de un nuevo usuario como en el caso en que no recuerde su contrase√±a."
+        description: "Modificar· la contraseÒa del demandante. Ser· ˙til tanto en el alta de un nuevo usuario como en el caso en que no recuerde su contraseÒa."
         body:
           type: string
         responses:
           200:
             body:
               type: ResponseDemandante
-              example: { "estado": true, "mensaje": "Se ha generado una nueva contrase√±a" }
+              example: { "estado": true, "mensaje": "Se ha generado una nueva contraseÒa" }
           404:
             body:
               type: ErrorDemandante
@@ -102,7 +147,7 @@ types:
 
     /fechaRenovacion:
       put:
-        description: "Modificar√° la fecha de renovaci√≥n del demandante. Servir√° para cuando el demandante decida renovar su estancia en el sistema."
+        description: "Modificar· la fecha de renovaciÛn del demandante. Servir· para cuando el demandante decida renovar su estancia en el sistema."
         queryParameters:
           RestKey: string
         body:

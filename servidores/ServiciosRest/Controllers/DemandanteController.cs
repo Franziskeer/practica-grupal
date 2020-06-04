@@ -2,6 +2,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Net;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
@@ -22,8 +23,91 @@ namespace ServiciosRest.Demandantes
         {
             // TODO: implement Post - route: demandante/demandante
             // var result = new MultipleDemandantePost();
+
+            /* === DATOS DEMANDANTE ===
+                      dni: string
+                      pass?: string
+                      nombre: string
+                      apellidos: string
+                      direccion: string
+                      poblacion: string
+                      telefono: string
+                      email: string
+                      fecha_nacimiento: string
+                      fecha_renovacion?: string
+                      iban: string
+                      situacion_laboral: boolean
+                      edad: integer
+                      titulos: string
+                      experiencia: integer
+                === FIN DATOS DEMANDANTE === */
+
             // return Ok(result);
-            return Ok();
+            MultipleDemandantePost resp = new MultipleDemandantePost();
+            MySqlConnection connection = null;
+
+            try
+            {
+                connection = new MySqlConnection("host=localhost; port=3306; user=usuario; password=; database=mtis_final");
+                connection.Open();
+                MySqlCommand command = new MySqlCommand();
+                resp.ResponseDemandante = new ResponseDemandante();
+                resp.ErrorDemandante = new ErrorDemandante();
+                resp.ResponseDemandante.Estado = false;
+                command.Connection = connection;
+                command.CommandText = "INSERT INTO demandante " +
+                    "(dni, pass, nombre, apellidos, direccion, poblacion, telefono, email, fecha_nacimiento, fecha_renovacion, iban, situacion_laboral, edad, titulos, experiencia) " +
+                    "VALUES(@dni, @pass, @nombre, @apellidos, @direccion, @poblacion, @telefono, @email, @fecha_nacimiento, @fecha_renovacion, @iban, @situacion_laboral, @edad, @titulos, @experiencia)";
+                command.Prepare();
+
+                command.Parameters.AddWithValue("@dni", demandante.Dni);
+                command.Parameters.AddWithValue("@pass", demandante.Pass);
+                command.Parameters.AddWithValue("@nombre", demandante.Nombre);
+                command.Parameters.AddWithValue("@apellidos", demandante.Apellidos);
+                command.Parameters.AddWithValue("@direccion", demandante.Direccion);
+                command.Parameters.AddWithValue("@poblacion", demandante.Poblacion);
+                command.Parameters.AddWithValue("@telefono", demandante.Telefono);
+                command.Parameters.AddWithValue("@email", demandante.Email);
+                command.Parameters.AddWithValue("@fecha_nacimiento", demandante.Fecha_nacimiento);
+                command.Parameters.AddWithValue("@fecha_renovacion", demandante.Fecha_renovacion);
+                command.Parameters.AddWithValue("@iban", demandante.Iban);
+                command.Parameters.AddWithValue("@situacion_laboral", demandante.Situacion_laboral.CompareTo("true")==0);
+                command.Parameters.AddWithValue("@edad", demandante.Edad);
+                command.Parameters.AddWithValue("@titulos", demandante.Titulos);
+                command.Parameters.AddWithValue("@experiencia", demandante.Experiencia);
+
+                if (command.ExecuteNonQuery() > 0)
+                {
+                    resp.ResponseDemandante.Estado = true;
+                    resp.ResponseDemandante.Mensaje = "El demandante ha sido dado de alta correctamente";
+                    connection.Close();
+                    return Content(HttpStatusCode.Created,resp.ResponseDemandante);
+                }
+                else
+                {
+                    resp.ErrorDemandante.Codigo = 409;
+                    resp.ErrorDemandante.Mensaje = "Hay un conflicto, el demandante ya está dado de alta en el sistema";
+                    connection.Close();
+                    return Content(HttpStatusCode.Conflict, resp.ErrorDemandante);
+                }
+
+            }
+            catch (Exception e)
+            {
+                connection.Close();
+                if (e.Message.Contains("Duplicate entry"))
+                {
+                    resp.ErrorDemandante.Codigo = 409;
+                    resp.ErrorDemandante.Mensaje = "Hay un conflicto, el demandante ya está dado de alta en el sistema";
+                    return Content(HttpStatusCode.Conflict, resp.ErrorDemandante);
+                }
+                return InternalServerError();//   Content(System.Net.HttpStatusCode.InternalServerError);
+            }
+            finally
+            {
+                if (connection != null)
+                    connection.Close();
+            }
         }
 
         /// <summary>
@@ -64,10 +148,10 @@ namespace ServiciosRest.Demandantes
                     demandante.Fecha_nacimiento = resultSet[9].ToString();
                     demandante.Fecha_renovacion = resultSet[10].ToString();
                     demandante.Iban = resultSet[11].ToString();
-                    demandante.Situacion_laboral = (bool)resultSet[12];
-                    demandante.Edad = (int)resultSet[13];
+                    demandante.Situacion_laboral = (bool)resultSet[12] ? "true" : "false";
+                    demandante.Edad = resultSet[13].ToString();//(int)resultSet[13];
                     demandante.Titulos = resultSet[14].ToString();
-                    demandante.Experiencia = (int)resultSet[15];
+                    demandante.Experiencia = resultSet[15].ToString();//(int)resultSet[15];
 
 
                     resp.Demandante = demandante;

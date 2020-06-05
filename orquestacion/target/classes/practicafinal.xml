@@ -16,7 +16,7 @@ http://www.mulesoft.org/schema/mule/ee/dw http://www.mulesoft.org/schema/mule/ee
         <http:raml-api-configuration location="demandantes.raml"/>
 
     </http:request-config>
-    <http:request-config name="ListaCandidatos_Request" host="localhost" port="51776" basePath="/" doc:name="HTTP Request Configuration">
+    <http:request-config name="ListaCandidatos_Request" host="localhost" port="51776" basePath="/api" doc:name="HTTP Request Configuration">
         <http:raml-api-configuration location="listaCandidatos.raml"/>
 
     </http:request-config>
@@ -39,11 +39,14 @@ http://www.mulesoft.org/schema/mule/ee/dw http://www.mulesoft.org/schema/mule/ee
         </http:request>
 
         <set-variable variableName="estado" value="#[json:estado]" doc:name="estado"/>
+        <logger message="#[message.payloadAs(java.lang.String)]" level="INFO" doc:name="Logger"/>
         <choice doc:name="Choice">
             <when expression="#[message.inboundProperties['http.status']=='200' &amp;&amp; flowVars.estado==false]">
                 <set-payload value="#[{&quot;dniDemandante&quot; : flowVars.dniDemandante, &quot;idOferta&quot;: flowVars.idOferta, &quot;puntuacion&quot;: &quot;0&quot;}]" doc:name="Set Payload"/>
                 <json:object-to-json-transformer doc:name="Object to JSON"/>
-                <http:request config-ref="ListaCandidatos_Request" path="/listaCandidatos" method="POST" doc:name="A&#241;adirListaCandidatos"/>
+                <http:request config-ref="ListaCandidatos_Request" path="/listaCandidatos" method="POST" doc:name="AnadirListaCandidatos">
+                    <http:success-status-code-validator values="201,200,400"/>
+                </http:request>
                 <logger message="#[message.payloadAs(java.lang.String)]" level="INFO" doc:name="Logger"/>
 
                 <http:request config-ref="Oferta_Request" path="/oferta/{id}/requisitos" method="GET" doc:name="ObtenerRequisitosOferta">

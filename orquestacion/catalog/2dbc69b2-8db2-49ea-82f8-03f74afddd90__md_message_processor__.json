@@ -1,0 +1,11 @@
+{
+    "inputMessageMetadata": {
+        "messagePayload": {
+            "connectorName": "ListaCandidatos_Request",
+            "typeId": "POST:/listaCandidatos_request"
+        }
+    },
+    "outputMessageMetadata": {},
+    "id": "2dbc69b2-8db2-49ea-82f8-03f74afddd90",
+    "version": "5.2.0.0"
+}

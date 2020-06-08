@@ -1,35 +1,39 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://www.example.org/Inscripcion/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="Inscripcion" targetNamespace="http://www.example.org/Inscripcion/">
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions name="Inscripcion" targetNamespace="http://www.example.org/Inscripcion/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://www.example.org/Inscripcion/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
   <wsdl:types>
     <xsd:schema targetNamespace="http://www.example.org/Inscripcion/">
       <xsd:element name="InscribirDemandante">
         <xsd:complexType>
           <xsd:sequence>
-          	<xsd:element name="id_demandante" type="xsd:int" />
-          	<xsd:element name="id_oferta" type="xsd:int"></xsd:element>
+          	<xsd:element name="id_demandante" type="xsd:int"/>
+          	<xsd:element name="id_oferta" type="xsd:int"/>
           </xsd:sequence>
         </xsd:complexType>
       </xsd:element>
       <xsd:element name="InscribirDemandanteResponse">
         <xsd:complexType>
           <xsd:sequence>
-          	<xsd:element name="inscrito" type="xsd:boolean" />
-          	<xsd:element name="message" type="xsd:string"></xsd:element>
+          	<xsd:element name="inscrito" type="xsd:boolean"/>
+          	<xsd:element name="message" type="xsd:string"/>
           </xsd:sequence>
         </xsd:complexType>
       </xsd:element>
     </xsd:schema>
   </wsdl:types>
-  <wsdl:message name="InscribirDemandanteRequest">
-    <wsdl:part element="tns:InscribirDemandante" name="parameters"/>
-  </wsdl:message>
   <wsdl:message name="InscribirDemandanteResponse">
-    <wsdl:part element="tns:InscribirDemandanteResponse" name="parameters"/>
+    <wsdl:part name="parameters" element="tns:InscribirDemandanteResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="InscribirDemandanteRequest">
+    <wsdl:part name="parameters" element="tns:InscribirDemandante">
+    </wsdl:part>
   </wsdl:message>
   <wsdl:portType name="Inscripcion">
     <wsdl:operation name="InscribirDemandante">
-      <wsdl:input message="tns:InscribirDemandanteRequest"/>
-      <wsdl:output message="tns:InscribirDemandanteResponse"/>
+      <wsdl:input message="tns:InscribirDemandanteRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:InscribirDemandanteResponse">
+    </wsdl:output>
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="InscripcionSOAP" type="tns:Inscripcion">
@@ -45,7 +49,7 @@
     </wsdl:operation>
   </wsdl:binding>
   <wsdl:service name="Inscripcion">
-    <wsdl:port binding="tns:InscripcionSOAP" name="InscripcionSOAP">
+    <wsdl:port name="InscripcionSOAP" binding="tns:InscripcionSOAP">
       <soap:address location="http://www.example.org/"/>
     </wsdl:port>
   </wsdl:service>

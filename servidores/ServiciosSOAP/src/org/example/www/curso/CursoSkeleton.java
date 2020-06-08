@@ -49,7 +49,7 @@ public class CursoSkeleton {
 		    	response.setMessage("Aún queda tiempo para inscribirse en este curso");
 		    }
 		} catch (SQLException e) {
-			e.printStackTrace();
+			response.setMessage(e.getMessage());
 		} finally {
 			mysqlConnect.disconnect();
 		}
@@ -81,13 +81,12 @@ public class CursoSkeleton {
 		    	plazas = rs.getInt("plazas");
 		    }		    	
 		    
-		    System.out.println(count + "/" + plazas);
 		    if (count < plazas) {
 		    	response.setDisponible(true);
 		    	response.setMessage( (plazas - count == 1) ? "Última plaza disponible" : "Todavía quedan plazas disponibles");
 		    }
 		} catch (SQLException e) {
-			e.printStackTrace();
+			response.setMessage(e.getMessage());
 		} finally {
 			mysqlConnect.disconnect();
 		}

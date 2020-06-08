@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions name="Curso" targetNamespace="http://www.example.org/Curso/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://www.example.org/Curso/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://www.example.org/Curso/">
+      <xsd:element name="ComprobarFecha">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="id_oferta" type="xsd:int"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="ComprobarFechaResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+          	<xsd:element name="disponible" type="xsd:boolean"/>
+          	<xsd:element name="message" type="xsd:string"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="ComprobarPlazas">
+      	<xsd:complexType>
+      		<xsd:sequence>
+
+      			<xsd:element name="id_oferta" type="xsd:int"/>
+      		</xsd:sequence>
+      	</xsd:complexType>
+      </xsd:element>
+      <xsd:element name="ComprobarPlazasResponse">
+      	<xsd:complexType>
+      		<xsd:sequence>
+
+      			<xsd:element name="disponible" type="xsd:boolean"/>
+      			<xsd:element name="message" type="xsd:string"/>
+      		</xsd:sequence>
+      	</xsd:complexType>
+      </xsd:element>
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="ComprobarFechaRequest">
+    <wsdl:part name="parameters" element="tns:ComprobarFecha">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="ComprobarPlazasRequest">
+    <wsdl:part name="parameters" element="tns:ComprobarPlazas">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="ComprobarFechaResponse">
+    <wsdl:part name="parameters" element="tns:ComprobarFechaResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="ComprobarPlazasResponse">
+    <wsdl:part name="parameters" element="tns:ComprobarPlazasResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="Curso">
+    <wsdl:operation name="ComprobarFecha">
+      <wsdl:input message="tns:ComprobarFechaRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:ComprobarFechaResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ComprobarPlazas">
+      <wsdl:input message="tns:ComprobarPlazasRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:ComprobarPlazasResponse">
+    </wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="CursoSOAP" type="tns:Curso">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="ComprobarFecha">
+      <soap:operation soapAction="http://www.example.org/Curso/ComprobarFecha"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ComprobarPlazas">
+      <soap:operation soapAction="http://www.example.org/Curso/ComprobarPlazas"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="Curso">
+    <wsdl:port name="CursoSOAP" binding="tns:CursoSOAP">
+      <soap:address location="http://www.example.org/"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

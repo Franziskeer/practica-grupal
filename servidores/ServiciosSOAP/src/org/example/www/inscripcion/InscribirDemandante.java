@@ -26,30 +26,30 @@
             
 
                         /**
-                        * field for Id_demandante
+                        * field for Dni
                         */
 
                         
-                                    protected int localId_demandante ;
+                                    protected java.lang.String localDni ;
                                 
 
                            /**
                            * Auto generated getter method
-                           * @return int
+                           * @return java.lang.String
                            */
-                           public  int getId_demandante(){
-                               return localId_demandante;
+                           public  java.lang.String getDni(){
+                               return localDni;
                            }
 
                            
                         
                             /**
                                * Auto generated setter method
-                               * @param param Id_demandante
+                               * @param param Dni
                                */
-                               public void setId_demandante(int param){
+                               public void setDni(java.lang.String param){
                             
-                                            this.localId_demandante=param;
+                                            this.localDni=param;
                                        
 
                                }
@@ -145,15 +145,20 @@
                    }
                
                                     namespace = "";
-                                    writeStartElement(null, namespace, "id_demandante", xmlWriter);
+                                    writeStartElement(null, namespace, "dni", xmlWriter);
                              
-                                               if (localId_demandante==java.lang.Integer.MIN_VALUE) {
-                                           
-                                                         throw new org.apache.axis2.databinding.ADBException("id_demandante cannot be null!!");
-                                                      
-                                               } else {
-                                                    xmlWriter.writeCharacters(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localId_demandante));
-                                               }
+
+                                          if (localDni==null){
+                                              // write the nil attribute
+                                              
+                                                     throw new org.apache.axis2.databinding.ADBException("dni cannot be null!!");
+                                                  
+                                          }else{
+
+                                        
+                                                   xmlWriter.writeCharacters(localDni);
+                                            
+                                          }
                                     
                                    xmlWriter.writeEndElement();
                              
@@ -356,11 +361,14 @@
 
                 
                                       elementList.add(new javax.xml.namespace.QName("",
-                                                                      "id_demandante"));
+                                                                      "dni"));
                                  
-                                elementList.add(
-                                   org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localId_demandante));
-                            
+                                        if (localDni != null){
+                                            elementList.add(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localDni));
+                                        } else {
+                                           throw new org.apache.axis2.databinding.ADBException("dni cannot be null!!");
+                                        }
+                                    
                                       elementList.add(new javax.xml.namespace.QName("",
                                                                       "id_oferta"));
                                  
@@ -445,18 +453,18 @@
                                     
                                     while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
                                 
-                                    if (reader.isStartElement() && new javax.xml.namespace.QName("","id_demandante").equals(reader.getName())){
+                                    if (reader.isStartElement() && new javax.xml.namespace.QName("","dni").equals(reader.getName())){
                                 
                                     nillableValue = reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance","nil");
                                     if ("true".equals(nillableValue) || "1".equals(nillableValue)){
-                                        throw new org.apache.axis2.databinding.ADBException("The element: "+"id_demandante" +"  cannot be null");
+                                        throw new org.apache.axis2.databinding.ADBException("The element: "+"dni" +"  cannot be null");
                                     }
                                     
 
                                     java.lang.String content = reader.getElementText();
                                     
-                                              object.setId_demandante(
-                                                    org.apache.axis2.databinding.utils.ConverterUtil.convertToInt(content));
+                                              object.setDni(
+                                                    org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
                                               
                                         reader.next();
                                     

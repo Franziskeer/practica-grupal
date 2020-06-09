@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://www.example.org/Notificacion/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="Notificacion" targetNamespace="http://www.example.org/Notificacion/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://www.example.org/Notificacion/">
+      <xsd:element name="NotificarInscripcion">
+        <xsd:complexType>
+          <xsd:sequence>
+          	<xsd:element name="dni" type="xsd:string" />
+          	<xsd:element name="id_oferta" type="xsd:int"></xsd:element>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="NotificarInscripcionResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="respuesta"
+            	type="tns:FormatoNotificacion" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="NotificarError">
+      	<xsd:complexType>
+      		<xsd:sequence>
+
+      			<xsd:element name="cod_error" type="xsd:int"></xsd:element>
+      		</xsd:sequence>
+      	</xsd:complexType>
+      </xsd:element>
+      <xsd:element name="NotificarErrorResponse">
+      	<xsd:complexType>
+      		<xsd:sequence>
+
+      			<xsd:element name="response"
+      				type="tns:FormatoNotificacion">
+      			</xsd:element>
+      		</xsd:sequence>
+      	</xsd:complexType>
+      </xsd:element>
+    
+    
+      <xsd:complexType name="FormatoNotificacion">
+      	<xsd:sequence>
+      		<xsd:element name="titulo" type="xsd:string"></xsd:element>
+      		<xsd:element name="fecha" type="xsd:date"></xsd:element>
+      		<xsd:element name="descripcion" type="xsd:string"></xsd:element>
+      		<xsd:element name="tipo" type="xsd:boolean"></xsd:element>
+      	</xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="NewOperation">
+      	<xsd:complexType>
+      		<xsd:sequence>
+
+      			<xsd:element name="in" type="xsd:string"></xsd:element>
+      		</xsd:sequence>
+      	</xsd:complexType>
+      </xsd:element>
+      <xsd:element name="NewOperationResponse">
+      	<xsd:complexType>
+      		<xsd:sequence>
+
+      			<xsd:element name="out" type="xsd:string"></xsd:element>
+      		</xsd:sequence>
+      	</xsd:complexType>
+      </xsd:element>
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="NotificarInscripcionRequest">
+    <wsdl:part element="tns:NotificarInscripcion" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="NotificarInscripcionResponse">
+    <wsdl:part element="tns:NotificarInscripcionResponse" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="NotificarErrorRequest">
+  	<wsdl:part name="parameters" element="tns:NotificarError"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="NotificarErrorResponse">
+  	<wsdl:part name="parameters" element="tns:NotificarErrorResponse"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="NewOperationRequest">
+  	<wsdl:part name="parameters" element="tns:NewOperation"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="NewOperationResponse">
+  	<wsdl:part name="parameters" element="tns:NewOperationResponse"></wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="Notificacion">
+    <wsdl:operation name="NotificarInscripcion">
+      <wsdl:input message="tns:NotificarInscripcionRequest"/>
+      <wsdl:output message="tns:NotificarInscripcionResponse"/>
+    </wsdl:operation>
+    <wsdl:operation name="NotificarError">
+    	<wsdl:input message="tns:NotificarErrorRequest"></wsdl:input>
+    	<wsdl:output message="tns:NotificarErrorResponse"></wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="NotificacionSOAP" type="tns:Notificacion">
+
+  	<soap:binding style="document"
+  		transport="http://schemas.xmlsoap.org/soap/http" />
+  	<wsdl:operation name="NotificarInscripcion">
+
+  		<soap:operation
+  			soapAction="http://www.example.org/Notificacion/NotificarInscripcion" />
+  		<wsdl:input>
+
+  			<soap:body use="literal" />
+  		</wsdl:input>
+  		<wsdl:output>
+
+  			<soap:body use="literal" />
+  		</wsdl:output>
+  	</wsdl:operation>
+  	<wsdl:operation name="NotificarError">
+  		<soap:operation
+  			soapAction="http://www.example.org/Notificacion/NotificarError" />
+  		<wsdl:input>
+  			<soap:body use="literal" />
+  		</wsdl:input>
+  		<wsdl:output>
+  			<soap:body use="literal" />
+  		</wsdl:output>
+  	</wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="Notificacion">
+    <wsdl:port binding="tns:NotificacionSOAP" name="NotificacionSOAP">
+      <soap:address location="http://www.example.org/"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

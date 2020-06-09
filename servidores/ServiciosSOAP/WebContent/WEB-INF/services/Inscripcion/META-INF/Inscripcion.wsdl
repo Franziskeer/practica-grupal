@@ -5,7 +5,7 @@
       <xsd:element name="InscribirDemandante">
         <xsd:complexType>
           <xsd:sequence>
-          	<xsd:element name="id_demandante" type="xsd:int"/>
+          	<xsd:element name="dni" type="xsd:string"/>
           	<xsd:element name="id_oferta" type="xsd:int"/>
           </xsd:sequence>
         </xsd:complexType>

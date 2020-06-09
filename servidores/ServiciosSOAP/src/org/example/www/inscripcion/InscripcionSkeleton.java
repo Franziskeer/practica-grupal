@@ -8,6 +8,7 @@
 package org.example.www.inscripcion;
 
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import org.example.www.MysqlConnect;
@@ -17,6 +18,27 @@ import org.example.www.MysqlConnect;
  */
 public class InscripcionSkeleton {
 
+	public Integer getDemandanteId(String dni) {
+		Integer id_demandante = null;
+		
+		MysqlConnect mysqlConnect = new MysqlConnect();
+		try {
+			String sql = String.format("SELECT id FROM demandante WHERE dni = '%s'", dni);
+			PreparedStatement statement = mysqlConnect.connect().prepareStatement(sql);
+		    ResultSet rs = statement.executeQuery( sql );
+		    
+		    while (rs.next()) {
+		    	id_demandante = rs.getInt("id");
+		    }		    	
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			mysqlConnect.disconnect();
+		}
+		
+		return id_demandante;
+	}
+	
 	/**
 	 * Auto generated method signature
 	 * 
@@ -32,7 +54,8 @@ public class InscripcionSkeleton {
 		
 		MysqlConnect mysqlConnect = new MysqlConnect();
 		try {
-			String sql = String.format("INSERT INTO lista_curso (id_oferta, id_demandante) VALUES ('%d', '%d')", inscribirDemandante.getId_oferta(), inscribirDemandante.getId_demandante());
+			Integer id_demandante = getDemandanteId(inscribirDemandante.getDni());
+			String sql = String.format("INSERT INTO lista_curso (id_oferta, id_demandante) VALUES ('%d', '%d')", inscribirDemandante.getId_oferta(), id_demandante);
 			PreparedStatement statement = mysqlConnect.connect().prepareStatement(sql);
 		    Integer rows = statement.executeUpdate( sql );
 		    

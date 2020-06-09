@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<deploy xmlns="http://www.apache.org/ode/schemas/dd/2007/03" xmlns:Curso="http://www.example.org/Curso/" xmlns:Inscripcion="http://www.example.org/Inscripcion/" xmlns:Notificacion="http://www.example.org/Notificacion/" xmlns:Sesion="http://www.example.org/Sesion/" xmlns:sample="http://eclipse.org/bpel/sample">
+  <process name="sample:InscripcionCurso">
+    <active>true</active>
+    <retired>false</retired>
+    <process-events generate="all"/>
+    <provide partnerLink="client">
+      <service name="sample:InscripcionCursoService" port="InscripcionCursoPort"/>
+    </provide>
+    <invoke partnerLink="SesionPL">
+      <service name="Sesion:Sesion" port="SesionSOAP"/>
+    </invoke>
+    <invoke partnerLink="CursoPL">
+      <service name="Curso:Curso" port="CursoSOAP"/>
+    </invoke>
+    <invoke partnerLink="NotificacionPL">
+      <service name="Notificacion:Notificacion" port="NotificacionSOAP"/>
+    </invoke>
+    <invoke partnerLink="InscripcionPL">
+      <service name="Inscripcion:Inscripcion" port="InscripcionSOAP"/>
+    </invoke>
+  </process>
+</deploy>

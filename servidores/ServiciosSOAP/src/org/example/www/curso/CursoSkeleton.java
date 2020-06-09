@@ -71,7 +71,7 @@ public class CursoSkeleton {
 		
 		MysqlConnect mysqlConnect = new MysqlConnect();
 		try {
-			String sql = String.format("SELECT COUNT(*) AS filas, plazas  FROM lista_curso JOIN oferta_curso ON id_oferta = id WHERE id_oferta = '%d';", comprobarPlazas.getId_oferta());
+			String sql = String.format("SELECT COUNT(*) AS filas, plazas  FROM lista_curso JOIN oferta_curso ON id_oferta = id WHERE id_oferta = %d;", comprobarPlazas.getId_oferta());
 			PreparedStatement statement = mysqlConnect.connect().prepareStatement(sql);
 		    ResultSet rs = statement.executeQuery( sql );
 		    

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 27-05-2020 a las 02:31:53
+-- Tiempo de generación: 09-06-2020 a las 13:20:05
 -- Versión del servidor: 10.4.11-MariaDB
 -- Versión de PHP: 7.4.2
 
@@ -52,7 +52,9 @@ CREATE TABLE `demandante` (
 --
 
 INSERT INTO `demandante` (`id`, `dni`, `pass`, `nombre`, `apellidos`, `direccion`, `poblacion`, `telefono`, `email`, `fecha_nacimiento`, `fecha_renovacion`, `iban`, `situacion_laboral`, `edad`, `titulos`, `experiencia`) VALUES
-(1, '48628778R', 'password', 'german', 'german', 'german', 'german', '999999999', 'german', '01/01/1991', '01/01/1991', 'german', 0, 75, 'grado universitario', 2);
+(1, '20532152G', 'pass123', 'Pedro', 'Molina Garcia', 'Calle Ronda 5', 'Murcia', '653212458', 'pedrogarc@gmail.com', '25/01/1993', '01/03/2021', 'ES0690000001210123456789', 0, 28, 'grado universitario', 4),
+(2, '20563310B', 'pass123', 'Maria', 'Ramirez Gonzalez', 'Calle Salamanca 3', 'Alicante', '633210159', 'maria@gmail.com', '01/01/1986', '01/01/2025', 'ES0690000001210123456789', 0, 34, 'formacion profesional', 2),
+(4, '20523216M', 'pass123', 'Manuel', 'Gimenez Verdu', 'Avenida Reyes Catolicos 23', 'Girona', '663241586', 'manuver@gmail.com', '01/01/1995', '14/11/2023', 'ES0690000001210123456789', 1, 25, 'estudios basicos', 3);
 
 -- --------------------------------------------------------
 
@@ -71,9 +73,9 @@ CREATE TABLE `lista_candidatos` (
 --
 
 INSERT INTO `lista_candidatos` (`id_oferta`, `dni_demandante`, `puntuacion`) VALUES
-('2', '48628778E', '5'),
-('3', '48628778E', '0'),
-('4', '48628778E', '0');
+('1', '20532152G', '3'),
+('2', '20563310B', '2'),
+('3', '20532152G', '3');
 
 -- --------------------------------------------------------
 
@@ -94,7 +96,10 @@ CREATE TABLE `oferta` (
 --
 
 INSERT INTO `oferta` (`id`, `nombre`, `titulos`, `experiencia`, `edad`) VALUES
-(1, 'Experto en bases de datos Postgre y SQL', 'grado universitario', 2, 30);
+(1, 'experto en bases de datos postgre y sql', 'grado universitario', 2, 30),
+(2, 'programador de servicios java y componen', 'formacion profesional', 2, 25),
+(3, 'diseñador de pruebas para sistemas empre', 'grado universitario', 3, 38),
+(4, 'programador en csharp para servicios web', 'estudios basicos', 1, 25);
 
 --
 -- Índices para tablas volcadas
@@ -127,13 +132,13 @@ ALTER TABLE `oferta`
 -- AUTO_INCREMENT de la tabla `demandante`
 --
 ALTER TABLE `demandante`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `oferta`
 --
 ALTER TABLE `oferta`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

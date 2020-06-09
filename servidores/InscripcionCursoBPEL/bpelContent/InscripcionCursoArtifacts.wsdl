@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://sample.bpel.org/bpel/sample" xmlns:vprop="http://docs.oasis-open.org/wsbpel/2.0/varprop" xmlns:wsdl="http://www.example.org/Sesion/" xmlns:wsdl1="http://www.example.org/Curso/" xmlns:wsdl2="http://www.example.org/Notificacion/" xmlns:wsdl3="http://www.example.org/Inscripcion/" name="InscripcionCurso" targetNamespace="http://sample.bpel.org/bpel/sample">
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://eclipse.org/bpel/sample" xmlns:vprop="http://docs.oasis-open.org/wsbpel/2.0/varprop" xmlns:wsdl="http://www.example.org/Sesion/" xmlns:wsdl1="http://www.example.org/Curso/" xmlns:wsdl2="http://www.example.org/Notificacion/" xmlns:wsdl3="http://www.example.org/Inscripcion/" name="InscripcionCurso" targetNamespace="http://eclipse.org/bpel/sample">
 
 <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
      TYPE DEFINITION - List of types participating in this BPEL process 
@@ -7,9 +7,6 @@
      but you can define or import any XML Schema type and use them as part 
      of the message types.
      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->    
-    <plnk:partnerLinkType name="InscripcionCursoPLN">
-    <plnk:role name="InscripcionCursoRole" portType="tns:InscripcionCurso"/>
-  </plnk:partnerLinkType>
     <plnk:partnerLinkType name="SesionPLN">
     <plnk:role name="SesionRole" portType="wsdl:Sesion"/>
   </plnk:partnerLinkType>
@@ -27,7 +24,7 @@
     <import location="Notificacion.wsdl" namespace="http://www.example.org/Notificacion/"/>
     <import location="Inscripcion.wsdl" namespace="http://www.example.org/Inscripcion/"/>
     <types>
-        <schema xmlns="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://sample.bpel.org/bpel/sample">
+        <schema xmlns="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://eclipse.org/bpel/sample">
 
             <element name="InscripcionCursoRequest">
                 <complexType>
@@ -42,7 +39,7 @@
             <element name="InscripcionCursoResponse">
                 <complexType>
                     <sequence>
-                        <element name="result" type="tns:FormatoNotificacion"/>
+                        <element name="output" type="tns:FormatoNotificacion"/>
                     </sequence>
                 </complexType>
             </element>
@@ -97,7 +94,7 @@
     <binding name="InscripcionCursoBinding" type="tns:InscripcionCurso">
     	<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
     	<operation name="process">
-    		<soap:operation soapAction="http://sample.bpel.org/bpel/sample/process"/>
+    		<soap:operation soapAction="http://eclipse.org/bpel/sample/process"/>
     		<input>
     			<soap:body use="literal"/>
     		</input>

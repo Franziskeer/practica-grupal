@@ -91,7 +91,7 @@
   </wsdl:binding>
   <wsdl:service name="Curso">
     <wsdl:port binding="tns:CursoSOAP" name="CursoSOAP">
-      <soap:address location="http://www.example.org/"/>
+      <soap:address location="http://localhost:8080/ServiciosSOAP/services/Curso"/>
     </wsdl:port>
   </wsdl:service>
 </wsdl:definitions>

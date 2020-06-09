@@ -5,7 +5,8 @@
       <xsd:element name="NotificarInscripcion">
         <xsd:complexType>
           <xsd:sequence>
-            <xsd:element name="datos" type="xsd:string"/>
+          	<xsd:element name="dni" type="xsd:string" />
+          	<xsd:element name="id_oferta" type="xsd:int"></xsd:element>
           </xsd:sequence>
         </xsd:complexType>
       </xsd:element>
@@ -21,7 +22,7 @@
       	<xsd:complexType>
       		<xsd:sequence>
 
-      			<xsd:element name="datos" type="xsd:string"></xsd:element>
+      			<xsd:element name="cod_error" type="xsd:int"></xsd:element>
       		</xsd:sequence>
       	</xsd:complexType>
       </xsd:element>
@@ -42,7 +43,7 @@
       		<xsd:element name="titulo" type="xsd:string"></xsd:element>
       		<xsd:element name="fecha" type="xsd:date"></xsd:element>
       		<xsd:element name="descripcion" type="xsd:string"></xsd:element>
-      		<xsd:element name="tipo" type="xsd:string"></xsd:element>
+      		<xsd:element name="tipo" type="xsd:boolean"></xsd:element>
       	</xsd:sequence>
       </xsd:complexType>
       <xsd:element name="NewOperation">
@@ -121,7 +122,7 @@
   </wsdl:binding>
   <wsdl:service name="Notificacion">
     <wsdl:port binding="tns:NotificacionSOAP" name="NotificacionSOAP">
-      <soap:address location="http://www.example.org/"/>
+      <soap:address location="http://localhost:8080/ServiciosSOAP/services/Notificacion"/>
     </wsdl:port>
   </wsdl:service>
 </wsdl:definitions>

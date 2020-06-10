@@ -28,7 +28,7 @@ http://www.mulesoft.org/schema/mule/ee/tracking http://www.mulesoft.org/schema/m
     <http:request-config name="Demandante_Request2" host="localhost" port="51776" basePath="/demandante" doc:name="HTTP Request Configuration">
         <http:raml-api-configuration location="demandantes.raml"/>
     </http:request-config>
-    <ws:consumer-config name="Web_Service_Consumer" wsdlLocation="C:\Users\Jonathan\Desktop\ULTIMA ASIGNATURA\practica-grupal\orquestacion\src\main\wsdl\InscripcionCursoArtifacts.wsdl" service="InscripcionCursoService" port="InscripcionCursoPort" serviceAddress="http://localhost:9090/ode/processes/InscripcionCurso" doc:name="Web Service Consumer"/>
+    <ws:consumer-config name="Web_Service_Consumer" wsdlLocation="InscripcionCursoArtifacts.wsdl" service="InscripcionCursoService" port="InscripcionCursoPort" serviceAddress="http://localhost:9090/ode/processes/InscripcionCurso" doc:name="Web Service Consumer"/>
     <flow name="InscribirseOferta">
         <http:listener config-ref="HTTP_Listener_Configuration" path="/mule/inscribirseoferta" doc:name="Listener"/>
         <set-variable variableName="dniDemandante" value="#[json:dniDemandante]" doc:name="dniDemandante"/>

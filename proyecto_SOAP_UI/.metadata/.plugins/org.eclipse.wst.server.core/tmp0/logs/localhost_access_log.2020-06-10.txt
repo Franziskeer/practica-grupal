@@ -63,3 +63,12 @@
 127.0.0.1 - - [10/Jun/2020:20:20:05 +0200] "POST /ServiciosSOAP/services/Curso HTTP/1.1" 200 594
 127.0.0.1 - - [10/Jun/2020:20:20:05 +0200] "POST /ServiciosSOAP/services/Inscripcion HTTP/1.1" 200 652
 127.0.0.1 - - [10/Jun/2020:20:20:05 +0200] "POST /ServiciosSOAP/services/Notificacion HTTP/1.1" 200 840
+127.0.0.1 - - [10/Jun/2020:20:36:16 +0200] "GET / HTTP/1.1" 404 1004
+127.0.0.1 - - [10/Jun/2020:20:40:32 +0200] "POST /ServiciosSOAP/services/Sesion HTTP/1.1" 200 515
+127.0.0.1 - - [10/Jun/2020:20:40:32 +0200] "POST /ServiciosSOAP/services/Curso HTTP/1.1" 200 615
+127.0.0.1 - - [10/Jun/2020:20:40:33 +0200] "POST /ServiciosSOAP/services/Curso HTTP/1.1" 200 635
+127.0.0.1 - - [10/Jun/2020:20:40:33 +0200] "POST /ServiciosSOAP/services/Notificacion HTTP/1.1" 200 760
+127.0.0.1 - - [10/Jun/2020:20:40:34 +0200] "POST /ServiciosSOAP/services/Sesion HTTP/1.1" 200 515
+127.0.0.1 - - [10/Jun/2020:20:40:34 +0200] "POST /ServiciosSOAP/services/Curso HTTP/1.1" 200 615
+127.0.0.1 - - [10/Jun/2020:20:40:34 +0200] "POST /ServiciosSOAP/services/Curso HTTP/1.1" 200 635
+127.0.0.1 - - [10/Jun/2020:20:40:34 +0200] "POST /ServiciosSOAP/services/Notificacion HTTP/1.1" 200 760

@@ -85,7 +85,7 @@
                   <children xsi:type="advanced:Placeholder" xmi:id="_3_xRrKsrEeqSYbDZG5MLFA" elementId="org.eclipse.mylyn.tasks.ui.views.tasks" ref="_3_u1YasrEeqSYbDZG5MLFA"/>
                 </children>
               </children>
-              <children xsi:type="basic:PartStack" xmi:id="_3_xRrasrEeqSYbDZG5MLFA" elementId="bottomRight" containerData="3000" selectedElement="_3_xRtasrEeqSYbDZG5MLFA">
+              <children xsi:type="basic:PartStack" xmi:id="_3_xRrasrEeqSYbDZG5MLFA" elementId="bottomRight" containerData="3000" selectedElement="_3_xRsKsrEeqSYbDZG5MLFA">
                 <tags>active</tags>
                 <children xsi:type="advanced:Placeholder" xmi:id="_3_xRrqsrEeqSYbDZG5MLFA" elementId="org.eclipse.ui.views.AllMarkersView" ref="_3_tAMKsrEeqSYbDZG5MLFA"/>
                 <children xsi:type="advanced:Placeholder" xmi:id="_3_xRr6srEeqSYbDZG5MLFA" elementId="org.eclipse.ui.views.PropertySheet" ref="_3_tAMasrEeqSYbDZG5MLFA"/>
@@ -178,19 +178,27 @@
       <persistedState key="memento" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xD;&#xA;&lt;view CommonNavigator.LINKING_ENABLED=&quot;0&quot;/>"/>
       <tags>View</tags>
       <tags>categoryTag:Server</tags>
+      <tags>active</tags>
+      <tags>activeOnClose</tags>
       <menus xmi:id="_MAcxsKssEeqSYbDZG5MLFA" elementId="org.eclipse.wst.server.ui.ServersView">
         <tags>ViewMenu</tags>
         <tags>menuContribution:menu</tags>
       </menus>
-      <toolbar xmi:id="_MAcxsassEeqSYbDZG5MLFA" elementId="org.eclipse.wst.server.ui.ServersView" visible="false"/>
+      <toolbar xmi:id="_MAcxsassEeqSYbDZG5MLFA" elementId="org.eclipse.wst.server.ui.ServersView"/>
     </sharedElements>
     <sharedElements xsi:type="basic:Part" xmi:id="_3_tnQKsrEeqSYbDZG5MLFA" elementId="org.eclipse.datatools.connectivity.DataSourceExplorerNavigator" contributionURI="bundleclass://org.eclipse.ui.workbench/org.eclipse.ui.internal.e4.compatibility.CompatibilityView" label="Data Source Explorer" iconURI="platform:/plugin/org.eclipse.datatools.connectivity.ui.dse/icons/full/cview16/enterprise_explorer.gif" tooltip="" closeable="true">
       <tags>View</tags>
       <tags>categoryTag:Data Management</tags>
     </sharedElements>
     <sharedElements xsi:type="basic:Part" xmi:id="_3_tnQasrEeqSYbDZG5MLFA" elementId="org.eclipse.wst.common.snippets.internal.ui.SnippetsView" contributionURI="bundleclass://org.eclipse.ui.workbench/org.eclipse.ui.internal.e4.compatibility.CompatibilityView" label="Snippets" iconURI="platform:/plugin/org.eclipse.wst.common.snippets/icons/snippets_view.gif" tooltip="" closeable="true">
+      <persistedState key="memento" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xD;&#xA;&lt;view>&#xD;&#xA;&lt;entry expansion=&quot;false&quot; extent=&quot;20&quot; maximum=&quot;100&quot; minimum=&quot;0&quot; pinned=&quot;false&quot; value=&quot;0&quot;>&#xD;&#xA;&lt;entry selection=&quot;0&quot;/>&#xD;&#xA;&lt;entry selection=&quot;0&quot;/>&#xD;&#xA;&lt;entry selection=&quot;0&quot;/>&#xD;&#xA;&lt;entry selection=&quot;0&quot;/>&#xD;&#xA;&lt;entry selection=&quot;0&quot;/>&#xD;&#xA;&lt;entry selection=&quot;0&quot;/>&#xD;&#xA;&lt;entry selection=&quot;0&quot;/>&#xD;&#xA;&lt;/entry>&#xD;&#xA;&lt;/view>"/>
       <tags>View</tags>
       <tags>categoryTag:General</tags>
+      <menus xmi:id="_P3-WsKtJEeqNZbE5qu2XFA" elementId="org.eclipse.wst.common.snippets.internal.ui.SnippetsView">
+        <tags>ViewMenu</tags>
+        <tags>menuContribution:menu</tags>
+      </menus>
+      <toolbar xmi:id="_P3-WsatJEeqNZbE5qu2XFA" elementId="org.eclipse.wst.common.snippets.internal.ui.SnippetsView" visible="false"/>
     </sharedElements>
     <sharedElements xsi:type="basic:Part" xmi:id="_3_uOUKsrEeqSYbDZG5MLFA" elementId="org.eclipse.ui.views.ProblemView" contributionURI="bundleclass://org.eclipse.ui.workbench/org.eclipse.ui.internal.e4.compatibility.CompatibilityView" label="Problems" iconURI="platform:/plugin/org.eclipse.ui.ide/icons/full/eview16/problems_view.png" tooltip="" closeable="true">
       <tags>View</tags>
@@ -204,13 +212,12 @@
       <persistedState key="memento" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xD;&#xA;&lt;view/>"/>
       <tags>View</tags>
       <tags>categoryTag:General</tags>
-      <tags>active</tags>
-      <tags>activeOnClose</tags>
+      <tags>highlighted</tags>
       <menus xmi:id="_UsF2sKstEeqSYbDZG5MLFA" elementId="org.eclipse.ui.console.ConsoleView">
         <tags>ViewMenu</tags>
         <tags>menuContribution:menu</tags>
       </menus>
-      <toolbar xmi:id="_UsGdwKstEeqSYbDZG5MLFA" elementId="org.eclipse.ui.console.ConsoleView"/>
+      <toolbar xmi:id="_UsGdwKstEeqSYbDZG5MLFA" elementId="org.eclipse.ui.console.ConsoleView" visible="false"/>
     </sharedElements>
     <sharedElements xsi:type="basic:Part" xmi:id="_3_uOU6srEeqSYbDZG5MLFA" elementId="org.eclipse.ui.views.BookmarkView" contributionURI="bundleclass://org.eclipse.ui.workbench/org.eclipse.ui.internal.e4.compatibility.CompatibilityView" label="Bookmarks" iconURI="platform:/plugin/org.eclipse.ui.ide/icons/full/eview16/bkmrk_nav.png" tooltip="" closeable="true">
       <tags>View</tags>
@@ -245,7 +252,7 @@
       </children>
       <children xsi:type="menu:ToolBar" xmi:id="_3tPXMKsrEeqSYbDZG5MLFA" elementId="org.eclipse.ui.workbench.file">
         <tags>Draggable</tags>
-        <children xsi:type="menu:HandledToolItem" xmi:id="_BsT2IKsxEeqZsfWeNscujg" elementId="print" visible="false" iconURI="platform:/plugin/org.eclipse.ui/icons/full/etool16/print_edit.png" tooltip="Print" command="_26jWBKsrEeqSYbDZG5MLFA"/>
+        <children xsi:type="menu:HandledToolItem" xmi:id="_JGlicKtJEeqNZbE5qu2XFA" elementId="print" visible="false" iconURI="platform:/plugin/org.eclipse.ui/icons/full/etool16/print_edit.png" tooltip="Print" command="_26jWBKsrEeqSYbDZG5MLFA"/>
       </children>
       <children xsi:type="menu:ToolBar" xmi:id="_3tPXMasrEeqSYbDZG5MLFA" elementId="additions" toBeRendered="false">
         <tags>toolbarSeparator</tags>
@@ -272,7 +279,7 @@
       </children>
       <children xsi:type="menu:ToolBar" xmi:id="_3tPXNasrEeqSYbDZG5MLFA" elementId="org.eclipse.ui.workbench.navigate">
         <tags>Draggable</tags>
-        <children xsi:type="menu:HandledToolItem" xmi:id="_BsWSYKsxEeqZsfWeNscujg" elementId="org.eclipse.ui.window.pinEditor" visible="false" iconURI="platform:/plugin/org.eclipse.ui/icons/full/etool16/pin_editor.png" tooltip="Pin Editor" type="Check" command="_26ivAqsrEeqSYbDZG5MLFA"/>
+        <children xsi:type="menu:HandledToolItem" xmi:id="_JGn-sKtJEeqNZbE5qu2XFA" elementId="org.eclipse.ui.window.pinEditor" visible="false" iconURI="platform:/plugin/org.eclipse.ui/icons/full/etool16/pin_editor.png" tooltip="Pin Editor" type="Check" command="_26ivAqsrEeqSYbDZG5MLFA"/>
       </children>
       <children xsi:type="menu:ToolBar" xmi:id="_3tP-QKsrEeqSYbDZG5MLFA" elementId="group.editor" toBeRendered="false">
         <tags>toolbarSeparator</tags>

@@ -85,6 +85,10 @@ public class NotificacionSkeleton {
 			resp.setTitulo("Notificación de error de número de plazas");
 			resp.setDescripcion("El número de plazas para dicha oferta de formación ha sido completado.");
 			break;
+		case 4:
+			resp.setTitulo("Notificación de error de inscripción");
+			resp.setDescripcion("El demandante ya pertenece a este curso. Sólo puede inscribirse una vez.");
+			break;
 		default:
 			resp.setTitulo("Notificación de error");
 			resp.setDescripcion("Se ha producido un error");

@@ -59,7 +59,7 @@ public class InscripcionSkeleton {
 			PreparedStatement statement = mysqlConnect.connect().prepareStatement(sql);
 		    Integer rows = statement.executeUpdate( sql );
 		    
-		    if (rows == 1) {
+		    if (rows > 0) {
 		    	response.setInscrito(true);
 		    	response.setMessage("El demandante ha sido inscrito correctamente en el curso");
 		    }

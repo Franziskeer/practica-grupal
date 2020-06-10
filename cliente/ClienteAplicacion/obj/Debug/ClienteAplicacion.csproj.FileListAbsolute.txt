@@ -55,6 +55,37 @@ C:\Users\Josemygel\Desktop\UNIVERSIDAD\MTIS\MTIS\TrabajoGrupal\practica-grupal\c
 C:\Users\Josemygel\Desktop\UNIVERSIDAD\MTIS\MTIS\TrabajoGrupal\practica-grupal\cliente\ClienteAplicacion\obj\Debug\ClienteAplicacion.pdb
 C:\Users\Josemygel\Desktop\UNIVERSIDAD\MTIS\MTIS\TrabajoGrupal\practica-grupal\cliente\ClienteAplicacion\obj\Debug\CrearDemandante.g.cs
 C:\Users\Josemygel\Desktop\UNIVERSIDAD\MTIS\MTIS\TrabajoGrupal\practica-grupal\cliente\ClienteAplicacion\obj\Debug\CrearDemandante.baml
+<<<<<<< HEAD
+D:\Proyectos\MTIS\practica-grupal\cliente\ClienteAplicacion\bin\Debug\ClienteAplicacion.exe.config
+D:\Proyectos\MTIS\practica-grupal\cliente\ClienteAplicacion\bin\Debug\ClienteAplicacion.exe
+D:\Proyectos\MTIS\practica-grupal\cliente\ClienteAplicacion\bin\Debug\ClienteAplicacion.pdb
+D:\Proyectos\MTIS\practica-grupal\cliente\ClienteAplicacion\bin\Debug\Newtonsoft.Json.dll
+D:\Proyectos\MTIS\practica-grupal\cliente\ClienteAplicacion\bin\Debug\RAML.Api.Core.dll
+D:\Proyectos\MTIS\practica-grupal\cliente\ClienteAplicacion\bin\Debug\System.ComponentModel.Annotations.dll
+D:\Proyectos\MTIS\practica-grupal\cliente\ClienteAplicacion\bin\Debug\System.Net.Http.Extensions.dll
+D:\Proyectos\MTIS\practica-grupal\cliente\ClienteAplicacion\bin\Debug\System.Net.Http.Formatting.dll
+D:\Proyectos\MTIS\practica-grupal\cliente\ClienteAplicacion\bin\Debug\System.Net.Http.Primitives.dll
+D:\Proyectos\MTIS\practica-grupal\cliente\ClienteAplicacion\bin\Debug\System.Web.Http.dll
+D:\Proyectos\MTIS\practica-grupal\cliente\ClienteAplicacion\bin\Debug\Newtonsoft.Json.xml
+D:\Proyectos\MTIS\practica-grupal\cliente\ClienteAplicacion\bin\Debug\System.Net.Http.Extensions.xml
+D:\Proyectos\MTIS\practica-grupal\cliente\ClienteAplicacion\bin\Debug\System.Net.Http.Formatting.xml
+D:\Proyectos\MTIS\practica-grupal\cliente\ClienteAplicacion\bin\Debug\System.Net.Http.Primitives.xml
+D:\Proyectos\MTIS\practica-grupal\cliente\ClienteAplicacion\bin\Debug\System.Web.Http.xml
+D:\Proyectos\MTIS\practica-grupal\cliente\ClienteAplicacion\obj\Debug\ClienteAplicacion.csprojAssemblyReference.cache
+D:\Proyectos\MTIS\practica-grupal\cliente\ClienteAplicacion\obj\Debug\CrearDemandante.g.cs
+D:\Proyectos\MTIS\practica-grupal\cliente\ClienteAplicacion\obj\Debug\MainWindow.g.cs
+D:\Proyectos\MTIS\practica-grupal\cliente\ClienteAplicacion\obj\Debug\App.g.cs
+D:\Proyectos\MTIS\practica-grupal\cliente\ClienteAplicacion\obj\Debug\ClienteAplicacion_MarkupCompile.cache
+D:\Proyectos\MTIS\practica-grupal\cliente\ClienteAplicacion\obj\Debug\ClienteAplicacion_MarkupCompile.lref
+D:\Proyectos\MTIS\practica-grupal\cliente\ClienteAplicacion\obj\Debug\CrearDemandante.baml
+D:\Proyectos\MTIS\practica-grupal\cliente\ClienteAplicacion\obj\Debug\MainWindow.baml
+D:\Proyectos\MTIS\practica-grupal\cliente\ClienteAplicacion\obj\Debug\ClienteAplicacion.g.resources
+D:\Proyectos\MTIS\practica-grupal\cliente\ClienteAplicacion\obj\Debug\ClienteAplicacion.Properties.Resources.resources
+D:\Proyectos\MTIS\practica-grupal\cliente\ClienteAplicacion\obj\Debug\ClienteAplicacion.csproj.GenerateResource.cache
+D:\Proyectos\MTIS\practica-grupal\cliente\ClienteAplicacion\obj\Debug\ClienteAplicacion.csproj.CopyComplete
+D:\Proyectos\MTIS\practica-grupal\cliente\ClienteAplicacion\obj\Debug\ClienteAplicacion.exe
+D:\Proyectos\MTIS\practica-grupal\cliente\ClienteAplicacion\obj\Debug\ClienteAplicacion.pdb
+=======
 C:\Users\Jonathan\Desktop\ULTIMA ASIGNATURA\practica-grupal\cliente\ClienteAplicacion\bin\Debug\ClienteAplicacion.exe.config
 C:\Users\Jonathan\Desktop\ULTIMA ASIGNATURA\practica-grupal\cliente\ClienteAplicacion\bin\Debug\ClienteAplicacion.exe
 C:\Users\Jonathan\Desktop\ULTIMA ASIGNATURA\practica-grupal\cliente\ClienteAplicacion\bin\Debug\ClienteAplicacion.pdb
@@ -84,3 +115,4 @@ C:\Users\Jonathan\Desktop\ULTIMA ASIGNATURA\practica-grupal\cliente\ClienteAplic
 C:\Users\Jonathan\Desktop\ULTIMA ASIGNATURA\practica-grupal\cliente\ClienteAplicacion\obj\Debug\ClienteAplicacion.csproj.CopyComplete
 C:\Users\Jonathan\Desktop\ULTIMA ASIGNATURA\practica-grupal\cliente\ClienteAplicacion\obj\Debug\ClienteAplicacion.exe
 C:\Users\Jonathan\Desktop\ULTIMA ASIGNATURA\practica-grupal\cliente\ClienteAplicacion\obj\Debug\ClienteAplicacion.pdb
+>>>>>>> master

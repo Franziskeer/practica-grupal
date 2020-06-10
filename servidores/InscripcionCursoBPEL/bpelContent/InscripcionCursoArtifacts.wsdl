@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://eclipse.org/bpel/sample" xmlns:vprop="http://docs.oasis-open.org/wsbpel/2.0/varprop" xmlns:wsdl="http://www.example.org/Sesion/" xmlns:wsdl1="http://www.example.org/Curso/" xmlns:wsdl2="http://www.example.org/Notificacion/" xmlns:wsdl3="http://www.example.org/Inscripcion/" name="InscripcionCurso" targetNamespace="http://eclipse.org/bpel/sample">
+
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     TYPE DEFINITION - List of types participating in this BPEL process 
+     The BPEL Designer will generate default request and response types
+     but you can define or import any XML Schema type and use them as part 
+     of the message types.
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->    
+    <plnk:partnerLinkType name="SesionPLN">
+    <plnk:role name="SesionRole" portType="wsdl:Sesion"/>
+  </plnk:partnerLinkType>
+    <plnk:partnerLinkType name="CursoPLN">
+    <plnk:role name="CursoRole" portType="wsdl1:Curso"/>
+  </plnk:partnerLinkType>
+    <plnk:partnerLinkType name="NotificacionPLN">
+    <plnk:role name="NotificacionRole" portType="wsdl2:Notificacion"/>
+  </plnk:partnerLinkType>
+    <plnk:partnerLinkType name="InscripcionPLN">
+    <plnk:role name="InscripcionRole" portType="wsdl3:Inscripcion"/>
+  </plnk:partnerLinkType>
+    <import location="Sesion.wsdl" namespace="http://www.example.org/Sesion/"/>
+    <import location="Curso.wsdl" namespace="http://www.example.org/Curso/"/>
+    <import location="Notificacion.wsdl" namespace="http://www.example.org/Notificacion/"/>
+    <import location="Inscripcion.wsdl" namespace="http://www.example.org/Inscripcion/"/>
+    <types>
+        <schema xmlns="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://eclipse.org/bpel/sample">
+
+            <element name="InscripcionCursoRequest">
+                <complexType>
+                    <sequence>
+                    	<element name="dni" type="string"/>
+                    	<element name="password" type="string"/>
+                    	<element name="id_oferta" type="int"/>
+                    </sequence>
+                </complexType>
+            </element>
+
+            <element name="InscripcionCursoResponse">
+                <complexType>
+                    <sequence>
+                        <element name="output" type="tns:FormatoNotificacion"/>
+                    </sequence>
+                </complexType>
+            </element>
+        
+            <complexType name="FormatoNotificacion">
+            	<sequence>
+            		<element name="titulo" type="string"/>
+            		<element name="fecha" type="date"/>
+            		<element name="descripcion" type="string"/>
+            		<element name="tipo" type="boolean"/>
+            	</sequence>
+            </complexType>
+        </schema>
+    </types>
+
+
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     MESSAGE TYPE DEFINITION - Definition of the message types used as 
+     part of the port type defintions
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->    
+    <message name="InscripcionCursoRequestMessage">
+        <part element="tns:InscripcionCursoRequest" name="payload"/>
+    </message>
+    <message name="InscripcionCursoResponseMessage">
+        <part element="tns:InscripcionCursoResponse" name="payload"/>
+    </message>
+
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     PORT TYPE DEFINITION - A port type groups a set of operations into
+     a logical service unit.
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->    
+
+    <!-- portType implemented by the InscripcionCurso BPEL process -->
+    <portType name="InscripcionCurso">
+        <operation name="process">
+            <input message="tns:InscripcionCursoRequestMessage"/>
+            <output message="tns:InscripcionCursoResponseMessage"/>
+        </operation>
+    </portType>   
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     PARTNER LINK TYPE DEFINITION
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->    
+    <plnk:partnerLinkType name="InscripcionCurso">
+        <plnk:role name="InscripcionCursoProvider" portType="tns:InscripcionCurso"/>
+    </plnk:partnerLinkType>
+    
+
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     BINDING DEFINITION - Defines the message format and protocol details
+     for a web service.
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+    <binding name="InscripcionCursoBinding" type="tns:InscripcionCurso">
+    	<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    	<operation name="process">
+    		<soap:operation soapAction="http://eclipse.org/bpel/sample/process"/>
+    		<input>
+    			<soap:body use="literal"/>
+    		</input>
+    		<output>
+    			<soap:body use="literal"/>
+    		</output>
+    	</operation>
+    </binding>
+
+    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     SERVICE DEFINITION - A service groups a set of ports into
+     a service unit.
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+    <service name="InscripcionCursoService">
+    	<port binding="tns:InscripcionCursoBinding" name="InscripcionCursoPort">
+    		<soap:address location="http://localhost:9090/ode/processes/InscripcionCurso"/>
+    	</port>
+    </service>
+</definitions>

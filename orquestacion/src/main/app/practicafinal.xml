@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<mule xmlns:dw="http://www.mulesoft.org/schema/mule/ee/dw" xmlns:file="http://www.mulesoft.org/schema/mule/file" xmlns:smtp="http://www.mulesoft.org/schema/mule/smtp" xmlns:json="http://www.mulesoft.org/schema/mule/json" xmlns:metadata="http://www.mulesoft.org/schema/mule/metadata" xmlns:tracking="http://www.mulesoft.org/schema/mule/ee/tracking" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+<mule xmlns:ws="http://www.mulesoft.org/schema/mule/ws" xmlns:dw="http://www.mulesoft.org/schema/mule/ee/dw" xmlns:file="http://www.mulesoft.org/schema/mule/file" xmlns:smtp="http://www.mulesoft.org/schema/mule/smtp" xmlns:json="http://www.mulesoft.org/schema/mule/json" xmlns:metadata="http://www.mulesoft.org/schema/mule/metadata" xmlns:tracking="http://www.mulesoft.org/schema/mule/ee/tracking" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
 	xmlns:spring="http://www.springframework.org/schema/beans" 
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd
+	xsi:schemaLocation="http://www.mulesoft.org/schema/mule/ws http://www.mulesoft.org/schema/mule/ws/current/mule-ws.xsd
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd
 http://www.mulesoft.org/schema/mule/json http://www.mulesoft.org/schema/mule/json/current/mule-json.xsd
 http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
 http://www.mulesoft.org/schema/mule/smtp http://www.mulesoft.org/schema/mule/smtp/current/mule-smtp.xsd
-http://www.mulesoft.org/schema/mule/ee/tracking http://www.mulesoft.org/schema/mule/ee/tracking/current/mule-tracking-ee.xsd
 http://www.mulesoft.org/schema/mule/file http://www.mulesoft.org/schema/mule/file/current/mule-file.xsd
+http://www.mulesoft.org/schema/mule/ee/dw http://www.mulesoft.org/schema/mule/ee/dw/current/dw.xsd
 http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
-http://www.mulesoft.org/schema/mule/ee/dw http://www.mulesoft.org/schema/mule/ee/dw/current/dw.xsd">
+http://www.mulesoft.org/schema/mule/ee/tracking http://www.mulesoft.org/schema/mule/ee/tracking/current/mule-tracking-ee.xsd">
     <http:listener-config name="HTTP_Listener_Configuration" host="0.0.0.0" port="9092" doc:name="HTTP Listener Configuration"/>
     <http:request-config name="Demandante_Request" host="localhost" port="51776" basePath="/" doc:name="HTTP Request Configuration">
         <http:raml-api-configuration location="demandantes.raml"/>
@@ -27,6 +28,7 @@ http://www.mulesoft.org/schema/mule/ee/dw http://www.mulesoft.org/schema/mule/ee
     <http:request-config name="Demandante_Request2" host="localhost" port="51776" basePath="/demandante" doc:name="HTTP Request Configuration">
         <http:raml-api-configuration location="demandantes.raml"/>
     </http:request-config>
+    <ws:consumer-config name="Web_Service_Consumer" wsdlLocation="C:\Users\Jonathan\Desktop\ULTIMA ASIGNATURA\practica-grupal\orquestacion\src\main\wsdl\InscripcionCursoArtifacts.wsdl" service="InscripcionCursoService" port="InscripcionCursoPort" serviceAddress="http://localhost:9090/ode/processes/InscripcionCurso" doc:name="Web Service Consumer"/>
     <flow name="InscribirseOferta">
         <http:listener config-ref="HTTP_Listener_Configuration" path="/mule/inscribirseoferta" doc:name="Listener"/>
         <set-variable variableName="dniDemandante" value="#[json:dniDemandante]" doc:name="dniDemandante"/>
@@ -174,5 +176,47 @@ http://www.mulesoft.org/schema/mule/ee/dw http://www.mulesoft.org/schema/mule/ee
         <set-payload value="#[{ &quot;estado&quot;: payload.estado, &quot;mensaje&quot;: payload.mensaje }]" doc:name="Set Payload"/>
         <json:object-to-json-transformer doc:name="Object to JSON"/>
         <logger message="RESULTADO: #[message.payloadAs(java.lang.String)]" level="INFO" doc:name="Logger"/>
+    </flow>
+    <flow name="practicafinalFlow">
+        <http:listener config-ref="HTTP_Listener_Configuration" path="/mule/inscribircurso" doc:name="Listener"/>
+        <dw:transform-message doc:name="Transform Message" metadata:id="e343dbb8-d641-4178-b05d-10ba96c5812f">
+            <dw:input-payload mimeType="application/json"/>
+            <dw:set-payload><![CDATA[%dw 1.0
+%output application/xml
+%namespace ns0 http://eclipse.org/bpel/sample
+---
+{
+	ns0#InscripcionCursoRequest: {
+		ns0#dni: payload.dniDemandante,
+		ns0#password: payload.passwordDemandante,
+		ns0#id_oferta: payload.idCurso as :number
+	}
+}]]></dw:set-payload>
+        </dw:transform-message>
+        <ws:consumer config-ref="Web_Service_Consumer" operation="process" doc:name="InscribirDemandanteCurso"/>
+        <dw:transform-message doc:name="Transform Message" metadata:id="9747e808-c6f7-4b23-a151-30ece2c6ceb1">
+            <dw:set-payload><![CDATA[%dw 1.0
+%output application/json
+%namespace ns0 http://eclipse.org/bpel/sample
+---
+{
+	titulo: payload.ns0#InscripcionCursoResponse.ns0#output.ns0#titulo,
+	descripcion: payload.ns0#InscripcionCursoResponse.ns0#output.ns0#descripcion,
+	tipo: payload.ns0#InscripcionCursoResponse.ns0#output.ns0#tipo
+}]]></dw:set-payload>
+        </dw:transform-message>
+        <set-variable variableName="tipo" value="#[json:tipo]" doc:name="NotificacionTipo"/>
+        <set-variable variableName="titulo" value="#[json:titulo]" doc:name="NotificacionTitulo"/>
+        <set-variable variableName="descripcion" value="#[json:descripcion]" doc:name="NotificacionDescripcion"/>
+        <choice doc:name="Choice">
+            <when expression="#[json:tipo == true]">
+                <set-payload value="#[{&quot;tipo&quot;: flowVars.tipo, &quot;titulo&quot;: flowVars.titulo, &quot;descripcion&quot;: flowVars.descripcion, &quot;fecha&quot;: &quot;2002-07-01T13:50:05Z&quot; }]" doc:name="Set Payload"/>
+                <json:object-to-json-transformer doc:name="Object to JSON"/>
+            </when>
+            <otherwise>
+                <set-payload value="#[{&quot;tipo&quot;: flowVars.tipo, &quot;titulo&quot;: flowVars.titulo, &quot;descripcion&quot;: flowVars.descripcion, &quot;fecha&quot;: &quot;2002-07-01T13:50:05Z&quot; }]" doc:name="Set Payload"/>
+                <json:object-to-json-transformer doc:name="Object to JSON"/>
+            </otherwise>
+        </choice>
     </flow>
 </mule>

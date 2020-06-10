@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<deploy xmlns="http://www.apache.org/ode/schemas/dd/2007/03" xmlns:invoke.bpel.mtis="http://invoke.bpel.mtis">
+  <process name="invoke.bpel.mtis:BPELCompra">
+    <active>true</active>
+    <retired>false</retired>
+    <process-events generate="all"/>
+    <provide partnerLink="client">
+      <service name="invoke.bpel.mtis:BPELCompraService" port="BPELCompraPort"/>
+    </provide>
+    <invoke partnerLink="almacenPL">
+      <service name="invoke.bpel.mtis:almacen" port="almacenSOAP"/>
+    </invoke>
+    <invoke partnerLink="proveedorBPL">
+      <service name="invoke.bpel.mtis:proveedor2" port="proveedor2SOAP"/>
+    </invoke>
+    <invoke partnerLink="proveedorAPL">
+      <service name="invoke.bpel.mtis:proveedor1" port="proveedor1SOAP"/>
+    </invoke>
+  </process>
+</deploy>

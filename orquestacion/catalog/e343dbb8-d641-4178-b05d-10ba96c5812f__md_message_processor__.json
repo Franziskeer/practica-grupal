@@ -1,0 +1,11 @@
+{
+    "inputMessageMetadata": {
+        "messagePayload": {
+            "connectorName": "#_custom_mule_metadata_type_#",
+            "typeId": "entrada_inscripcion_curso"
+        }
+    },
+    "outputMessageMetadata": {},
+    "id": "e343dbb8-d641-4178-b05d-10ba96c5812f",
+    "version": "5.2.0.0"
+}

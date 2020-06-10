@@ -246,6 +246,81 @@ namespace ClienteAplicacion.ServiciosMule
 
     }
 
+    public partial class MuleInscribircurso
+    {
+        private readonly ServiciosMuleClient proxy;
+
+        internal MuleInscribircurso(ServiciosMuleClient proxy)
+        {
+            this.proxy = proxy;
+        }
+
+
+        /// <summary>
+		/// inscribir demandante a curso - /mule/inscribircurso
+		/// </summary>
+		/// <param name="entradaInscripcionCurso">Tipo de dato complejo que contiene dni, password y la id del curso</param>
+        public virtual async Task<ClienteAplicacion.ServiciosMule.Models.MuleInscribircursoPostResponse> Post(ClienteAplicacion.ServiciosMule.Models.EntradaInscripcionCurso entradaInscripcionCurso)
+        {
+
+            var url = "/mule/inscribircurso";
+
+            url = url.Replace("?&", "?");
+
+            var req = new HttpRequestMessage(HttpMethod.Post, url.StartsWith("/") ? url.Substring(1) : url);
+            req.Content = new ObjectContent(typeof(ClienteAplicacion.ServiciosMule.Models.EntradaInscripcionCurso), entradaInscripcionCurso, new JsonMediaTypeFormatter());                           
+	        var response = await proxy.Client.SendAsync(req);
+
+            return new ClienteAplicacion.ServiciosMule.Models.MuleInscribircursoPostResponse  
+                                            {
+                                                RawContent = response.Content,
+                                                RawHeaders = response.Headers, 
+                                                StatusCode = response.StatusCode,
+                                                ReasonPhrase = response.ReasonPhrase,
+												SchemaValidation = new Lazy<SchemaValidationResults>(() => new SchemaValidationResults(true), true)
+                                            };
+
+        }
+
+        /// <summary>
+		/// inscribir demandante a curso - /mule/inscribircurso
+		/// </summary>
+		/// <param name="request">ClienteAplicacion.ServiciosMule.Models.MuleInscribircursoPostRequest</param>
+		/// <param name="responseFormatters">response formatters</param>
+        public virtual async Task<ClienteAplicacion.ServiciosMule.Models.MuleInscribircursoPostResponse> Post(ClienteAplicacion.ServiciosMule.Models.MuleInscribircursoPostRequest request, IEnumerable<MediaTypeFormatter> responseFormatters = null)
+        {
+
+            var url = "/mule/inscribircurso";
+
+            url = url.Replace("?&", "?");
+
+            var req = new HttpRequestMessage(HttpMethod.Post, url.StartsWith("/") ? url.Substring(1) : url);
+
+            if(request.RawHeaders != null)
+            {
+                foreach(var header in request.RawHeaders)
+                {
+                    req.Headers.TryAddWithoutValidation(header.Key, string.Join(",", header.Value));
+                }
+            }
+            if(request.Formatter == null)
+                request.Formatter = new JsonMediaTypeFormatter();
+
+			req.Content = new ObjectContent(typeof(EntradaInscripcionCurso), request.Content, request.Formatter);
+	        var response = await proxy.Client.SendAsync(req);
+            return new ClienteAplicacion.ServiciosMule.Models.MuleInscribircursoPostResponse  
+                                            {
+                                                RawContent = response.Content,
+                                                RawHeaders = response.Headers,
+	                                            Formatters = responseFormatters,
+                                                StatusCode = response.StatusCode,
+                                                ReasonPhrase = response.ReasonPhrase,
+												SchemaValidation = new Lazy<SchemaValidationResults>(() => new SchemaValidationResults(true), true)
+                                            };
+        }
+
+    }
+
     /// <summary>
     /// Main class for grouping root resources. Nested resources are defined as properties. The constructor can optionally receive an URL and HttpClient instance to override the default ones.
     /// </summary>
@@ -325,6 +400,12 @@ namespace ClienteAplicacion.ServiciosMule
         }
                 
 
+        public virtual MuleInscribircurso MuleInscribircurso
+        {
+            get { return new MuleInscribircurso(this); }
+        }
+                
+
 
 		public void AddDefaultRequestHeader(string name, string value)
 		{
@@ -354,6 +435,58 @@ namespace ClienteAplicacion.ServiciosMule
 
 namespace ClienteAplicacion.ServiciosMule.Models
 {
+    /// <summary>
+    /// Tipo de dato complejo que contiene dni, password y la id del curso
+    /// </summary>
+    public partial class  EntradaInscripcionCurso 
+    {
+
+		[JsonProperty("dniDemandante")]
+        public string DniDemandante { get; set; }
+
+
+		[JsonProperty("passwordDemandante")]
+        public string PasswordDemandante { get; set; }
+
+
+		[JsonProperty("idCurso")]
+        public string IdCurso { get; set; }
+
+
+    } // end class
+
+    /// <summary>
+    /// Tipo de dato complejo para representar una respuesta
+    /// </summary>
+    public partial class  ResponseMule 
+    {
+
+		[JsonProperty("estado")]
+        public bool Estado { get; set; }
+
+
+		[JsonProperty("mensaje")]
+        public string Mensaje { get; set; }
+
+
+    } // end class
+
+    /// <summary>
+    /// contiene un dni y el id de una oferta
+    /// </summary>
+    public partial class  EntradaInscripcionOferta 
+    {
+
+		[JsonProperty("dniDemandante")]
+        public string DniDemandante { get; set; }
+
+
+		[JsonProperty("idOferta")]
+        public string IdOferta { get; set; }
+
+
+    } // end class
+
     /// <summary>
     /// Tipo de dato complejo para representar los datos de un demandante
     /// </summary>
@@ -439,33 +572,25 @@ namespace ClienteAplicacion.ServiciosMule.Models
     } // end class
 
     /// <summary>
-    /// contiene un dni y el id de una oferta
+    /// Tipo de dato complejo para representar una respuesta soap
     /// </summary>
-    public partial class  EntradaInscripcionOferta 
+    public partial class  ResponseSoap 
     {
 
-		[JsonProperty("dniDemandante")]
-        public string DniDemandante { get; set; }
+		[JsonProperty("tipo")]
+        public bool Tipo { get; set; }
 
 
-		[JsonProperty("idOferta")]
-        public string IdOferta { get; set; }
+		[JsonProperty("titulo")]
+        public string Titulo { get; set; }
 
 
-    } // end class
-
-    /// <summary>
-    /// Tipo de dato complejo para representar una respuesta
-    /// </summary>
-    public partial class  ResponseMule 
-    {
-
-		[JsonProperty("estado")]
-        public bool Estado { get; set; }
+		[JsonProperty("descripcion")]
+        public string Descripcion { get; set; }
 
 
-		[JsonProperty("mensaje")]
-        public string Mensaje { get; set; }
+		[JsonProperty("fecha")]
+        public DateTime Fecha { get; set; }
 
 
     } // end class
@@ -603,6 +728,50 @@ namespace ClienteAplicacion.ServiciosMule.Models
     } // end class
 
     /// <summary>
+    /// Multiple Response Types ResponseSoap, ResponseSoap404
+    /// </summary>
+    public partial class  MultipleMuleInscribircursoPost : ApiMultipleResponse
+    {
+        static readonly Dictionary<string, string> schemas = new Dictionary<string, string>
+        {
+		};
+        
+		public static string GetSchema(string statusCode)
+        {
+            if(schemas.ContainsKey(statusCode))
+                return schemas[statusCode];
+
+            if(schemas.ContainsKey("default"))
+                return schemas["default"];
+                
+            return string.Empty;
+        }
+        
+        public MultipleMuleInscribircursoPost()
+        {
+            names.Add("200", "ResponseSoap");
+            types.Add("200", typeof(ResponseSoap));
+            names.Add("404", "ResponseSoap404");
+            types.Add("404", typeof(ResponseSoap));
+        }
+
+        /// <summary>
+        ///  Tipo de dato complejo para representar una respuesta soap
+        /// </summary>
+
+        public ResponseSoap ResponseSoap { get; set; }
+
+
+        /// <summary>
+        ///  Tipo de dato complejo para representar una respuesta soap
+        /// </summary>
+
+        public ResponseSoap ResponseSoap404 { get; set; }
+
+
+    } // end class
+
+    /// <summary>
     /// Request object for method Post of class MuleRenovarfecha
     /// </summary>
     public partial class MuleRenovarfechaPostRequest : ApiRequest
@@ -666,6 +835,30 @@ namespace ClienteAplicacion.ServiciosMule.Models
         /// Request content
         /// </summary>
         public EntradaAltaDemandante Content { get; set; }
+
+        /// <summary>
+        /// Request formatter
+        /// </summary>
+        public MediaTypeFormatter Formatter { get; set; }
+
+    } // end class
+
+    /// <summary>
+    /// Request object for method Post of class MuleInscribircurso
+    /// </summary>
+    public partial class MuleInscribircursoPostRequest : ApiRequest
+    {
+        public MuleInscribircursoPostRequest(EntradaInscripcionCurso Content = null, MediaTypeFormatter Formatter = null)
+        {
+            this.Content = Content;
+            this.Formatter = Formatter;
+        }
+
+
+        /// <summary>
+        /// Request content
+        /// </summary>
+        public EntradaInscripcionCurso Content { get; set; }
 
         /// <summary>
         /// Request formatter
@@ -832,6 +1025,60 @@ namespace ClienteAplicacion.ServiciosMule.Models
 		public static string GetSchema(string statusCode)
         {
             return MultipleMuleAltademandantePost.GetSchema(statusCode);
+        }      
+
+    } // end class
+
+    /// <summary>
+    /// Response object for method Post of class MuleInscribircurso
+    /// </summary>
+
+    public partial class MuleInscribircursoPostResponse : ApiResponse
+    {
+
+	    private MultipleMuleInscribircursoPost typedContent;
+        /// <summary>
+        /// Typed response content
+        /// </summary>
+        public MultipleMuleInscribircursoPost Content 
+	    {
+	        get
+	        {
+		        if (typedContent != null) 
+					return typedContent;
+
+		        typedContent = new MultipleMuleInscribircursoPost();
+
+                IEnumerable<string> values = new List<string>();
+                if (RawContent != null && RawContent.Headers != null)
+                    RawContent.Headers.TryGetValues("Content-Type", out values);
+
+                if (values.Any(hv => hv.ToLowerInvariant().Contains("xml")) &&
+                    !values.Any(hv => hv.ToLowerInvariant().Contains("json")))
+                {
+                    var task = RawContent.ReadAsStreamAsync();
+
+                    var xmlStream = task.GetAwaiter().GetResult();
+                    var content = new XmlSerializer(typedContent.GetTypeByStatusCode(ApiMultipleResponse.GetValueAsString(StatusCode))).Deserialize(xmlStream);
+                    typedContent.SetPropertyByStatusCode(ApiMultipleResponse.GetValueAsString(StatusCode), content);
+                }
+                else
+                {
+		            var task = Formatters != null && Formatters.Any() 
+                                ? RawContent.ReadAsAsync(typedContent.GetTypeByStatusCode(ApiMultipleResponse.GetValueAsString(StatusCode)), Formatters).ConfigureAwait(false)
+                                : RawContent.ReadAsAsync(typedContent.GetTypeByStatusCode(ApiMultipleResponse.GetValueAsString(StatusCode))).ConfigureAwait(false);
+		        
+		            var content = task.GetAwaiter().GetResult();
+                    typedContent.SetPropertyByStatusCode(ApiMultipleResponse.GetValueAsString(StatusCode), content);
+                }
+
+		        return typedContent;
+	        }
+    	}  
+		
+		public static string GetSchema(string statusCode)
+        {
+            return MultipleMuleInscribircursoPost.GetSchema(statusCode);
         }      
 
     } // end class

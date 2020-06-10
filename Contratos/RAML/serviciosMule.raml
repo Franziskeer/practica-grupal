@@ -3,36 +3,124 @@ title: servicio orquestacion mule
 baseUri: localhost:9092/
 mediaType: application/json
 types:
+  EntradaInscripcionCurso:
+    description: Tipo de dato complejo que contiene dni, password y la id del curso
+    type: object
+    properties: 
+       dniDemandante:
+        minLength: 0
+        maxLength: 50
+        type: string
+       passwordDemandante:
+        minLength: 0
+        maxLength: 50
+        type: string
+       idCurso:
+        minLength: 0
+        maxLength: 50
+        type: string     
+  EntradaAltaDemandante:
+    description: Tipo de dato complejo para representar los datos de un demandante
+    type: object
+    properties:
+      dni:
+        minLength: 0
+        maxLength: 50
+        type: string
+      pass?:
+        minLength: 0
+        maxLength: 50
+        type: string
+      nombre:
+        minLength: 0
+        maxLength: 50
+        type: string
+      apellidos:
+        minLength: 0
+        maxLength: 50
+        type: string
+      direccion:
+        minLength: 0
+        maxLength: 50
+        type: string
+      poblacion:
+        minLength: 0
+        maxLength: 50
+        type: string
+      telefono:
+        minLength: 0
+        maxLength: 50
+        type: string
+      email:
+        minLength: 0
+        maxLength: 50
+        type: string
+      fecha_nacimiento:
+        minLength: 0
+        maxLength: 50
+        type: string
+      fecha_renovacion?:
+        minLength: 0
+        maxLength: 50
+        type: string
+      iban:
+        minLength: 0
+        maxLength: 50
+        type: string
+      situacion_laboral:
+        minLength: 0
+        maxLength: 50
+        type: string
+      edad:
+        minLength: 0
+        maxLength: 50
+        type: string
+      titulos:
+        minLength: 0
+        maxLength: 50
+        type: string
+      experiencia:
+        minLength: 0
+        maxLength: 50
+        type: string
   EntradaActualizarFecha:
     description: contiene un dni y una fecha de renovacion
     type: object
-    properties: 
+    properties:
       dniDemandante:
         minLength: 0
         maxLength: 50
         type: string
-      fechaRenovacion: 
+      fechaRenovacion:
         minLength: 0
-        maxLength: 40
+        maxLength: 50
         type: string
   EntradaInscripcionOferta:
     description: contiene un dni y el id de una oferta
     type: object
-    properties: 
+    properties:
       dniDemandante:
         minLength: 0
         maxLength: 50
         type: string
-      idOferta: 
+      idOferta:
         minLength: 0
         maxLength: 50
         type: string
   ResponseMule:
-    description: Tipo de dato complejo para representar una respuesta 
+    description: Tipo de dato complejo para representar una respuesta
     type: object
     properties:
       estado: boolean
       mensaje: string
+  ResponseSoap:
+    description: Tipo de dato complejo para representar una respuesta soap
+    type: object
+    properties:
+      tipo: boolean
+      titulo: string
+      descripcion: string
+      fecha: datetime
 
 /mule/renovarfecha:
   post:
@@ -40,13 +128,13 @@ types:
     body:
       type: EntradaActualizarFecha
       example: { "dniDemandante": "48628778R", "fechaRenovacion": "10/10/2012" }
-    responses: 
+    responses:
       200:
-        body: 
+        body:
           type: ResponseMule
           example: { "estado": true, "mensaje": "Se ha renovado correctamente" }
       404:
-        body: 
+        body:
           type: ResponseMule
           example: { "estado": false, "mensaje": "Se ha producido un error" }
 /mule/inscribirseoferta:
@@ -55,13 +143,42 @@ types:
     body:
       type: EntradaInscripcionOferta
       example: { "dniDemandante": "48628778R", "idOferta": "1" }
-    responses: 
+    responses:
       200:
-        body: 
+        body:
           type: ResponseMule
           example: { "estado": true, "mensaje": "Se ha inscrito correctamente" }
       404:
-        body: 
+        body:
           type: ResponseMule
           example: { "estado": false, "mensaje": "Se ha producido un error" }
-  
+/mule/altademandante:
+  post:
+    description: dar de alta nuevo demandante
+    body:
+      type: EntradaAltaDemandante
+    responses:
+      200:
+        body:
+          type: ResponseMule
+          example: { "estado": true, "mensaje": "El demandante ha sido dado de alta correctamente" }
+      409:
+        body:
+          type: ResponseMule
+          example: { "estado": false, "mensaje": "Hay un conflicto, el demandante ya está dado de alta en el sistema" }
+/mule/inscribircurso:
+  post:
+    description: inscribir demandante a curso
+    body:
+      type: EntradaInscripcionCurso
+      example: { "dniDemandante": "48628778R", "passwordDemandante":"pass123", "idCurso": "1" }
+    responses:
+      200:
+        body:
+          type: ResponseSoap
+          example: { "tipo": true, "titulo": "Notificacion", "descripcion":"Se ha inscrito correctamente", "fecha": "2002-07-01T13:50:05Z" }
+      404:
+        body:
+          type: ResponseSoap
+          example: { "tipo": false, "titulo": "Notificacion de error", "descripcion":"No se ha inscrito correctamente", "fecha": "2002-07-01T13:50:05Z" }
+      

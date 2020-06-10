@@ -3,6 +3,22 @@ title: servicio orquestacion mule
 baseUri: localhost:9092/
 mediaType: application/json
 types:
+  EntradaInscripcionCurso:
+    description: Tipo de dato complejo que contiene dni, password y la id del curso
+    type: object
+    properties: 
+       dniDemandante:
+        minLength: 0
+        maxLength: 50
+        type: string
+       passwordDemandante:
+        minLength: 0
+        maxLength: 50
+        type: string
+       idCurso:
+        minLength: 0
+        maxLength: 50
+        type: string     
   EntradaAltaDemandante:
     description: Tipo de dato complejo para representar los datos de un demandante
     type: object
@@ -97,6 +113,14 @@ types:
     properties:
       estado: boolean
       mensaje: string
+  ResponseSoap:
+    description: Tipo de dato complejo para representar una respuesta soap
+    type: object
+    properties:
+      tipo: boolean
+      titulo: string
+      descripcion: string
+      fecha: datetime
 
 /mule/renovarfecha:
   post:
@@ -142,3 +166,19 @@ types:
         body:
           type: ResponseMule
           example: { "estado": false, "mensaje": "Hay un conflicto, el demandante ya está dado de alta en el sistema" }
+/mule/inscribircurso:
+  post:
+    description: inscribir demandante a curso
+    body:
+      type: EntradaInscripcionCurso
+      example: { "dniDemandante": "48628778R", "passwordDemandante":"pass123", "idCurso": "1" }
+    responses:
+      200:
+        body:
+          type: ResponseSoap
+          example: { "tipo": true, "titulo": "Notificacion", "descripcion":"Se ha inscrito correctamente", "fecha": "2002-07-01T13:50:05Z" }
+      404:
+        body:
+          type: ResponseSoap
+          example: { "tipo": false, "titulo": "Notificacion de error", "descripcion":"No se ha inscrito correctamente", "fecha": "2002-07-01T13:50:05Z" }
+      

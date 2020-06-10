@@ -22,6 +22,7 @@ namespace ClienteAplicacion
     {
         private string respuesta_renovar="";
         private string respuesta_inscribir = "";
+        private string respuesta_inscribir_curso = "";
         private ServiciosMule.ServiciosMuleClient cliente;
         public MainWindow()
         {
@@ -49,6 +50,19 @@ namespace ClienteAplicacion
             var mensaje = peticion.Content.ResponseMule.Mensaje;
             respuesta_inscribir = mensaje.ToString();
         }
+        private async Task llamada_servicio_inscripcion_curso()
+        {
+            cliente = new ServiciosMule.ServiciosMuleClient("http://localhost:9092/");
+            ServiciosMule.Models.EntradaInscripcionCurso entradaInscripcionCurso = new ServiciosMule.Models.EntradaInscripcionCurso();
+            entradaInscripcionCurso.DniDemandante = tbox_dni_curso.Text.ToString();
+            entradaInscripcionCurso.PasswordDemandante = tbox_pass_curso.Text.ToString();
+            entradaInscripcionCurso.IdCurso = tbox_id_curso.Text.ToString();
+            var peticion = await cliente.MuleInscribircurso.Post(entradaInscripcionCurso);
+            var mensaje = peticion.Content.ResponseSoap.Descripcion;
+            respuesta_inscribir_curso = mensaje.ToString();
+        }
+
+
 
         private async void Button_Click(object sender, RoutedEventArgs e)
         {
@@ -75,6 +89,12 @@ namespace ClienteAplicacion
         private void Cd_Closed(object sender, EventArgs e)
         {
             this.Visibility = Visibility.Visible;
+        }
+
+        private async void Button_Click_3(object sender, RoutedEventArgs e)
+        {
+            await llamada_servicio_inscripcion_curso();
+            tbox_respuesta_curso.Text = respuesta_inscribir_curso;
         }
     }
 }

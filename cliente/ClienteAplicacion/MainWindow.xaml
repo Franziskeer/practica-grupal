@@ -5,23 +5,33 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ClienteAplicacion"
         mc:Ignorable="d"
-        Title="MainWindow" Height="304" Width="622">
+        Title="MainWindow" Height="366" Width="923">
     <Grid Margin="0,0,2,-2">
-        <Button Content="Actualizar" HorizontalAlignment="Left" Margin="203,184,0,0" VerticalAlignment="Top" Width="76" Click="Button_Click" RenderTransformOrigin="0.542,0.867"/>
-        <Label Content="DNI Demandante" HorizontalAlignment="Left" Margin="34,91,0,0" VerticalAlignment="Top"/>
-        <Label Content="Fecha de renovación" HorizontalAlignment="Left" Margin="34,126,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="tbox_renovar_dni" HorizontalAlignment="Left" Height="23" Margin="159,95,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Text="48628778R"/>
-        <TextBox x:Name="tbox_renovar_fecha" HorizontalAlignment="Left" Height="24" Margin="159,130,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Text="03/03/2023"/>
-        <TextBox x:Name="tbox_renovar_respuesta" HorizontalAlignment="Left" Height="67" Margin="34,177,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="152"/>
-        <Label Content="Actualizar la fecha de renovación &#xD;&#xA;de un demandante" HorizontalAlignment="Left" Margin="34,42,0,0" VerticalAlignment="Top" FontWeight="Bold" Width="226" Height="48"/>
-        <Label Content="Inscribir demandante a una &#xD;&#xA;oferta de empleo" HorizontalAlignment="Left" Margin="328,39,0,0" VerticalAlignment="Top" FontWeight="Bold" Width="211" Height="48"/>
-        <Label Content="DNI Demandante" HorizontalAlignment="Left" Margin="328,92,0,0" VerticalAlignment="Top"/>
-        <Label Content="ID Oferta" HorizontalAlignment="Left" Margin="328,123,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="tbox_inscribir_dni" HorizontalAlignment="Left" Height="23" Margin="443,92,0,0" TextWrapping="Wrap" Text="48628778R" VerticalAlignment="Top" Width="120"/>
-        <TextBox x:Name="tbox_inscribir_oferta" HorizontalAlignment="Left" Height="23" Margin="443,123,0,0" TextWrapping="Wrap" Text="1" VerticalAlignment="Top" Width="120"/>
-        <Button Content="Incribir" HorizontalAlignment="Left" Margin="339,184,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click_1" RenderTransformOrigin="0.513,-0.803"/>
-        <TextBox x:Name="tbox_inscribir_respuesta" HorizontalAlignment="Left" Height="54" Margin="443,177,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-        <Button Content="Nuevo demandante" HorizontalAlignment="Left" Margin="34,17,0,0" VerticalAlignment="Top" Width="119" Click="Button_Click_2"/>
+        <Button Content="Actualizar" HorizontalAlignment="Left" Margin="203,234,0,0" VerticalAlignment="Top" Width="76" Click="Button_Click" RenderTransformOrigin="0.542,0.867"/>
+        <Label Content="DNI Demandante" HorizontalAlignment="Left" Margin="34,141,0,0" VerticalAlignment="Top"/>
+        <Label Content="Fecha de renovación" HorizontalAlignment="Left" Margin="34,176,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="tbox_renovar_dni" HorizontalAlignment="Left" Height="23" Margin="159,145,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Text="12345678A"/>
+        <TextBox x:Name="tbox_renovar_fecha" HorizontalAlignment="Left" Height="24" Margin="159,180,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Text="03/03/2023"/>
+        <TextBox x:Name="tbox_renovar_respuesta" HorizontalAlignment="Left" Height="67" Margin="34,227,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="152"/>
+        <Label Content="Actualizar la fecha de renovación &#xD;&#xA;de un demandante" HorizontalAlignment="Left" Margin="34,92,0,0" VerticalAlignment="Top" FontWeight="Bold" Width="226" Height="48"/>
+        <Label Content="Inscribir demandante a una &#xD;&#xA;oferta de empleo" HorizontalAlignment="Left" Margin="328,89,0,0" VerticalAlignment="Top" FontWeight="Bold" Width="211" Height="48"/>
+        <Label Content="DNI Demandante" HorizontalAlignment="Left" Margin="328,142,0,0" VerticalAlignment="Top"/>
+        <Label Content="ID Oferta" HorizontalAlignment="Left" Margin="328,173,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="tbox_inscribir_dni" HorizontalAlignment="Left" Height="23" Margin="443,142,0,0" TextWrapping="Wrap" Text="12345678A" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="tbox_inscribir_oferta" HorizontalAlignment="Left" Height="23" Margin="443,173,0,0" TextWrapping="Wrap" Text="1" VerticalAlignment="Top" Width="120"/>
+        <Button Content="Inscribir a empleo" HorizontalAlignment="Left" Margin="328,234,0,0" VerticalAlignment="Top" Width="99" Click="Button_Click_1" RenderTransformOrigin="0.513,-0.803"/>
+        <TextBox x:Name="tbox_inscribir_respuesta" HorizontalAlignment="Left" Height="54" Margin="443,227,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <Button Content="Nuevo demandante" HorizontalAlignment="Left" Margin="34,47,0,0" VerticalAlignment="Top" Width="119" Click="Button_Click_2"/>
+        <Label Content="Registrar un nuevo demandante" HorizontalAlignment="Left" Margin="34,14,0,0" VerticalAlignment="Top" FontWeight="Bold" Width="226" Height="48"/>
+        <Label Content="Inscribir demandante a una &#xD;&#xA;oferta de formación" HorizontalAlignment="Left" Margin="616,89,0,0" VerticalAlignment="Top" FontWeight="Bold" Width="226" Height="48"/>
+        <Label Content="DNI Demandante&#xD;&#xA;" HorizontalAlignment="Left" Margin="616,137,0,0" VerticalAlignment="Top"/>
+        <Label Content="Password" HorizontalAlignment="Left" Margin="616,169,0,0" VerticalAlignment="Top"/>
+        <Label Content="ID Curso" HorizontalAlignment="Left" Margin="616,200,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="tbox_dni_curso" HorizontalAlignment="Left" Height="23" Margin="737,141,0,0" TextWrapping="Wrap" Text="12345678A" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="tbox_pass_curso" HorizontalAlignment="Left" Height="23" Margin="737,172,0,0" TextWrapping="Wrap" Text="123123" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="tbox_id_curso" HorizontalAlignment="Left" Height="23" Margin="737,204,0,0" TextWrapping="Wrap" Text="1" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="tbox_respuesta_curso" HorizontalAlignment="Left" Height="64" Margin="737,239,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="141"/>
+        <Button Content="Inscribir a curso" HorizontalAlignment="Left" Margin="616,239,0,0" VerticalAlignment="Top" Width="102" Click="Button_Click_3"/>
 
     </Grid>
 </Window>

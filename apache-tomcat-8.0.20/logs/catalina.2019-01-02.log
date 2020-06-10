@@ -1,0 +1,98 @@
+02-Jan-2019 17:08:03.733 WARNING [main] org.apache.catalina.core.AprLifecycleListener.init The APR based Apache Tomcat Native library failed to load. The error reported was [C:\MTIS\apache-tomcat-8.0.20\bin\tcnative-1.dll: Can't load IA 32-bit .dll on a AMD 64-bit platform]
+ java.lang.UnsatisfiedLinkError: C:\MTIS\apache-tomcat-8.0.20\bin\tcnative-1.dll: Can't load IA 32-bit .dll on a AMD 64-bit platform
+	at java.lang.ClassLoader$NativeLibrary.load(Native Method)
+	at java.lang.ClassLoader.loadLibrary0(ClassLoader.java:1941)
+	at java.lang.ClassLoader.loadLibrary(ClassLoader.java:1857)
+	at java.lang.Runtime.loadLibrary0(Runtime.java:870)
+	at java.lang.System.loadLibrary(System.java:1122)
+	at org.apache.tomcat.jni.Library.<init>(Library.java:42)
+	at org.apache.tomcat.jni.Library.initialize(Library.java:171)
+	at org.apache.catalina.core.AprLifecycleListener.init(AprLifecycleListener.java:197)
+	at org.apache.catalina.core.AprLifecycleListener.isAprAvailable(AprLifecycleListener.java:106)
+	at org.apache.catalina.connector.Connector.setProtocol(Connector.java:564)
+	at org.apache.catalina.connector.Connector.<init>(Connector.java:66)
+	at org.apache.catalina.startup.ConnectorCreateRule.begin(ConnectorCreateRule.java:62)
+	at org.apache.tomcat.util.digester.Digester.startElement(Digester.java:1184)
+	at com.sun.org.apache.xerces.internal.parsers.AbstractSAXParser.startElement(AbstractSAXParser.java:509)
+	at com.sun.org.apache.xerces.internal.parsers.AbstractXMLDocumentParser.emptyElement(AbstractXMLDocumentParser.java:182)
+	at com.sun.org.apache.xerces.internal.impl.XMLDocumentFragmentScannerImpl.scanStartElement(XMLDocumentFragmentScannerImpl.java:1339)
+	at com.sun.org.apache.xerces.internal.impl.XMLDocumentFragmentScannerImpl$FragmentContentDriver.next(XMLDocumentFragmentScannerImpl.java:2784)
+	at com.sun.org.apache.xerces.internal.impl.XMLDocumentScannerImpl.next(XMLDocumentScannerImpl.java:602)
+	at com.sun.org.apache.xerces.internal.impl.XMLDocumentFragmentScannerImpl.scanDocument(XMLDocumentFragmentScannerImpl.java:505)
+	at com.sun.org.apache.xerces.internal.parsers.XML11Configuration.parse(XML11Configuration.java:842)
+	at com.sun.org.apache.xerces.internal.parsers.XML11Configuration.parse(XML11Configuration.java:771)
+	at com.sun.org.apache.xerces.internal.parsers.XMLParser.parse(XMLParser.java:141)
+	at com.sun.org.apache.xerces.internal.parsers.AbstractSAXParser.parse(AbstractSAXParser.java:1213)
+	at com.sun.org.apache.xerces.internal.jaxp.SAXParserImpl$JAXPSAXParser.parse(SAXParserImpl.java:643)
+	at org.apache.tomcat.util.digester.Digester.parse(Digester.java:1457)
+	at org.apache.catalina.startup.Catalina.load(Catalina.java:551)
+	at org.apache.catalina.startup.Catalina.load(Catalina.java:599)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.apache.catalina.startup.Bootstrap.load(Bootstrap.java:310)
+	at org.apache.catalina.startup.Bootstrap.main(Bootstrap.java:484)
+
+02-Jan-2019 17:08:03.927 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Server version:        Apache Tomcat/8.0.20
+02-Jan-2019 17:08:03.930 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Server built:          Feb 15 2015 18:10:42 UTC
+02-Jan-2019 17:08:03.930 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Server number:         8.0.20.0
+02-Jan-2019 17:08:03.931 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log OS Name:               Windows 10
+02-Jan-2019 17:08:03.933 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log OS Version:            10.0
+02-Jan-2019 17:08:03.934 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Architecture:          amd64
+02-Jan-2019 17:08:03.935 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Java Home:             C:\Program Files\Java\jdk1.8.0_191\jre
+02-Jan-2019 17:08:03.936 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log JVM Version:           1.8.0_191-b12
+02-Jan-2019 17:08:03.936 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log JVM Vendor:            Oracle Corporation
+02-Jan-2019 17:08:03.937 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log CATALINA_BASE:         C:\MTIS\apache-tomcat-8.0.20
+02-Jan-2019 17:08:03.946 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log CATALINA_HOME:         C:\MTIS\apache-tomcat-8.0.20
+02-Jan-2019 17:08:03.947 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.util.logging.config.file=c:\mtis\apache-tomcat-8.0.20\conf\logging.properties
+02-Jan-2019 17:08:03.948 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager
+02-Jan-2019 17:08:03.949 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.endorsed.dirs=c:\mtis\apache-tomcat-8.0.20\endorsed
+02-Jan-2019 17:08:03.950 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dcatalina.base=c:\mtis\apache-tomcat-8.0.20
+02-Jan-2019 17:08:03.951 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dcatalina.home=c:\mtis\apache-tomcat-8.0.20
+02-Jan-2019 17:08:03.952 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.io.tmpdir=c:\mtis\apache-tomcat-8.0.20\temp
+02-Jan-2019 17:08:04.210 INFO [main] org.apache.coyote.AbstractProtocol.init Initializing ProtocolHandler ["http-nio-8080"]
+02-Jan-2019 17:08:04.568 INFO [main] org.apache.tomcat.util.net.NioSelectorPool.getSharedSelector Using a shared selector for servlet write/read
+02-Jan-2019 17:08:04.578 INFO [main] org.apache.coyote.AbstractProtocol.init Initializing ProtocolHandler ["ajp-nio-8009"]
+02-Jan-2019 17:08:04.584 INFO [main] org.apache.tomcat.util.net.NioSelectorPool.getSharedSelector Using a shared selector for servlet write/read
+02-Jan-2019 17:08:04.585 INFO [main] org.apache.catalina.startup.Catalina.load Initialization processed in 1433 ms
+02-Jan-2019 17:08:04.629 INFO [main] org.apache.catalina.core.StandardService.startInternal Arrancando servicio Catalina
+02-Jan-2019 17:08:04.630 INFO [main] org.apache.catalina.core.StandardEngine.startInternal Starting Servlet Engine: Apache Tomcat/8.0.20
+02-Jan-2019 17:08:04.683 INFO [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployWAR Despliegue del archivo C:\MTIS\apache-tomcat-8.0.20\webapps\ode.war de la aplicación web
+02-Jan-2019 17:08:15.474 INFO [localhost-startStop-1] org.apache.jasper.servlet.TldScanner.scanJars Al menos un JAR, que se ha explorado buscando TLDs, aún no contenía TLDs. Activar historial de depuración para este historiador para una completa lista de los JARs que fueron explorados y de los que nos se halló TLDs. Saltarse JARs no necesarios durante la exploración puede dar lugar a una mejora de tiempo significativa en el arranque y compilación de JSP .
+02-Jan-2019 17:08:26.411 INFO [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployWAR Deployment of web application archive C:\MTIS\apache-tomcat-8.0.20\webapps\ode.war has finished in 21.727 ms
+02-Jan-2019 17:08:26.412 INFO [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployDirectory Despliegue del directorio C:\MTIS\apache-tomcat-8.0.20\webapps\docs de la aplicación web
+02-Jan-2019 17:08:26.676 INFO [localhost-startStop-1] org.apache.jasper.servlet.TldScanner.scanJars Al menos un JAR, que se ha explorado buscando TLDs, aún no contenía TLDs. Activar historial de depuración para este historiador para una completa lista de los JARs que fueron explorados y de los que nos se halló TLDs. Saltarse JARs no necesarios durante la exploración puede dar lugar a una mejora de tiempo significativa en el arranque y compilación de JSP .
+02-Jan-2019 17:08:26.683 INFO [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory C:\MTIS\apache-tomcat-8.0.20\webapps\docs has finished in 270 ms
+02-Jan-2019 17:08:26.683 INFO [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployDirectory Despliegue del directorio C:\MTIS\apache-tomcat-8.0.20\webapps\examples de la aplicación web
+02-Jan-2019 17:08:28.558 INFO [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory C:\MTIS\apache-tomcat-8.0.20\webapps\examples has finished in 1.875 ms
+02-Jan-2019 17:08:28.559 INFO [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployDirectory Despliegue del directorio C:\MTIS\apache-tomcat-8.0.20\webapps\host-manager de la aplicación web
+02-Jan-2019 17:08:28.775 INFO [localhost-startStop-1] org.apache.jasper.servlet.TldScanner.scanJars Al menos un JAR, que se ha explorado buscando TLDs, aún no contenía TLDs. Activar historial de depuración para este historiador para una completa lista de los JARs que fueron explorados y de los que nos se halló TLDs. Saltarse JARs no necesarios durante la exploración puede dar lugar a una mejora de tiempo significativa en el arranque y compilación de JSP .
+02-Jan-2019 17:08:28.783 INFO [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory C:\MTIS\apache-tomcat-8.0.20\webapps\host-manager has finished in 225 ms
+02-Jan-2019 17:08:28.784 INFO [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployDirectory Despliegue del directorio C:\MTIS\apache-tomcat-8.0.20\webapps\manager de la aplicación web
+02-Jan-2019 17:08:29.020 INFO [localhost-startStop-1] org.apache.jasper.servlet.TldScanner.scanJars Al menos un JAR, que se ha explorado buscando TLDs, aún no contenía TLDs. Activar historial de depuración para este historiador para una completa lista de los JARs que fueron explorados y de los que nos se halló TLDs. Saltarse JARs no necesarios durante la exploración puede dar lugar a una mejora de tiempo significativa en el arranque y compilación de JSP .
+02-Jan-2019 17:08:29.027 INFO [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory C:\MTIS\apache-tomcat-8.0.20\webapps\manager has finished in 244 ms
+02-Jan-2019 17:08:29.028 INFO [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployDirectory Despliegue del directorio C:\MTIS\apache-tomcat-8.0.20\webapps\ROOT de la aplicación web
+02-Jan-2019 17:08:29.222 INFO [localhost-startStop-1] org.apache.jasper.servlet.TldScanner.scanJars Al menos un JAR, que se ha explorado buscando TLDs, aún no contenía TLDs. Activar historial de depuración para este historiador para una completa lista de los JARs que fueron explorados y de los que nos se halló TLDs. Saltarse JARs no necesarios durante la exploración puede dar lugar a una mejora de tiempo significativa en el arranque y compilación de JSP .
+02-Jan-2019 17:08:29.226 INFO [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory C:\MTIS\apache-tomcat-8.0.20\webapps\ROOT has finished in 199 ms
+02-Jan-2019 17:08:29.233 INFO [main] org.apache.coyote.AbstractProtocol.start Starting ProtocolHandler ["http-nio-8080"]
+02-Jan-2019 17:08:29.245 INFO [main] org.apache.coyote.AbstractProtocol.start Starting ProtocolHandler ["ajp-nio-8009"]
+02-Jan-2019 17:08:29.248 INFO [main] org.apache.catalina.startup.Catalina.start Server startup in 24662 ms
+02-Jan-2019 17:08:34.050 INFO [Thread-13] org.apache.coyote.AbstractProtocol.pause Pausing ProtocolHandler ["http-nio-8080"]
+02-Jan-2019 17:08:34.113 INFO [Thread-13] org.apache.coyote.AbstractProtocol.pause Pausing ProtocolHandler ["ajp-nio-8009"]
+02-Jan-2019 17:08:34.166 INFO [Thread-13] org.apache.catalina.core.StandardService.stopInternal Parando servicio Catalina
+02-Jan-2019 17:08:34.343 WARNING [localhost-startStop-1] org.apache.catalina.loader.WebappClassLoaderBase.clearReferencesJdbc La aplicación web [ode] registró el conductor JDBC [org.apache.derby.jdbc.AutoloadedDriver] pero falló al anular el registro mientras la aplicación web estaba parada. Para prevenir un fallo de memoria, se ha anulado el registro del conductor JDBC por la fuerza.
+02-Jan-2019 17:08:34.344 WARNING [localhost-startStop-1] org.apache.catalina.loader.WebappClassLoaderBase.clearReferencesThreads The web application [ode] appears to have started a thread named [Timer-1] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
+ java.lang.Object.wait(Native Method)
+ java.util.TimerThread.mainLoop(Timer.java:552)
+ java.util.TimerThread.run(Timer.java:505)
+02-Jan-2019 17:08:34.345 SEVERE [localhost-startStop-1] org.apache.catalina.loader.WebappClassLoaderBase.checkThreadLocalMapForLeaks La aplicación web [ode] creó un ThreadLocal con clave del tipo [org.apache.derby.iapi.sql.dictionary.TableDescriptor$1] (valor [org.apache.derby.iapi.sql.dictionary.TableDescriptor$1@23f2ce9c]) y un valor del tipo [java.util.WeakHashMap] (valor [{={3}, ={1}, ={3}}]) pero no pudo quitarlo cuando la aplicación web se paró. Los hilos se van a renovar con el tiempo para intentar evitar in posible fallo de memoria.
+02-Jan-2019 17:08:34.345 SEVERE [localhost-startStop-1] org.apache.catalina.loader.WebappClassLoaderBase.checkThreadLocalMapForLeaks La aplicación web [ode] creó un ThreadLocal con clave del tipo [java.lang.ThreadLocal] (valor [java.lang.ThreadLocal@75b16cbc]) y un valor del tipo [org.apache.xerces.jaxp.DocumentBuilderImpl] (valor [org.apache.xerces.jaxp.DocumentBuilderImpl@72dd5f12]) pero no pudo quitarlo cuando la aplicación web se paró. Los hilos se van a renovar con el tiempo para intentar evitar in posible fallo de memoria.
+02-Jan-2019 17:08:34.346 SEVERE [localhost-startStop-1] org.apache.catalina.loader.WebappClassLoaderBase.checkThreadLocalMapForLeaks La aplicación web [ode] creó un ThreadLocal con clave del tipo [org.apache.xmlbeans.impl.schema.SchemaTypeLoaderImpl$SchemaTypeLoaderCache$1] (valor [org.apache.xmlbeans.impl.schema.SchemaTypeLoaderImpl$SchemaTypeLoaderCache$1@78cf5cc6]) y un valor del tipo [java.util.ArrayList] (valor [[java.lang.ref.SoftReference@4dfcfb6d]]) pero no pudo quitarlo cuando la aplicación web se paró. Los hilos se van a renovar con el tiempo para intentar evitar in posible fallo de memoria.
+02-Jan-2019 17:08:34.347 SEVERE [localhost-startStop-1] org.apache.catalina.loader.WebappClassLoaderBase.checkThreadLocalMapForLeaks La aplicación web [ode] creó un ThreadLocal con clave del tipo [org.apache.derby.iapi.sql.dictionary.TableDescriptor$1] (valor [org.apache.derby.iapi.sql.dictionary.TableDescriptor$1@23f2ce9c]) y un valor del tipo [java.util.WeakHashMap] (valor [{={1, 7}, ={1, 3}, ={1, 6, 9, 11}}]) pero no pudo quitarlo cuando la aplicación web se paró. Los hilos se van a renovar con el tiempo para intentar evitar in posible fallo de memoria.
+02-Jan-2019 17:08:34.348 SEVERE [localhost-startStop-1] org.apache.catalina.loader.WebappClassLoaderBase.checkThreadLocalMapForLeaks La aplicación web [ode] creó un ThreadLocal con clave del tipo [java.lang.ThreadLocal] (valor [java.lang.ThreadLocal@33d6bae2]) y un valor del tipo [org.apache.derby.iapi.services.context.ContextManager] (valor [org.apache.derby.iapi.services.context.ContextManager@3c777900]) pero no pudo quitarlo cuando la aplicación web se paró. Los hilos se van a renovar con el tiempo para intentar evitar in posible fallo de memoria.
+02-Jan-2019 17:08:34.355 SEVERE [localhost-startStop-1] org.apache.catalina.loader.WebappClassLoaderBase.checkThreadLocalMapForLeaks La aplicación web [ode] creó un ThreadLocal con clave del tipo [org.apache.xmlbeans.XmlBeans$1] (valor [org.apache.xmlbeans.XmlBeans$1@2beb5645]) y un valor del tipo [java.lang.ref.SoftReference] (valor [java.lang.ref.SoftReference@29c01692]) pero no pudo quitarlo cuando la aplicación web se paró. Los hilos se van a renovar con el tiempo para intentar evitar in posible fallo de memoria.
+02-Jan-2019 17:08:34.378 INFO [Thread-13] org.apache.coyote.AbstractProtocol.stop Stopping ProtocolHandler ["http-nio-8080"]
+02-Jan-2019 17:08:34.384 INFO [Thread-13] org.apache.coyote.AbstractProtocol.stop Stopping ProtocolHandler ["ajp-nio-8009"]
+02-Jan-2019 17:08:34.477 INFO [Thread-13] org.apache.coyote.AbstractProtocol.destroy Destroying ProtocolHandler ["http-nio-8080"]
+02-Jan-2019 17:08:34.482 INFO [Thread-13] org.apache.coyote.AbstractProtocol.destroy Destroying ProtocolHandler ["ajp-nio-8009"]

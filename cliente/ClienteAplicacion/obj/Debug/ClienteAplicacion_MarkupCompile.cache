@@ -4,16 +4,28 @@
 winexe
 C#
 .cs
+<<<<<<< HEAD
 D:\Proyectos\MTIS\practica-grupal\cliente\ClienteAplicacion\obj\Debug\
+=======
+C:\Users\Jonathan\Desktop\ULTIMA ASIGNATURA\practica-grupal\cliente\ClienteAplicacion\obj\Debug\
+>>>>>>> master
 ClienteAplicacion
 none
 false
 DEBUG;TRACE
+<<<<<<< HEAD
 D:\Proyectos\MTIS\practica-grupal\cliente\ClienteAplicacion\App.xaml
 22084986546
 
 7-1801687559
 126-840101965
+=======
+C:\Users\Jonathan\Desktop\ULTIMA ASIGNATURA\practica-grupal\cliente\ClienteAplicacion\App.xaml
+22084986546
+
+7-1801687559
+126702088429
+>>>>>>> master
 CrearDemandante.xaml;MainWindow.xaml;
 
 False

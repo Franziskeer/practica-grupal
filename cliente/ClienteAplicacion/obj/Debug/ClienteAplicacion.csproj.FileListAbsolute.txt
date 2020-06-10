@@ -55,6 +55,7 @@ C:\Users\Josemygel\Desktop\UNIVERSIDAD\MTIS\MTIS\TrabajoGrupal\practica-grupal\c
 C:\Users\Josemygel\Desktop\UNIVERSIDAD\MTIS\MTIS\TrabajoGrupal\practica-grupal\cliente\ClienteAplicacion\obj\Debug\ClienteAplicacion.pdb
 C:\Users\Josemygel\Desktop\UNIVERSIDAD\MTIS\MTIS\TrabajoGrupal\practica-grupal\cliente\ClienteAplicacion\obj\Debug\CrearDemandante.g.cs
 C:\Users\Josemygel\Desktop\UNIVERSIDAD\MTIS\MTIS\TrabajoGrupal\practica-grupal\cliente\ClienteAplicacion\obj\Debug\CrearDemandante.baml
+<<<<<<< HEAD
 D:\Proyectos\MTIS\practica-grupal\cliente\ClienteAplicacion\bin\Debug\ClienteAplicacion.exe.config
 D:\Proyectos\MTIS\practica-grupal\cliente\ClienteAplicacion\bin\Debug\ClienteAplicacion.exe
 D:\Proyectos\MTIS\practica-grupal\cliente\ClienteAplicacion\bin\Debug\ClienteAplicacion.pdb
@@ -84,6 +85,10 @@ D:\Proyectos\MTIS\practica-grupal\cliente\ClienteAplicacion\obj\Debug\ClienteApl
 D:\Proyectos\MTIS\practica-grupal\cliente\ClienteAplicacion\obj\Debug\ClienteAplicacion.csproj.CopyComplete
 D:\Proyectos\MTIS\practica-grupal\cliente\ClienteAplicacion\obj\Debug\ClienteAplicacion.exe
 D:\Proyectos\MTIS\practica-grupal\cliente\ClienteAplicacion\obj\Debug\ClienteAplicacion.pdb
+<<<<<<< HEAD
+=======
+=======
+>>>>>>> 1be8fcd6e56a9c3f5c0d5fe4c7baf501c17c2c0a
 C:\Users\Jonathan\Desktop\ULTIMA ASIGNATURA\practica-grupal\cliente\ClienteAplicacion\bin\Debug\ClienteAplicacion.exe.config
 C:\Users\Jonathan\Desktop\ULTIMA ASIGNATURA\practica-grupal\cliente\ClienteAplicacion\bin\Debug\ClienteAplicacion.exe
 C:\Users\Jonathan\Desktop\ULTIMA ASIGNATURA\practica-grupal\cliente\ClienteAplicacion\bin\Debug\ClienteAplicacion.pdb
@@ -113,3 +118,7 @@ C:\Users\Jonathan\Desktop\ULTIMA ASIGNATURA\practica-grupal\cliente\ClienteAplic
 C:\Users\Jonathan\Desktop\ULTIMA ASIGNATURA\practica-grupal\cliente\ClienteAplicacion\obj\Debug\ClienteAplicacion.csproj.CopyComplete
 C:\Users\Jonathan\Desktop\ULTIMA ASIGNATURA\practica-grupal\cliente\ClienteAplicacion\obj\Debug\ClienteAplicacion.exe
 C:\Users\Jonathan\Desktop\ULTIMA ASIGNATURA\practica-grupal\cliente\ClienteAplicacion\obj\Debug\ClienteAplicacion.pdb
+<<<<<<< HEAD
+=======
+>>>>>>> master
+>>>>>>> 1be8fcd6e56a9c3f5c0d5fe4c7baf501c17c2c0a
